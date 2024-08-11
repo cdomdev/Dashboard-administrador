@@ -2,9 +2,8 @@
 interface Props {
 	title: string;
 }
-import Header from "../components/Header/Header.astro";
-import Sidebar from "../components/Sidebar/Sidebar.astro";
-
+import Header from "../components/Header.astro";
+import Aside from "../components/Aside.astro";
 const { title } = Astro.props;
 ---
 
@@ -24,8 +23,12 @@ const { title } = Astro.props;
 	</head>
 	<body>
 		<Header />
-		<Sidebar />
-		<slot />
+		<Aside />
+		<div class="p-2 sm:ml-64 pt-14">
+			<div class="p-2 dark:border-gray-700 mt-1">
+				<slot />
+			</div>
+		</div>
 	</body>
 </html>
 <style is:global>
