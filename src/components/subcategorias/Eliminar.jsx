@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import API_HOST from "@/config/config";
-import axios from "axios";
+import { deleteSubcategory } from "../../services/subcategorias";
 
 const Eliminar = ({ setCategorias, categorias, guy }) => {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
@@ -19,12 +18,7 @@ const Eliminar = ({ setCategorias, categorias, guy }) => {
       const id = parseInt(selectedCategoryId);
 
       console.log(id);
-      const response = await axios.delete(
-        `${API_HOST}/api/subcategories/delete/${id}`,
-        {
-          data: { id },
-        }
-      );
+      const response = await deleteSubcategory(id)
       if (response.status === 200) {
         setCategorias(response.data.categorias);
       } else {

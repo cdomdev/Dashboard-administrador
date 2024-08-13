@@ -1,5 +1,6 @@
 import { Button, Form, Modal, Row, Col, Spinner } from "react-bootstrap";
 import { useState, useRef } from "react";
+import { updateOfert } from "@/services/ofertas";
 
 const Actualizar = ({ oferta, setOferta }) => {
   const [showModal, setShowModal] = useState(false);
@@ -29,45 +30,23 @@ const Actualizar = ({ oferta, setOferta }) => {
       fechaFin: fechaFinUpdate,
     };
     setUpdatedValues(updatedValues);
-    // Actualizar el estado con el nuevo objeto
   };
 
   const handleUpdate = async () => {
-    // Realizar la solicitud para actualizar la oferta
     setIsLoading(true);
     try {
       if (!ofertaData || !updatedValues) {
-        setToastMessage("No hay datos para actulzar la oferta");
-        setBgToast("danger");
-        setShowToast(true);
+        console.log('faltan datos')
       }
-      await api
-        .put(`${API_HOST}/api/oferta/update/${ofertaData.id}`, {
-          oferta_id: ofertaData.id,
-          updatedValues: updatedValues,
-        })
-        .then((response) => {
-          if (response.status === 200) {
-            setOfertaListado(response.data.ofertas);
-            setToastMessage("Oferta actualizada con exito");
-            setBgToast("success");
-            setShowToast(true);
-            setTimeout(() => {
-              setShowModal(false);
-            }, 2000);
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-          if (error.response.status === 403) {
-            setToastMessage("No tienes permisos para esta operacion");
-            setBgToast("danger");
-            setShowToast(true);
-          }
-          setToastMessage("No se pudo crear la oferta, intentalo de nuevo");
-          setBgToast("danger");
-          setShowToast(true);
-        });
+
+      const response = await updateOfert(ofertaData.id);
+      if (response.status === 200) {
+        setOferta(response.data.ofertas);
+        setTimeout(() => {
+          setShowModal(false);
+        }, 2000);
+      }
+
     } catch (error) {
       console.log("Error al intentar actulizar un oferta", error);
     } finally {

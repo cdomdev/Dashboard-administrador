@@ -1,10 +1,8 @@
-import axios from "axios";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { Col, Row, Form, Button } from "react-bootstrap";
 import { PopoverProductos } from "./PopoverProductos";
-import API_HOST from "../../config/config";
-import { productosPopover } from "../../services/ofertas";
+import { createOfert, productosPopover } from "../../services/ofertas";
 
 const Crear = ({ setOfertas }) => {
   const [listaProductos, setListaProductos] = useState([]);
@@ -68,11 +66,7 @@ const Crear = ({ setOfertas }) => {
         productos: selectedProducts,
       };
 
-      const response = await axios.post(
-        `${API_HOST}/api/crear/ofertas`,
-        newOferta
-      );
-
+      const response = await createOfert(newOferta)
       const { ofertas } = response.data;
       console.log(response.data);
       if (response.status === 201) {

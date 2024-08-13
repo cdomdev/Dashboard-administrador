@@ -1,24 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Eliminar from "./Eliminar";
 import { Crear } from "./Crear";
 import { Listar } from "./Listar";
-import listarCat from "../../services/categorias";
 
 const GestionCategorias = () => {
-  const [categorias, setCategorias] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await listarCat();
-        setCategorias(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const [categorias, setCategorias] = useState([]);
 
   return (
     <section>

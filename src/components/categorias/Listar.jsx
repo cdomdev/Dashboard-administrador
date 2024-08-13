@@ -1,9 +1,24 @@
 import { Table } from "react-bootstrap";
+import { useEffect } from "react";
+import { listarCat } from "@/services/categorias";
 
-// Listar
-export const Listar = ({ categorias }) => {
+
+export const Listar = ({ categorias, setCategorias }) => {
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await listarCat();
+        setCategorias(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
-    <>
       <div>
         <Table
           striped
@@ -22,6 +37,5 @@ export const Listar = ({ categorias }) => {
           </tbody>
         </Table>
       </div>
-    </>
   );
 };

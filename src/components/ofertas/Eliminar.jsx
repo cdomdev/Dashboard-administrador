@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import API_HOST from "../../config/config";
-import { Exclamation } from "../icons/exclamation";
+import { Exclamation } from "../icons/Exclamation";
 
 const Eliminar = ({ oferta, setOferta }) => {
   const [showModal, setShowModal] = useState(false);
@@ -15,6 +15,7 @@ const Eliminar = ({ oferta, setOferta }) => {
       .delete(`${API_HOST}/api/oferta/delete/${oferta.id}`, {
         data: { id: oferta.id },
       })
+      
       .then((response) => {
         if (response.status === 200) {
           setOferta(response.data.ofertas);

@@ -1,7 +1,6 @@
 import { Button, Form, FloatingLabel } from "react-bootstrap";
 import { useState } from "react";
-import API_HOST from "../../config/config";
-import axios from "axios";
+import { createSubcategory } from "@/services/subcategorias";
 
 export const Crear = ({ setCategorias, guy }) => {
   const [categoryName, setCategoryName] = useState("");
@@ -14,11 +13,7 @@ export const Crear = ({ setCategorias, guy }) => {
       }
 
       const data = { nombre: categoryName };
-      const response = await axios.post(
-        `${API_HOST}/api/subcategories/create`,
-        data
-      );
-
+      const response = await createSubcategory(data)
       console.log(response);
       if (response.status === 201) {
         console.log(response);

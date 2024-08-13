@@ -1,6 +1,19 @@
 import axios from "axios";
 
-const listarCat = async () => {
+export const createCategory = async (nombre) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:3000/api/categories/create",
+      { nombre }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error creating category:", error);
+    throw error;
+  }
+}
+
+export const listarCat = async () => {
   try {
     const response = await axios.get(
       "http://localhost:3000/api/categories/list"
@@ -21,4 +34,15 @@ const listarCat = async () => {
   }
 };
 
-export default listarCat;
+export const deleteCategory = async (id) => {
+  try {
+    const response = await axios.delete(
+      `http://localhost:3000/api/categories/delete/${id}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting category:", error);
+    throw error;
+  }
+};
+

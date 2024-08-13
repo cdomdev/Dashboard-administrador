@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
 import { Up } from "../icons/Up";
 import listarSub from "../../services/subcategorias";
 import listarCat from "../../services/categorias";
-// import API_HOST from "../../config/config";
+
 
 const Crear = ({ setListado }) => {
   const [fileName, setFileName] = useState("");
@@ -90,19 +89,14 @@ const Crear = ({ setListado }) => {
     formData.append("files", imagesToSend);
 
     try {
-      const response = await axios.post(
-        `http://localhost:3000/api/upload`,
-        formData
-      );
-
-      if (response.status === 200 || response.status === 201) {
-        console.log(response.status);
+      const response = await saveImage(formData);
+      if (response.status === 200) {
         const { uploadedFiles } = response.data;
         const imageUrls = uploadedFiles.map((file) => file.imageUrl);
-
         const selectedCategory = categorias.find(
           (cat) => cat.id === Number(selectedCategoria)
         );
+
         const selectedCategoryName = selectedCategory
           ? selectedCategory.nombre
           : "";
@@ -128,6 +122,7 @@ const Crear = ({ setListado }) => {
           categoria: selectedCategoryName,
           subcategoria: selectedSubCategoryName,
         };
+
         console.log(newProduct);
 
         setListado((prevListado) => {

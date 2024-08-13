@@ -12,4 +12,18 @@ const data = async () => {
   }
 };
 
-export default data;
+
+const saveImage = async(data) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:3000/api/upload", {data}
+    );
+    return response.data;
+  } catch (error) {
+    console.log('Error al guaradr la imagen', error)
+  }
+}
+
+export default {
+  data, saveImage
+}

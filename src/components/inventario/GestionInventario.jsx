@@ -24,6 +24,11 @@ const GestionInventario = () => {
 
   return (
     <div className="contenedor-inventario">
+      {data === null && 
+      <div className="w-full bg-white p-2">
+        <p className="text-base text-center">Cargando productos de inventario...</p>
+        </div>
+        }
       {data &&
         data.map((producto) => (
           <div key={producto.id} className="card-product">

@@ -14,7 +14,6 @@ const NuevosProductos = () => {
       <article className="flex flex-wrap items-center md:w-2/3 w-full">
         <Listado listado={listado} setListado={setListado} />
       </article>
-
       <div className="btn-save">
         {listado && listado.length > 0 ? (
           <GuardarProductos

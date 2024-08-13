@@ -64,7 +64,9 @@ const Listado = ({ ofertas, setOfertas }) => {
           ))}
         </>
       ) : (
-        <p>No hay ofertas</p>
+        <div>
+        <p className="text-base">No hay ofertas disponibles</p>
+        </div>
       )}
     </div>
   );

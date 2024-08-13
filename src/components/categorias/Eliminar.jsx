@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import API_HOST from "@/config/config";
-import axios from "axios";
+import {deleteCategory} from '../../services/categorias'
 
 const Eliminar = ({ setCategorias, categorias, guy }) => {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
@@ -19,12 +18,9 @@ const Eliminar = ({ setCategorias, categorias, guy }) => {
       const id = parseInt(selectedCategoryId);
       console.log(id);
 
-      const response = await axios.delete(
-        `${API_HOST}/api/categories/delete/${id}`,
-        {
-          data: { id },
-        }
-      );
+      // corregir constrolador de la api, el id se saca de los parametros de la url
+      const response = await deleteCategory(id);
+
       if (response.status === 200) {
         setCategorias(response.data.categorias);
         console.log(response);
