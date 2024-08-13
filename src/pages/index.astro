@@ -1,24 +1,164 @@
 ---
 import CardItems from "../components/Cards/CardItems.astro";
+import Box from "../components/icons/Box.astro";
+import Time from "../components/icons/Time.astro";
+import SendBox from "../components/icons/SendBox.astro";
 import Layout from "../layouts/Layout.astro";
+import Sale from "../components/icons/Sale.astro";
+import Users from "../components/icons/Users.astro";
 ---
 
 <Layout title="Suministros">
-	<main>
-		<section class="flex flex-col gap-4 ">
-			<article>
-				<div class="flex justify-center gap-8 flex-wrap h-auto py-4 px-2 items-center">
-					<div class="bg-black border w-60 h-32 rounded-lg">2</div>
-					<div class="bg-black border w-60 h-32 rounded-lg">1</div>
-					<div class="bg-black border w-60 h-32 rounded-lg">3</div>
-					<div class="bg-black border w-60 h-32 rounded-lg">4</div>
-					<div class="bg-black border w-60 h-32 rounded-lg">5</div>
-					<div class="bg-black border w-60 h-32 rounded-lg">6</div>
-				</div>
-			</article>
-			<article class="bg-red-300">
-				<span>parte inferior</span>
-			</article>
-		</section>
-	</main></Layout
+  <main>
+    <section class="flex flex-col gap-4">
+      <div>
+        <div
+          class="flex gap-3 justify-center md:justify-start flex-wrap h-auto py-4 px-2 items-center">
+          <CardItems
+            title="Total ordenes"
+            value={10}
+            text="Ordenees sin despachar">
+            <div
+              class="rounded-full h-12 w-12 flex justify-center items-center p-1"
+              style="background-color: var(--color-a);">
+              <Box />
+            </div>
+          </CardItems>
+          <CardItems
+            title="Ordenes despachadas"
+            value={2}
+            text="Con estado de entregado">
+            <div
+              class="rounded-full h-12 w-12 flex justify-center items-center p-1"
+              style="background-color: var(--color-f);">
+              <SendBox />
+            </div>
+          </CardItems>
+          <CardItems title="Pendientes por envio" value={1} text="Pendientes">
+            <div
+              class="rounded-full h-12 w-12 flex justify-center items-center p-1"
+              style="background-color: var(--color-e);">
+              <Time />
+            </div>
+          </CardItems>
+          <CardItems
+            title="Total vendido"
+            value={1111}
+            text="Balance total de ventas">
+            <div
+              class="rounded-full h-12 w-12 flex justify-center items-center p-1"
+              style="background-color: var(--color-b);">
+              <Sale />
+            </div>
+          </CardItems>
+          <CardItems
+            title="Total usuarios"
+            value={1111}
+            text="Usuarios e invitados">
+            <div
+              class="rounded-full h-12 w-12 flex justify-center items-center p-2"
+              style="background-color: var(--color-c);">
+              <Users />
+            </div>
+          </CardItems>
+        </div>
+      </div>
+    </section>
+    <section class="grid grid-cols-2 gap-3">
+      <div class="h-auto rounded-sm p-2 bg-white shadow-sm"></div>
+      <div class="rounded-sm p-4 bg-white shadow-sm">
+        <div>
+          <h2 class="font-semibold text-lg md:text-2xl">Ventas recientes</h2>
+          <p class="text-sm text-slate-500">Se Realizaron 10 ventas este mes</p>
+        </div>
+        <div class="pl-2 pt-4">
+          <ul class="flex flex-col gap-1">
+            <li class="flex justify-between gap-7 py-2 px-1 items-center">
+              <div class="flex gap-7 items-center">
+                <div>
+                  <button
+                    type="button"
+                    class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                    aria-expanded="false"
+                    data-dropdown-toggle="dropdown-user">
+                    <img
+                      class="w-8 h-8 rounded-full"
+                      src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                      alt="user photo"
+                    />
+                  </button>
+                </div>
+                <div>
+                  <p class="font-semibold -0">Nombre</p>
+                  <span class="text-sm text-slate-600"> correo@gmail.com</span>
+                </div>
+              </div>
+              <div class="pr-6">
+                <span class="font-extrabold text-lg">+ 150.000</span>
+              </div>
+            </li>
+            <li class="flex justify-between gap-7 py-2 px-1 items-center">
+              <div class="flex gap-7 items-center">
+                <div>
+                  <button
+                    type="button"
+                    class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                    aria-expanded="false"
+                    data-dropdown-toggle="dropdown-user">
+                    <img
+                      class="w-8 h-8 rounded-full"
+                      src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                      alt="user photo"
+                    />
+                  </button>
+                </div>
+                <div>
+                  <p class="font-semibold -0">Nombre</p>
+                  <span class="text-sm text-slate-600"> correo@gmail.com</span>
+                </div>
+              </div>
+              <div class="pr-6">
+                <span class="font-extrabold text-lg">+ 150.000</span>
+              </div>
+            </li>
+            <li class="flex justify-between gap-7 py-2 px-1 items-center">
+              <div class="flex gap-7 items-center">
+                <div>
+                  <button
+                    type="button"
+                    class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                    aria-expanded="false"
+                    data-dropdown-toggle="dropdown-user">
+                    <img
+                      class="w-8 h-8 rounded-full"
+                      src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                      alt="user photo"
+                    />
+                  </button>
+                </div>
+                <div>
+                  <p class="font-semibold -0">Nombre</p>
+                  <span class="text-sm text-slate-600"> correo@gmail.com</span>
+                </div>
+              </div>
+              <div class="pr-6">
+                <span class="font-extrabold text-lg">+ 150.000</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main></Layout
 >
+
+<style>
+  :root {
+    --color-a: #fbddb9;
+    --color-b: #6ee35e;
+    --color-c: #cd76d8;
+    --color-d: #c86464;
+    --color-e: #33ddc0;
+    --color-f: #284cc5;
+  }
+</style>

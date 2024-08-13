@@ -1,0 +1,10 @@
+---
+import Layout from "../layouts/Layout.astro";
+import GestionInventario from "../components/inventario/GestionInventario.jsx";
+---
+
+<Layout title="Inventario">
+  <div class="contendor-inventario">
+    <GestionInventario client:visible />
+  </div>
+</Layout>

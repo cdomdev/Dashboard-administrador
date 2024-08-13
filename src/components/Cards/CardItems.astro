@@ -1,3 +1,26 @@
-<div class="bg-white w-80 h-32 border shadow-md rounded-md">
+---
+interface Props {
+  title: string;
+  value: Number;
+  text: string;
+}
+
+const { title, text, value } = Astro.props;
+---
+
+<div class="w-56 h-32 rounded-lg shadow-md flex justify-between p-3 bg-white">
+  <div class="flex justify-between flex-col">
+    <h2>{title}</h2>
+    <p class="font-extrabold text-2xl">{value}</p>
+    <span class="text-slate-500 text">{text}</span>
+  </div>
+  <div class="min-h-full flex items-center">
     <slot />
+  </div>
 </div>
+
+<style>
+  span {
+    font-size: 11px;
+  }
+</style>
