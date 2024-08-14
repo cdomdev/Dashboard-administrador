@@ -3,34 +3,23 @@ import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import API_HOST from "../../config/config";
 import { Exclamation } from "../icons/Exclamation";
+import { deleteOfert } from "@/services/ofertas";
 
-const Eliminar = ({ oferta, setOferta }) => {
+const Eliminar = ({ oferta, setOfertas }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
-  function handleDeleteOferta() {
-    axios
-      .delete(`${API_HOST}/api/oferta/delete/${oferta.id}`, {
-        data: { id: oferta.id },
-      })
-      
-      .then((response) => {
-        if (response.status === 200) {
-          setOferta(response.data.ofertas);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        if (error.response.status === 403) {
-        } else {
-        }
-        setTimeout(() => {
-          setShowModal(false);
-        }, 2000);
-      });
-  }
+  const handleDeleteOferta = async () => {
+    const response = await deleteOfert(oferta.id);
+    if (response) {
+      setOfertas(response);
+      setTimeout(() => {
+        setShowModal(false);
+      }, 2000);
+    }
+  };
 
   return (
     <>
@@ -42,7 +31,7 @@ const Eliminar = ({ oferta, setOferta }) => {
         onHide={handleClose}
         backdrop="static"
         keyboard={false}>
-        <Modal.Title className="text-center text-lg text-red-700 py-1">
+        <Modal.Title className="text-center text-lg text-red-700 py-2">
           Esta a punto de eliminar una oferta
         </Modal.Title>
         <hr />

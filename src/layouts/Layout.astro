@@ -49,4 +49,35 @@ const { title } = Astro.props;
   *::after {
     box-sizing: border-box;
   }
+
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    scrollbar-width: none !important;
+    overflow-y: none !important;
+  }
+
+  /* La barra de desplazamiento completa */
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  /* El "track" de la barra de desplazamiento */
+  ::-webkit-scrollbar-track {
+    background: #ececec;
+    border-radius: 10px;
+  }
+
+  /* El pulgar (thumb) de la barra de desplazamiento */
+  ::-webkit-scrollbar-thumb {
+    background: #d0d0d0;
+    border-radius: 10px;
+    height: 10px;
+  }
+
+  /* El pulgar (thumb) cuando esté en hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 </style>

@@ -1,10 +1,10 @@
-import getDataStorage from "../utils/getDataStorage";
+import { getDataStorage } from "../utils/getDataStorage";
 import API_HOST from "./config";
 import axios from "axios";
 
 // Configuración para solicitudes de administrador - enviar credenciales
 axios.defaults.withCredentials = true;
-const api = axios.create({
+export const api = axios.create({
   baseURL: API_HOST,
   headers: {
     "Content-Type": "application/json",
@@ -71,5 +71,3 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-export default api;

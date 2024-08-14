@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Button, Spinner } from "react-bootstrap";
-import api from "../../config/axios.conf";
+// import { api } from "../../config/axios.conf";
 import API_HOST from "../../config/config";
+import axios from "axios";
 
 const GuardarProductos = ({ listadoState, setListadoState }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +20,7 @@ const GuardarProductos = ({ listadoState, setListadoState }) => {
         image: producto.image,
       }));
 
-      const response = await api.post(`${API_HOST}/api/save-news-products`, {
+      const response = await axios.post(`${API_HOST}/api/save-news-products`, {
         productos: updatedList,
       });
 
@@ -45,8 +46,11 @@ const GuardarProductos = ({ listadoState, setListadoState }) => {
 
   return (
     <>
-      <div className="container-btn-save">
-        <Button variant="success" onClick={handleGuardarProducto}>
+      <div className="bottom-7 right-10 p-2  w-96 fixed">
+        <Button
+          variant="success"
+          className="w-full py-2 text-lg"
+          onClick={handleGuardarProducto}>
           {isLoading ? (
             <div className="spinner-container">
               <p>Guardando productos</p>

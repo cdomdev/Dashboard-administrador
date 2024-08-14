@@ -1,29 +1,29 @@
 import { useEffect } from "react";
-import  Editar  from "./Editar";
-import  Delete  from "./Delete";
-import getDataStorage from "../../utils/getDataStorage";
-import  formateValue  from "../../utils/formateValue";
+import Editar from "./Editar";
+import Delete from "./Delete";
+import { getDataStorage } from "../../utils/getDataStorage";
+import formateValue from "../../utils/formateValue";
 
- const Listado = ({ listadoState, setListadoState }) => {
-  // useEffect(() => {
-  //   if(!getDataStorage("productos")){
-  //     return []
-  //   }else{
-  //     setListadoState(getDataStorage("productos"));
-  //   }
-  // }, []);
-
+const Listado = ({ listado, setListado }) => {
+  useEffect(() => {
+    setListado(getDataStorage("productos"));
+  }, []);
 
   return (
     <>
-
-      {listadoState != null ? (
-        listadoState.map((producto, index) => {
+      {listado != null ? (
+        listado.map((producto, index) => {
           return (
-            <article key={producto.id || index} className="container-card">
-              <div className="productos-cards">
-                {producto.image && <img src={producto.image} alt="Preview" />}
-                <div className="details">
+            <article key={producto.id || index} className="">
+              <div className="w-56 bg-white h-auto max-w-72 shadow-sm justify-center rounded-lg p-2 flex flex-col items-center  ">
+                {producto.image && (
+                  <img
+                    src={producto.image}
+                    alt="Preview"
+                    className="w-36 bg-white"
+                  />
+                )}
+                <div className="flex flex-col w-full p-2 ">
                   <span>
                     <strong>Marca: </strong>
                     {producto.marca}
@@ -53,14 +53,11 @@ import  formateValue  from "../../utils/formateValue";
                     {producto.subcategoria}
                   </span>
                   <strong>Descripción:</strong>
-                  <p className="description">{producto.description}</p>
+                  <p className="text-wrap">{producto.description}</p>
                 </div>
-                <div className="content-btn-card">
-                  <Editar
-                    producto={producto}
-                    setListadoState={setListadoState}
-                  />
-                  <Delete id={producto.id} setListadoState={setListadoState} />
+                <div className="w-full flex flex-col gap-2">
+                  <Editar producto={producto} setListado={setListado} />
+                  <Delete id={producto.id} setListado={setListado} />
                 </div>
               </div>
             </article>

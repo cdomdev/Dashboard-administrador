@@ -1,13 +1,13 @@
-import getDataStorage from "../../utils/getDataStorage";
+import { getDataStorage } from "../../utils/getDataStorage";
 import { Button } from "react-bootstrap";
 
-const Delete = ({ setListadoState, id }) => {
+const Delete = ({ setListado, id }) => {
   const borrarProducto = () => {
     let productosAlmacenadas = getDataStorage("productos");
     let nuevoListadoProductos = productosAlmacenadas.filter(
       (producto) => producto.id !== id
     );
-    setListadoState([...nuevoListadoProductos]);
+    setListado([...nuevoListadoProductos]);
     localStorage.removeItem(`productos${id}`);
     alert("eliminado ");
     if (nuevoListadoProductos.length === 0) {

@@ -1,29 +1,22 @@
 import axios from "axios";
 
-const data = async () => {
+export const saveImage = async (formData) => {
   try {
-    const response = await axios.get(
-      "http://localhost:3000/api/inventary/list-products"
+    const response = await axios.post(
+      "http://localhost:3000/api/upload",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
     );
-    return response.data;
+    return response;
   } catch (error) {
-    console.error("Error fetching products:", error);
+    console.log(
+      "Error al guardar la imagen",
+      error.response ? error.response.data : error.message
+    );
     throw error;
   }
 };
-
-
-const saveImage = async(data) => {
-  try {
-    const response = await axios.post(
-      "http://localhost:3000/api/upload", {data}
-    );
-    return response.data;
-  } catch (error) {
-    console.log('Error al guaradr la imagen', error)
-  }
-}
-
-export default {
-  data, saveImage
-}

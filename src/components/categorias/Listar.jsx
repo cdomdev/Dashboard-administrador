@@ -1,10 +1,8 @@
 import { Table } from "react-bootstrap";
 import { useEffect } from "react";
-import { listarCat } from "@/services/categorias";
-
+import { listarCat } from "../../services/categorias";
 
 export const Listar = ({ categorias, setCategorias }) => {
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -19,23 +17,23 @@ export const Listar = ({ categorias, setCategorias }) => {
   }, []);
 
   return (
-      <div>
-        <Table
-          striped
-          bordered
-          hover
-          size="sm"
-          responsive
-          className="table-category">
-          <tbody className="tbody-table-category">
-            {categorias &&
-              categorias.map((categoria) => (
-                <tr key={categoria.id}>
-                  <td>{categoria.nombre}</td>
-                </tr>
-              ))}
-          </tbody>
-        </Table>
-      </div>
+    <div>
+      <Table
+        striped
+        bordered
+        hover
+        size="sm"
+        responsive
+        className="table-category">
+        <tbody className="tbody-table-category">
+          {categorias &&
+            categorias.map((categoria) => (
+              <tr key={categoria.id}>
+                <td>{categoria.nombre}</td>
+              </tr>
+            ))}
+        </tbody>
+      </Table>
+    </div>
   );
 };

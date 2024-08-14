@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
 import { Up } from "../icons/Up";
-import listarSub from "../../services/subcategorias";
-import listarCat from "../../services/categorias";
+import axios from "axios";
+// import { saveImage } from "../../services/productos";
+import API_HOST from "../../config/config";
+import { saveImage } from "@/services/productos";
 
-
-const Crear = ({ setListado }) => {
+const Crear = ({ setListado, categorias, subcategorias }) => {
   const [fileName, setFileName] = useState("");
-  const [categorias, setCategorias] = useState([]);
-  const [subcategorias, setSubcategorias] = useState([]);
+
   const [selectedCategoria, setSelectedCategoria] = useState("");
   const [selectedSubCategoria, setSelectedSubCategoria] = useState("");
 
@@ -18,32 +18,16 @@ const Crear = ({ setListado }) => {
     nombre: "",
     description: "",
     valor: "",
+    displayImages: "",
     cantidad: "",
     referencia: "",
-    imagesToSend: null,
+    imagesToSend: "",
   });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [categoriasResult, subcategoriasResult] = await Promise.all([
-          listarCat(),
-          listarSub(),
-        ]);
-
-        setCategorias(categoriasResult || []);
-        setSubcategorias(subcategoriasResult.categorias || []);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     setFileName(selectedFile ? selectedFile.name : "");
+
     setProductState({
       ...productState,
       displayImages: URL.createObjectURL(selectedFile),
@@ -61,6 +45,7 @@ const Crear = ({ setListado }) => {
 
   const getFormValues = async (e) => {
     e.preventDefault();
+
     const {
       marca,
       description,
@@ -71,7 +56,8 @@ const Crear = ({ setListado }) => {
       imagesToSend,
     } = productState;
 
-    const precio = parseFloat(valor).toFixed(2);
+    // formateo a valor real
+    const precio = parseInt(valor).toFixed(2);
 
     if (
       !marca ||
@@ -80,27 +66,28 @@ const Crear = ({ setListado }) => {
       !cantidad ||
       !referencia ||
       !nombre ||
-      !imagesToSend
+      imagesToSend.length === 0
     ) {
       return;
     }
 
     const formData = new FormData();
     formData.append("files", imagesToSend);
-
     try {
       const response = await saveImage(formData);
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         const { uploadedFiles } = response.data;
         const imageUrls = uploadedFiles.map((file) => file.imageUrl);
+
+        // Obtener el nombre de la categoría seleccionada
         const selectedCategory = categorias.find(
           (cat) => cat.id === Number(selectedCategoria)
         );
-
         const selectedCategoryName = selectedCategory
           ? selectedCategory.nombre
           : "";
 
+        // Obtener el nombre de la subcategoría seleccionada
         const selectedSubCategory = subcategorias.find(
           (sub) => sub.id === Number(selectedSubCategoria)
         );
@@ -123,8 +110,6 @@ const Crear = ({ setListado }) => {
           subcategoria: selectedSubCategoryName,
         };
 
-        console.log(newProduct);
-
         setListado((prevListado) => {
           const newListado = prevListado
             ? [...prevListado, newProduct]
@@ -135,17 +120,17 @@ const Crear = ({ setListado }) => {
 
         setProductState({
           marca: "",
-          nombre: "",
           description: "",
+          nombre: "",
           valor: "",
           cantidad: "",
           referencia: "",
-          imagesToSend: null,
+          image: "",
         });
         setFileName("");
       }
     } catch (error) {
-      console.error("Error uploading file:", error);
+      console.log(`Hubo un error en la solicitud ${error}`);
     }
   };
 
@@ -156,18 +141,19 @@ const Crear = ({ setListado }) => {
         <Form.Control
           type="text"
           placeholder="Corona"
-          className="rounded-md  border-slate-300 text-sm focus:outline-none shadow-none focus:border-slate-300"
-          value={productState.title}
+          className="rounded-md border-slate-300 text-sm focus:outline-none shadow-none focus:border-slate-300"
+          value={productState.marca}
           onChange={(e) =>
             setProductState({ ...productState, marca: e.target.value })
           }
           minLength={1}
           maxLength={50}
         />
+
         <Form.Label className="m-0">Nombre del producto</Form.Label>
         <Form.Control
           type="text"
-          className="rounded-md  border-slate-300 text-sm focus:outline-none shadow-none focus:border-slate-300"
+          className="rounded-md border-slate-300 text-sm focus:outline-none shadow-none focus:border-slate-300"
           placeholder="Concolor"
           value={productState.nombre}
           onChange={(e) =>
@@ -176,11 +162,12 @@ const Crear = ({ setListado }) => {
           minLength={1}
           maxLength={100}
         />
+
         <Form.Label className="m-0">Precio del producto</Form.Label>
         <Form.Control
           type="number"
           placeholder="120000"
-          className="rounded-md  border-slate-300 text-sm focus:outline-none shadow-none focus:border-slate-300"
+          className="rounded-md border-slate-300 text-sm focus:outline-none shadow-none focus:border-slate-300"
           value={productState.valor}
           onChange={(e) =>
             setProductState({ ...productState, valor: e.target.value })
@@ -188,6 +175,7 @@ const Crear = ({ setListado }) => {
           maxLength={30}
           minLength={1}
         />
+
         <Form.Label className="m-0">Referencia del producto</Form.Label>
         <Form.Control
           type="text"
@@ -200,6 +188,7 @@ const Crear = ({ setListado }) => {
           maxLength={20}
           minLength={1}
         />
+
         <Form.Label className="m-0">Cantidad</Form.Label>
         <span className="grid grid-cols-2 gap-1">
           <Form.Control
@@ -231,11 +220,12 @@ const Crear = ({ setListado }) => {
         <div>
           <span className="text-[#213C65]">{fileName}</span>
         </div>
-        {/* categoria */}
+
+        {/* Categoria */}
         <Form.Label className="my-1">Relacionar a una categoría</Form.Label>
         <Form.Select
           onChange={handleCategoriaChange}
-          value={selectedCategoria ? selectedCategoria.id : ""}
+          value={selectedCategoria}
           className="focus:outline-none shadow-none focus:border-slate-300">
           <option>Seleccionar categoria</option>
           {categorias &&
@@ -246,7 +236,7 @@ const Crear = ({ setListado }) => {
             ))}
         </Form.Select>
 
-        {/* subcategoria */}
+        {/* Subcategoria */}
         <Form.Label className="my-1">Añadir a una subcategoría</Form.Label>
         <Form.Select
           onChange={handleSubcategoriaChange}
@@ -260,7 +250,8 @@ const Crear = ({ setListado }) => {
               </option>
             ))}
         </Form.Select>
-        {/* descripcion */}
+
+        {/* Descripcion */}
         <Form.Label className="my-1">
           Agregar descripcion de producto
         </Form.Label>
@@ -273,14 +264,13 @@ const Crear = ({ setListado }) => {
             setProductState({ ...productState, description: e.target.value })
           }
         />
-        <span className="flex w-full">
-          <Button
-            className="btn mt-2 w-full py-2 text-base "
-            variant="primary"
-            type="submit">
-            Agregar producto
-          </Button>
-        </span>
+
+        <Button
+          className="btn mt-2 w-full py-2 text-base"
+          variant="primary"
+          type="submit">
+          Agregar producto
+        </Button>
       </Form>
     </div>
   );

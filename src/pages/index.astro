@@ -11,57 +11,55 @@ import Users from "../components/icons/Users.astro";
 <Layout title="Suministros">
   <main>
     <section class="flex flex-col gap-4">
-      <div>
-        <div
-          class="flex gap-3 justify-center md:justify-start flex-wrap h-auto py-4 px-2 items-center">
-          <CardItems
-            title="Total ordenes"
-            value={10}
-            text="Ordenees sin despachar">
-            <div
-              class="rounded-full h-12 w-12 flex justify-center items-center p-1"
-              style="background-color: var(--color-a);">
-              <Box />
-            </div>
-          </CardItems>
-          <CardItems
-            title="Ordenes despachadas"
-            value={2}
-            text="Con estado de entregado">
-            <div
-              class="rounded-full h-12 w-12 flex justify-center items-center p-1"
-              style="background-color: var(--color-f);">
-              <SendBox />
-            </div>
-          </CardItems>
-          <CardItems title="Pendientes por envio" value={1} text="Pendientes">
-            <div
-              class="rounded-full h-12 w-12 flex justify-center items-center p-1"
-              style="background-color: var(--color-e);">
-              <Time />
-            </div>
-          </CardItems>
-          <CardItems
-            title="Total vendido"
-            value={1111}
-            text="Balance total de ventas">
-            <div
-              class="rounded-full h-12 w-12 flex justify-center items-center p-1"
-              style="background-color: var(--color-b);">
-              <Sale />
-            </div>
-          </CardItems>
-          <CardItems
-            title="Total usuarios"
-            value={1111}
-            text="Usuarios e invitados">
-            <div
-              class="rounded-full h-12 w-12 flex justify-center items-center p-2"
-              style="background-color: var(--color-c);">
-              <Users />
-            </div>
-          </CardItems>
-        </div>
+      <div
+        class="flex gap-4 justify-center flex-wrap h-auto py-4 px-2 items-center w-full">
+        <CardItems
+          title="Total ordenes"
+          value={10}
+          text="Ordenees sin despachar">
+          <div
+            class="rounded-full h-12 w-12 flex justify-center items-center p-1"
+            style="background-color: var(--color-a);">
+            <Box />
+          </div>
+        </CardItems>
+        <CardItems
+          title="Ordenes despachadas"
+          value={2}
+          text="Con estado de entregado">
+          <div
+            class="rounded-full h-12 w-12 flex justify-center items-center p-1"
+            style="background-color: var(--color-f);">
+            <SendBox />
+          </div>
+        </CardItems>
+        <CardItems title="Pendientes por envio" value={1} text="Pendientes">
+          <div
+            class="rounded-full h-12 w-12 flex justify-center items-center p-1"
+            style="background-color: var(--color-e);">
+            <Time />
+          </div>
+        </CardItems>
+        <CardItems
+          title="Total vendido"
+          value={1111}
+          text="Balance total de ventas">
+          <div
+            class="rounded-full h-12 w-12 flex justify-center items-center p-1"
+            style="background-color: var(--color-b);">
+            <Sale />
+          </div>
+        </CardItems>
+        <CardItems
+          title="Total usuarios"
+          value={1111}
+          text="Usuarios e invitados">
+          <div
+            class="rounded-full h-12 w-12 flex justify-center items-center p-2"
+            style="background-color: var(--color-c);">
+            <Users />
+          </div>
+        </CardItems>
       </div>
     </section>
     <section class="grid grid-cols-2 gap-3">

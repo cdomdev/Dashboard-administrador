@@ -1,5 +1,5 @@
 // obetener datos del localStorage
-const getDataStorage = (key) => {
+export const getDataStorage = (key) => {
   const dataLocal = localStorage.getItem(key);
   if (dataLocal) {
     return JSON.parse(dataLocal);
@@ -8,12 +8,10 @@ const getDataStorage = (key) => {
 };
 
 // obetener datos del sessionStorage
-const getDataSesionStorega = (key) => {
+export const getDataSesionStorega = (key) => {
   const dataLocal = sessionStorage.getItem(key);
   if (dataLocal) {
     return JSON.parse(dataLocal);
   }
   return null;
 };
-
-export default { getDataSesionStorega, getDataStorage };

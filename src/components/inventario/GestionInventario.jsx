@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import productos from "../../services/productos";
+import { productos } from "../../services/inventario";
 import "./style.css";
 import formateValue from "../../utils/formateValue";
 import Editar from "./Editar";
@@ -24,11 +24,13 @@ const GestionInventario = () => {
 
   return (
     <div className="contenedor-inventario">
-      {data === null && 
-      <div className="w-full bg-white p-2">
-        <p className="text-base text-center">Cargando productos de inventario...</p>
+      {data === null && (
+        <div className="w-full bg-white p-2">
+          <p className="text-base text-center">
+            Cargando productos de inventario...
+          </p>
         </div>
-        }
+      )}
       {data &&
         data.map((producto) => (
           <div key={producto.id} className="card-product">
