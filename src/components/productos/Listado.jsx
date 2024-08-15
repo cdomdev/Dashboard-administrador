@@ -65,7 +65,7 @@ const Listado = ({ listado, setListado }) => {
         })
       ) : (
         <div className="contendor-alter-products-card d-flex text-center bg-white h-full w-full">
-          <span className="m-auto text-base font-medium">
+          <span className="m-auto text-lg font-medium">
             Agregue nuevos productos para verlos aquí.
           </span>
         </div>

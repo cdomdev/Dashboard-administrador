@@ -29,7 +29,7 @@ const Listado = ({ ofertas, setOfertas }) => {
               <div className="bg-[#cfe2ff] py-2 px-3 transform uppercase font-bold">
                 <h4>{oferta.nombre}</h4>
               </div>
-              <div className="flex p-2 gap-4">
+              <div className="flex flex-col md:flex-row p-2 gap-4">
                 <div>
                   <p className="font-bold">
                     Descuento: <strong>{oferta.descuento}%</strong>
@@ -65,7 +65,7 @@ const Listado = ({ ofertas, setOfertas }) => {
         </>
       ) : (
         <div>
-        <p className="text-base">No hay ofertas disponibles</p>
+          <p className="text-base">No hay ofertas disponibles</p>
         </div>
       )}
     </div>

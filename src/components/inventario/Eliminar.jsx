@@ -1,39 +1,20 @@
 import { Button, Modal } from "react-bootstrap";
 import { useState } from "react";
+import { Exclamation } from "../icons/Exclamation";
+import { deleteDataInventary } from "../../services/inventario";
 
-const Elminar = ({ producto, setProductos }) => {
+const Eliminar = ({ producto, setData }) => {
   const [showModal, setShowModal] = useState(false);
 
   //   solcitud para elminar producto seleccionado
 
-  // const handleDelete = () => {
-  //   api
-  //     .delete(`${API_HOST}/api/inventary/products/delete/${producto.id}`, {
-  //       data: { producto_Id: producto.id },
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //       if (response.status === 200) {
-  //         setProductos(response.data.daleteUpdate);
-  //         setBgToast("success");
-  //         setToastMessage("Producto eliminado con exito");
-  //         setShowToast(true);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //       if (error.response.status === 403) {
-  //         setBgToast("danger");
-  //         setToastMessage("No tienes los permisos para esta operacion");
-  //         setShowToast(true);
-  //       }
-  //       setBgToast("danger");
-  //       setToastMessage(
-  //         "Hubo un error al eliminar el producto, intentalo de nuevo"
-  //       );
-  //       setShowToast(true);
-  //     });
-  // };
+  const handleDelete = async () => {
+    const response = await deleteDataInventary(producto.id);
+    if (response && response.status === 200) {
+      setData(response.data.daleteUpdate);
+      setShowModal(false);
+    }
+  };
 
   return (
     <>
@@ -48,26 +29,30 @@ const Elminar = ({ producto, setProductos }) => {
         onHide={() => setShowModal(false)}
         backdrop="static"
         className="modal-delete-inventary">
-        <Modal.Header className="flex text-center justify-center m-0 p-1">
-          <Modal.Title className="text-lg">
+        <Modal.Header className="py-1 px-3 flex justify-center">
+          <Modal.Title className="text-center text-lg text-red-700">
             ¡Esta apunto de eliminar un producto!
           </Modal.Title>
         </Modal.Header>
         <hr />
-        <Modal.Body className="">
-          {/* <CiWarning className="icon-warning-modal-delete" /> */}
-          <span>Se eliminara la cantidad total de inventario.</span>
-          <p className="warning">
+        <Modal.Body className="px-4 py-2 flex flex-col">
+          <Exclamation />
+          <span className="text-red-600 text-[12px] text-center font-semibold">
+            Se eliminara la cantidad total de inventario.
+          </span>
+          <p className="text-base pt-2">
             !Esta seguro de querer eliminar el producto
             <strong> {producto?.nombre}.</strong> En inventario tiene
             <strong> {producto?.Inventarios[0].cantidad} productos</strong>!
           </p>
         </Modal.Body>
-        <Modal.Footer style={{ border: "none" }} className="content-modal-btns">
-          <Button variant="danger">Elimininar producto</Button>
+        <Modal.Footer className="flex flex-col border-none w-full gap-1">
+          <Button variant="danger" onClick={handleDelete} className="w-full">
+            Elimininar producto
+          </Button>
           <Button
             variant="light"
-            className="mt-1 delete bg-white"
+            className="delete w-full bg-gray-400 border-none"
             onClick={() => setShowModal(false)}>
             Cancelar
           </Button>
@@ -77,4 +62,4 @@ const Elminar = ({ producto, setProductos }) => {
   );
 };
 
-export default Elminar;
+export default Eliminar;

@@ -4,10 +4,10 @@ import "./style.css";
 import formateValue from "../../utils/formateValue";
 import Editar from "./Editar";
 import Actualizar from "./Actualizar";
-import Elminar from "./Eliminar";
+import Eliminar from "./Eliminar";
 
 const GestionInventario = () => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,7 +41,9 @@ const GestionInventario = () => {
                   alt={producto.nombre}
                   className="w-64"
                 />
-                <p>{producto.nombre}</p>
+                <p className="font-semibold text-center text-sm mt-1">
+                  {producto.nombre}
+                </p>
               </div>
               <div className="detalles">
                 <span>
@@ -75,9 +77,17 @@ const GestionInventario = () => {
               </div>
             </div>
             <div className="content-bts">
-              <Editar />
-              <Actualizar />
-              <Elminar />
+              <Editar
+                producto={producto}
+                setProductos={setData}
+                currentStock={
+                  producto.Inventarios.length > 0
+                    ? producto.Inventarios[0].cantidad
+                    : 0
+                }
+              />
+              <Actualizar producto={producto} setData={setData} />
+              <Eliminar setData={setData} producto={producto} />
             </div>
           </div>
         ))}

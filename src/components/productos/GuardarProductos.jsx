@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Button, Spinner } from "react-bootstrap";
-// import { api } from "../../config/axios.conf";
-import API_HOST from "../../config/config";
-import axios from "axios";
+import { saveProducts } from "../../services/productos";
 
 const GuardarProductos = ({ listadoState, setListadoState }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,11 +18,9 @@ const GuardarProductos = ({ listadoState, setListadoState }) => {
         image: producto.image,
       }));
 
-      const response = await axios.post(`${API_HOST}/api/save-news-products`, {
-        productos: updatedList,
-      });
+      const response = await saveProducts(updatedList);
 
-      if (response.status === 200) {
+      if (response && response.status === 200) {
         console.log("guardado");
         setListadoState([]);
         localStorage.removeItem("productos");

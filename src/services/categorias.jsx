@@ -11,7 +11,7 @@ export const createCategory = async (nombre) => {
     console.error("Error creating category:", error);
     throw error;
   }
-}
+};
 
 export const listarCat = async () => {
   try {
@@ -19,7 +19,6 @@ export const listarCat = async () => {
       "http://localhost:3000/api/categories/list"
     );
     if (response.data && response.data.categorias) {
-      console.log(response.data.categorias);
       return response.data.categorias;
     } else {
       console.error(
@@ -45,4 +44,3 @@ export const deleteCategory = async (id) => {
     throw error;
   }
 };
-

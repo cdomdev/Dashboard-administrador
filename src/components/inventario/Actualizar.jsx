@@ -1,221 +1,175 @@
 import { Button, Modal, Form, Spinner } from "react-bootstrap";
 import { useState, useEffect, useRef } from "react";
-// import { useNotification } from "../../../hook";
-// import { NotificationToast } from "../../common/NotificationToast";
-// import { isEqual } from "lodash";
-// import { API_HOST } from "../../../config/config";
-// import { api } from "../../../config/axios.conf";
+import { listarCat } from "../../services/categorias";
+import { listarSub } from "../../services/subcategorias";
+import { updateDataProduct } from "@/services/inventario";
 
-const Actualizar = ({ producto, setProductos }) => {
+const Actualizar = ({ producto, setData }) => {
   const [showModal, setShowModal] = useState(false);
   const [categorias, setCategorias] = useState([]);
   const [subcategorias, setSubcategorias] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // const [selectedCategoria, setSelectedCategoria] = useState(
-  //   producto.categoria_id || ""
-  // );
-  // const [selectedSubCategoria, setSelectedSubCategoria] = useState(
-  //   producto.subcategoria_id || ""
-  // );
+  const [selectedCategoria, setSelectedCategoria] = useState(
+    producto.categoria_id || ""
+  );
+  const [selectedSubCategoria, setSelectedSubCategoria] = useState(
+    producto.subcategoria_id || ""
+  );
 
-  // const { setShowToast, setToastMessage, setBgToast } = useNotification();
+  // referencias para los productos
 
-  // // referencias para los productos
+  const tituloRef = useRef(null);
+  const nombreRef = useRef(null);
+  const valorRef = useRef(null);
+  const referenciaRef = useRef(null);
+  const descripcionRef = useRef(null);
 
-  // const tituloRef = useRef(null);
-  // const nombreRef = useRef(null);
-  // const valorRef = useRef(null);
-  // const referenciaRef = useRef(null);
-  // const descripcionRef = useRef(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [categoriasResult, subcategoriasResult] = await Promise.all([
+          listarCat(),
+          listarSub(),
+        ]);
 
-  // useEffect(() => {
-  //   // Peticion de la categoria
-  //   const fetchData = async () => {
-  //     await api
-  //       .get(`${API_HOST}/api/categories/list`)
-  //       .then((response) => {
-  //         if (response.status === 200) {
-  //           setCategorias(response.data.categorias);
-  //         }
-  //       })
-  //       .catch((e) => {
-  //         console.log(`Error al obtener las categorias ${e}`);
-  //       });
-  //   };
-  //   fetchData();
-  // }, []);
+        setCategorias(categoriasResult || []);
+        setSubcategorias(subcategoriasResult.categorias || []);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     await api
-  //       .get(`${API_HOST}/api/subcategories/list`)
-  //       .then((response) => {
-  //         if (response.status === 200) {
-  //           setSubcategorias(response.data.categorias);
-  //         }
-  //       })
-  //       .catch((e) => {
-  //         console.log(e);
-  //       });
-  //   };
-  //   fetchData();
-  // }, [categorias]);
+    fetchData();
+  }, []);
 
-  // // funcion para tomar nuevs valores en las categorias - subcategorias
+  const handleCategoryChange = (event) => {
+    setSelectedCategoria(event.target.value);
+  };
 
-  // const handleCategoryChange = (event) => {
-  //   setSelectedCategoria(event.target.value);
-  // };
+  const handleSubcategoryChange = (event) => {
+    setSelectedSubCategoria(event.target.value);
+  };
 
-  // const handleSubcategoryChange = (event) => {
-  //   setSelectedSubCategoria(event.target.value);
-  // };
+  const handleInputChange = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    // Obtener los valores actuales de los campos o utilizar los valores por defecto del producto
+    const updatedNombre = nombreRef.current.value || producto.nombre;
+    const updatedMarca = tituloRef.current.value || producto.marca;
+    const updatedValor = parseFloat(valorRef.current.value) || producto.valor;
+    const updatedDescripcion =
+      descripcionRef.current.value || producto.description;
+    const updatedReferencia =
+      referenciaRef.current.value || producto.referencia;
 
-  // const handleInputChange = async (e) => {
-  //   e.preventDefault();
-  //   setIsLoading(true);
-  //   // Obtener los valores actuales de los campos o utilizar los valores por defecto del producto
-  //   const updatedNombre = nombreRef.current.value || producto.nombre;
-  //   const updatedMarca = tituloRef.current.value || producto.marca;
-  //   const updatedValor = parseFloat(valorRef.current.value) || producto.valor;
-  //   const updatedDescripcion =
-  //     descripcionRef.current.value || producto.description;
-  //   const updatedReferencia =
-  //     referenciaRef.current.value || producto.referencia;
+    const updatedCategoria = selectedCategoria || producto.categoria_id;
+    const updatedSubcategoria =
+      selectedSubCategoria || producto.subcategoria_id;
 
-  //   const updatedCategoria = selectedCategoria || producto.categoria_id;
-  //   const updatedSubcategoria =
-  //     selectedSubCategoria || producto.subcategoria_id;
+    //  nuevo objeto con la informacion el producto
+    const productosActualizado = {
+      nombre: updatedNombre,
+      marca: updatedMarca,
+      valor: updatedValor,
+      description: updatedDescripcion,
+      referencia: updatedReferencia,
+      categoria_id: updatedCategoria,
+      subcategoria_id: updatedSubcategoria,
+    };
 
-  //   //  nuevo objeto con la informacion el producto
-  //   const productosActualizado = {
-  //     nombre: updatedNombre,
-  //     marca: updatedMarca,
-  //     valor: updatedValor,
-  //     description: updatedDescripcion,
-  //     referencia: updatedReferencia,
-  //     categoria_id: updatedCategoria,
-  //     subcategoria_id: updatedSubcategoria,
-  //   };
-
-  //   // Validar si hay cambios en el producto
-  //   const hasChanges = !isEqual(productosActualizado, producto);
-
-  //   try {
-  //     // hacer solicitud para actulizar el producto en db
-  //     // validamos que haya un nuevo producto
-  //     if (!hasChanges) {
-  //       setBgToast("danger");
-  //       setShowToast(true);
-  //       setToastMessage("No hay cambios para actualizar este producto");
-  //     } else {
-  //       api
-  //         .put(`${API_HOST}/api/inventary/products/update/${producto.id}`, {
-  //           producto_Id: producto.id,
-  //           newProduct: productosActualizado,
-  //         })
-  //         .then((response) => {
-  //           if (response.status === 200) {
-  //             setProductos(response.data.productosUpdate);
-  //             setBgToast("success");
-  //             setToastMessage("Producto actulizado con exito");
-  //             setShowToast(true);
-  //           }
-  //         });
-  //     }
-  //   } catch (error) {
-  //     if (error.response.status === 403) {
-  //       setShowToast(true);
-  //       setToastMessage("No tienes los permisos para esta operacion");
-  //       setBgToast("danger");
-  //     }
-  //     console.log("Error en el servidor", error);
-  //     setShowToast(true);
-  //     setToastMessage("No se puedo actulizar el producto, intentalo de nuevo");
-  //     setBgToast("danger");
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
+    try {
+      const response = await updateDataProduct(
+        productosActualizado,
+        producto.id
+      );
+      console.log(response.data);
+      if (response.status === 200) {
+        setShowModal(false);
+        setData(response.data.productosUpdate);
+      }
+    } catch (error) {
+      console.log("Error en el servidor", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
-      <Button
-        variant="outline-success"
-        className="btn-custome-inventary"
-        onClick={() => setShowModal(true)}>
-        Actualizar inventario
+      <Button variant="outline-success" onClick={() => setShowModal(true)}>
+        Actualizar producto
       </Button>
-      <Modal
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        className="modal-update-inventory-products">
-        <Modal.Header closeButton>
-          <Modal.Title className="title-modal-update">
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton className="py-1 px-3">
+          <Modal.Title className="text-lg font-semibold">
             Actulizar informacion del producto
           </Modal.Title>
         </Modal.Header>
         <hr />
-        <Modal.Body className="modal-body-update-inventory">
-          <p className="text-modal-update-inventary">
+        <Modal.Body className="px-4 py-2">
+          <p className="text-base text-wrap py-2">
             En esta seccion puede modificar valores como: <br />
-            Nombre, precio, referencia, categoria o descripcion del producto
-            selecionado.
+            <strong className="text-blue-600">
+              {" "}
+              Nombre, precio, referencia, categoria o descripcion
+            </strong>{" "}
+            del producto selecionado.
           </p>
           <Form>
             <Form.Control
               type="text"
               name="titulo"
-              className="titulo-editado mt-3"
-              defaultValue={producto?.nombre}
-              // ref={nombreRef}
+              className="mt-3 focus:outline-none shadow-none focus:border-slate-300  rounded-md  border-gray-200"
+              defaultValue={producto.nombre}
+              ref={nombreRef}
             />
             <Form.Control
               type="text"
               name="titulo"
-              className="titulo-editado mt-3"
-              defaultValue={producto?.marca}
-              // ref={tituloRef}
+              className="titulo-editado mt-2  focus:outline-none shadow-none focus:border-slate-300 rounded-md  border-gray-200"
+              defaultValue={producto.marca}
+              ref={tituloRef}
             />
             <Form.Control
               placeholder="Actualizar precio"
               name="valor"
-              defaultValue={parseInt(producto?.valor, 10)}
-              className="mt-2"
-              // ref={valorRef}
+              defaultValue={parseInt(producto.valor, 10)}
+              className="mt-2 focus:outline-none shadow-none focus:border-slate-300 py-2"
+              ref={valorRef}
             />
             <Form.Control
               placeholder="Actualizar referencia"
               name="referencia"
-              defaultValue={producto?.referencia}
-              className="mt-2"
-              // ref={referenciaRef}
+              defaultValue={producto.referencia}
+              className="mt-2 focus:outline-none shadow-none focus:border-slate-300 py-2"
+              ref={referenciaRef}
             />
 
-            {/* <Form.Control
+            <Form.Control
               as="select"
               onChange={handleCategoryChange}
-              className="mt-2"
+              className="mt-2 focus:outline-none shadow-none focus:border-slate-300 py-2"
               value={selectedCategoria}>
               <option value="">
-                {producto.categoria
+                {producto && producto.categoria
                   ? producto.categoria.nombre
                   : "Selecciona una categoría"}
               </option>
-              {categorias.map((categoria) => (
-                <option key={categoria.id} value={categoria.id}>
-                  {categoria.nombre}
-                </option>
-              ))}
+              {categorias &&
+                categorias.map((categoria) => (
+                  <option key={categoria.id} value={categoria.id}>
+                    {categoria.nombre}
+                  </option>
+                ))}
             </Form.Control>
             <Form.Control
               as="select"
-              className="mt-2"
+              className="mt-2 focus:outline-none shadow-none focus:border-slate-300 py-2"
               onChange={handleSubcategoryChange}
               value={selectedSubCategoria}>
               <option value="">
-                {producto.subcategoria
+                {producto && producto.subcategoria
                   ? producto.subcategoria.nombre
                   : "Selecciona una subcategoría"}
               </option>
@@ -224,22 +178,22 @@ const Actualizar = ({ producto, setProductos }) => {
                   {subcategoria.nombre}
                 </option>
               ))}
-            </Form.Control> */}
+            </Form.Control>
             <Form.Control
               as="textarea"
               name="descripcion"
-              // defaultValue={producto.description}
-              className="descripcion-editada mt-3"
-              // ref={descripcionRef}
+              defaultValue={producto.description}
+              className="descripcion-editada mt-3 focus:outline-none shadow-none focus:border-slate-300"
+              ref={descripcionRef}
             />
-            <span className="content-btn-card">
-              <Button className="btn-custom mt-3">
+            <span className="w-full ">
+              <Button onClick={handleInputChange} className="w-full my-3">
                 {isLoading ? (
                   <div className="spinner-container">
                     <Spinner animation="border" role="status" size="sm" />
                   </div>
                 ) : (
-                  <>Actualizar</>
+                  <p className="text-lg">Actualizar producto</p>
                 )}
               </Button>
             </span>

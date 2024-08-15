@@ -1,49 +1,23 @@
 import { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
+import { stockUpdate } from "../../services/inventario";
 
 const Editar = ({ producto, currentStock, setProductos }) => {
   const [showModal, setShowModal] = useState(false);
   const [newStock, setNewStock] = useState(currentStock);
 
-  // const handleSaveChanges = () => {
-  //   if (!isNaN(newStock) && newStock.trim() !== "") {
-  //     const updatedStock = parseInt(newStock);
-  //     api
-  //       .put(`${API_HOST}/api/inventary/products/update-stock/${producto.id}`, {
-  //         producto_Id: producto.id,
-  //         newStock: updatedStock,
-  //       })
-  //       .then((response) => {
-  //         if (response.status === 200) {
-  //           setProductos(response.data.inventaryUpdate);
-  //           setToastMessage("Cantidad en stock actualizada con exito");
-  //           setBgToast("success");
-  //           setShowToast(true);
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         if (error.response.status === 403) {
-  //           setToastMessage("No tienes los permisos para esta operacion");
-  //           setBgToast("danger");
-  //           setShowToast(true);
-  //         } else if (
-  //           error.response.status === 400 ||
-  //           error.response.status === 500
-  //         ) {
-  //           setToastMessage(
-  //             "No se puedo actulizar la cantidad en stock, intentale de nuevo"
-  //           );
-  //           setBgToast("danger");
-  //           setShowToast(true);
-  //         }
-  //         console.error("Error al actulizar el inventario", error);
-  //       });
-  //   } else {
-  //     setToastMessage("Ingrese una cantidad para actulizar el inventario");
-  //     setBgToast("warning");
-  //     setShowToast(true);
-  //   }
-  // };
+  const handleSaveChanges = async () => {
+    if (!isNaN(newStock) && newStock.trim() !== "") {
+      const updatedStock = parseInt(newStock);
+      const response = await stockUpdate(updatedStock, producto.id);
+      if (response.status === 200) {
+        setShowModal(false);
+        setProductos(response.data.inventaryUpdate);
+      }
+    } else {
+      console.log("cantidad de inventario vacia");
+    }
+  };
 
   return (
     <>
@@ -51,34 +25,43 @@ const Editar = ({ producto, currentStock, setProductos }) => {
         variant="outline-primary"
         className="btn-custome-inventary"
         onClick={() => setShowModal(true)}>
-        Actualizar Stock
+        Modificar Stock
       </Button>
-
       <Modal
         show={showModal}
         onHide={() => setShowModal(false)}
         className="modal-edit-inventary">
-        <Modal.Header closeButton>
-          <Modal.Title>Modificar cantidad en inventario</Modal.Title>
+        <Modal.Header closeButton className="py-1 px-3">
+          <Modal.Title className="text-lg pl-3 font-semibold">
+            Modificar cantidad en inventario
+          </Modal.Title>
         </Modal.Header>
-        <hr />
-        <Modal.Body className="modal-body-editar-inventary">
-          <p className="text-modal-inventary">
+        <hr className="text-slate-400" />
+        <Modal.Body className="px-3 py-2">
+          <p className="text-base text-wrap pl-1">
             En esta seccion podra modificar la cantidad en inventario del
             producto seleccionado.
           </p>
           <br />
-          <p>Ingrese la nueva cantidad en inventario:</p>
+          <p className="font-semibold pl-1">Ingrese la nueva cantidad:</p>
           <Form.Control
-            className="mt-3"
+            className="mt-2 rounded-md border-slate-300 focus:outline-none shadow-none focus:border-slate-300"
             type="number"
             value={newStock}
             onChange={(e) => setNewStock(e.target.value)}
           />
         </Modal.Body>
-        <Modal.Footer style={{ border: "none" }}>
-          <Button variant="primary">Guardar cambios</Button>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
+        <Modal.Footer className="flex border-none flex-col w-full px-3 gap-2">
+          <Button
+            variant="primary"
+            className="w-full m-0"
+            onClick={handleSaveChanges}>
+            Guardar cambios
+          </Button>
+          <Button
+            variant="secondary"
+            className="w-full m-0"
+            onClick={() => setShowModal(false)}>
             Cancelar
           </Button>
         </Modal.Footer>

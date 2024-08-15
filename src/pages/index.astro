@@ -6,63 +6,73 @@ import SendBox from "../components/icons/SendBox.astro";
 import Layout from "../layouts/Layout.astro";
 import Sale from "../components/icons/Sale.astro";
 import Users from "../components/icons/Users.astro";
+import balances from "@/services/balances";
+import formateValue from "@/utils/formateValue";
+const response = await balances();
+const { users, totalOrders, totalSales, totalPending, totalShipped } =
+  response?.data || {};
+
+const saledsFormater = formateValue(totalSales);
 ---
 
 <Layout title="Suministros">
   <main>
     <section class="flex flex-col gap-4">
       <div
-        class="flex gap-4 justify-center flex-wrap h-auto py-4 px-2 items-center w-full">
+        class="flex gap-1 justify-center flex-wrap h-auto py-4 px-2 items-center w-full">
         <CardItems
           title="Total ordenes"
-          value={10}
+          value={totalOrders}
           text="Ordenees sin despachar">
           <div
-            class="rounded-full h-12 w-12 flex justify-center items-center p-1"
+            class="rounded-full w-10 h-10 md:h-12 md:w-12 flex justify-center items-center p-1"
             style="background-color: var(--color-a);">
             <Box />
           </div>
         </CardItems>
         <CardItems
           title="Ordenes despachadas"
-          value={2}
+          value={totalShipped}
           text="Con estado de entregado">
           <div
-            class="rounded-full h-12 w-12 flex justify-center items-center p-1"
+            class="rounded-full w-10 h-10 md:h-12 md:w-12 flex justify-center items-center p-1"
             style="background-color: var(--color-f);">
             <SendBox />
           </div>
         </CardItems>
-        <CardItems title="Pendientes por envio" value={1} text="Pendientes">
+        <CardItems
+          title="Pendientes por envio"
+          value={totalPending}
+          text="Pendientes">
           <div
-            class="rounded-full h-12 w-12 flex justify-center items-center p-1"
+            class="rounded-full w-10 h-10 md:h-12 md:w-12 flex justify-center items-center p-1"
             style="background-color: var(--color-e);">
             <Time />
           </div>
         </CardItems>
         <CardItems
           title="Total vendido"
-          value={1111}
+          value={saledsFormater}
           text="Balance total de ventas">
           <div
-            class="rounded-full h-12 w-12 flex justify-center items-center p-1"
+            class="rounded-full w-10 h-10 md:h-12 md:w-12 flex justify-center items-center p-1"
             style="background-color: var(--color-b);">
             <Sale />
           </div>
         </CardItems>
         <CardItems
           title="Total usuarios"
-          value={1111}
+          value={users}
           text="Usuarios e invitados">
           <div
-            class="rounded-full h-12 w-12 flex justify-center items-center p-2"
+            class="rounded-full w-10 h-10 md:h-12 md:w-12 flex justify-center items-center p-2"
             style="background-color: var(--color-c);">
             <Users />
           </div>
         </CardItems>
       </div>
     </section>
-    <section class="grid grid-cols-2 gap-3">
+    <section class="flex flex-col md:grid md:grid-cols-2 gap-3">
       <div class="h-auto rounded-sm p-2 bg-white shadow-sm"></div>
       <div class="rounded-sm p-4 bg-white shadow-sm">
         <div>
