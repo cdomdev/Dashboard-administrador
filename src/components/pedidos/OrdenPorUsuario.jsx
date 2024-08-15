@@ -1,7 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 import { Spinner } from "react-bootstrap";
-import API_HOST from "../../config/config";
+import { orderUser } from "../../services/pedidos";
 
 const OrdenPorUsuario = ({ user, url }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -9,14 +8,11 @@ const OrdenPorUsuario = ({ user, url }) => {
   const viewOrders = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.post(
-        `${API_HOST}/api/listar/${url}/${user.id}`
-      );
+      const response = await orderUser(url, user.id);
       if (response.status === 200) {
         const ordersUser = response.data.pedidos;
         localStorage.setItem("dataOrdersUser", JSON.stringify(ordersUser));
         localStorage.setItem("dataUserOrders", JSON.stringify(user));
-        navigete("/admin/gestion/usuarios/pedidos-datails");
       }
     } catch (e) {
       console.log("Error al listar el pedido", e);

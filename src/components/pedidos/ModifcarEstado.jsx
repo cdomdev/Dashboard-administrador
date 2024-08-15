@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
-import API_HOST from "../../config/config";
 import "./style.css";
-import axios from "axios";
+import { updateState } from "../../services/pedidos";
 
 const states = {
   alistamiento: "alistamiento",
@@ -15,12 +14,7 @@ export const ModifcarEstado = ({ pedido }) => {
 
   const handleChangeEstado = async (e) => {
     try {
-      const response = await axios.post(
-        `${API_HOST}/api/update/state-orders/${pedido.id}`,
-        {
-          estado: estado,
-        }
-      );
+      const response = await updateState(pedido.id, estado);
 
       if (response.status === 200) {
         console.log("estado actulizado");
