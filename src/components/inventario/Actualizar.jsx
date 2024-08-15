@@ -97,7 +97,10 @@ const Actualizar = ({ producto, setData }) => {
 
   return (
     <>
-      <Button variant="outline-success" onClick={() => setShowModal(true)}>
+      <Button
+        variant="outline-success"
+        className="text-xs md:text-sm"
+        onClick={() => setShowModal(true)}>
         Actualizar producto
       </Button>
       <Modal show={showModal} onHide={() => setShowModal(false)}>

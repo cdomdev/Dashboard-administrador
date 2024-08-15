@@ -2,7 +2,8 @@ import formatedDate from "../../utils/formatedDate";
 import Eliminar from "./Eliminar";
 import Actualizar from "./Actualizar";
 import { useEffect } from "react";
-import { listar } from "@/services/ofertas";
+import { listar } from "../../services/ofertas";
+import { Accordion } from "react-bootstrap";
 
 const Listado = ({ ofertas, setOfertas }) => {
   useEffect(() => {
@@ -17,57 +18,63 @@ const Listado = ({ ofertas, setOfertas }) => {
 
     fetchData();
   }, []);
+
   return (
-    <div className="bg-white w-full p-3">
-      <h4 className="text-lg font-semibold mb-2">Ofertas vigentes</h4>
-      {ofertas && ofertas.length > 0 ? (
-        <>
-          {ofertas.map((oferta, index) => (
-            <div
-              key={oferta.id || index}
-              className="border p-3 mb-1 flex flex-col gap-2">
-              <div className="bg-[#cfe2ff] py-2 px-3 transform uppercase font-bold">
-                <h4>{oferta.nombre}</h4>
-              </div>
-              <div className="flex flex-col md:flex-row p-2 gap-4">
-                <div>
-                  <p className="font-bold">
-                    Descuento: <strong>{oferta.descuento}%</strong>
-                  </p>
-                  <p className="font-bold">Fecha de inicio:</p>
-                  <span className="text-sm font-semibold text-slate-600">
-                    {formatedDate(oferta.fecha_inicio)}
-                  </span>
-                  <p className="font-bold">Fecha final</p>
-                  <span className="text-sm font-semibold text-slate-600">
-                    {formatedDate(oferta.fecha_fin)}
-                  </span>
+    <div className="section-listado-ofertas">
+      <h4 className="text-lg font-semibold mb-2 bg-white px-2 py-1 border">
+        Ofertas vigentes
+      </h4>
+      <Accordion defaultActiveKey="0">
+        {ofertas.length === 0 || ofertas === "No hay ofertas disponibles" ? (
+          <div className="w-full bg-white py-3 px-2">
+            <p className="text-base font-semibold">
+              No hay ofertas disponibles
+            </p>
+          </div>
+        ) : (
+          ofertas.map((oferta, index) => (
+            <Accordion.Item key={oferta.id} eventKey={index}>
+              <Accordion.Header>
+                <strong className="uppercase font-bold">{oferta.nombre}</strong>
+              </Accordion.Header>
+              <Accordion.Body className=" block visible">
+                <div className="flex gap-3 flex-col md:flex-row">
+                  <div className=" p-1">
+                    <strong>Descuento: </strong>
+                    <strong className="sale">{oferta.descuento}%</strong>
+                    <p className="font-semibold">Fecha de inicio:</p>
+                    <p className="text-blue-700 font-semibold">
+                      {formatedDate(oferta.fecha_inicio)}
+                    </p>
+                    <p className="font-semibold">Fecha de fin:</p>
+                    <p className="text-red-600 font-semibold">
+                      {formatedDate(oferta.fecha_fin)}
+                    </p>
+                  </div>
+                  <div>
+                    <h5 className="text-producto-oferta bg-slate-300 py-2 text-center text-base font-semibold">
+                      Productos relacionados a la oferta
+                    </h5>
+                    <ul className="mt-2 list-disc px-3">
+                      {oferta.Productos && oferta.Productos.length > 0 ? (
+                        oferta.Productos.map((producto) => (
+                          <li key={producto.id}>{producto.nombre}</li>
+                        ))
+                      ) : (
+                        <li>No hay productos disponibles</li>
+                      )}
+                    </ul>
+                  </div>
+                  <div className="flex flex-col gap-2 ">
+                    <Eliminar oferta={oferta} setOfertas={setOfertas} />
+                    <Actualizar oferta={oferta} setOfertas={setOfertas} />
+                  </div>
                 </div>
-                <ul>
-                  <h5 className="font-bold">Productos de la oferta:</h5>
-                  {oferta.Productos && oferta.Productos.length > 0 ? (
-                    oferta.Productos.map((producto) => (
-                      <li key={producto.id} className="text-sm list-disc">
-                        {producto.nombre}
-                      </li>
-                    ))
-                  ) : (
-                    <li>No hay productos disponibles</li>
-                  )}
-                </ul>
-                <div className="flex flex-col gap-2 justify-center">
-                  <Eliminar oferta={oferta} setOfertaListado={setOfertas} />
-                  <Actualizar oferta={oferta} setOferta={setOfertas} />
-                </div>
-              </div>
-            </div>
-          ))}
-        </>
-      ) : (
-        <div>
-          <p className="text-base">No hay ofertas disponibles</p>
-        </div>
-      )}
+              </Accordion.Body>
+            </Accordion.Item>
+          ))
+        )}
+      </Accordion>
     </div>
   );
 };

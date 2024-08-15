@@ -23,7 +23,7 @@ const Editar = ({ producto, currentStock, setProductos }) => {
     <>
       <Button
         variant="outline-primary"
-        className="btn-custome-inventary"
+        className="text-xs md:text-sm"
         onClick={() => setShowModal(true)}>
         Modificar Stock
       </Button>

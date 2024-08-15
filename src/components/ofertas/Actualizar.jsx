@@ -1,8 +1,8 @@
 import { Button, Form, Modal, Row, Col, Spinner } from "react-bootstrap";
 import { useState, useRef } from "react";
-import { updateOfert } from "@/services/ofertas";
+import { updateOfert } from "../../services/ofertas";
 
-const Actualizar = ({ oferta, setOferta }) => {
+const Actualizar = ({ oferta, setOfertas }) => {
   const [showModal, setShowModal] = useState(false);
   const [updatedValues, setUpdatedValues] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -18,10 +18,10 @@ const Actualizar = ({ oferta, setOferta }) => {
   const handleInputChange = (e) => {
     e.preventDefault();
 
-    const nombreUPdate = nombreRef.current.value || ofertaData.nombre;
-    const descuentoUpdate = descuentoRef.current.value || ofertaData.descuento;
-    const fechaIniUpdate = fechaIniRef.current.value || ofertaData.fecha_inicio;
-    const fechaFinUpdate = fechaFinRef.current.value || ofertaData.fecha_fin;
+    const nombreUPdate = nombreRef.current.value || oferta.nombre;
+    const descuentoUpdate = descuentoRef.current.value || oferta.descuento;
+    const fechaIniUpdate = fechaIniRef.current.value || oferta.fecha_inicio;
+    const fechaFinUpdate = fechaFinRef.current.value || oferta.fecha_fin;
 
     const updatedValues = {
       nombre: nombreUPdate,
@@ -35,18 +35,11 @@ const Actualizar = ({ oferta, setOferta }) => {
   const handleUpdate = async () => {
     setIsLoading(true);
     try {
-      if (!ofertaData || !updatedValues) {
-        console.log('faltan datos')
-      }
-
-      const response = await updateOfert(ofertaData.id);
+      const response = await updateOfert(oferta.id, updatedValues);
       if (response.status === 200) {
-        setOferta(response.data.ofertas);
-        setTimeout(() => {
-          setShowModal(false);
-        }, 2000);
+        setOfertas(response.data.ofertas);
+        setShowModal(false);
       }
-
     } catch (error) {
       console.log("Error al intentar actulizar un oferta", error);
     } finally {
@@ -64,17 +57,20 @@ const Actualizar = ({ oferta, setOferta }) => {
         backdrop="static"
         keyboard={false}
         className="modal-ofertas-update">
-        <Modal.Header closeButton className="header-modal-update">
-          <Modal.Title className="title-modal-update">
-            Modificar oferta
+        <Modal.Header closeButton className="py-1">
+          <Modal.Title className="text-lg font-bold">
+            Actualizar datos de la oferta
           </Modal.Title>
         </Modal.Header>
-        <p className="text-ofertas">Ingrese los nuevos valores de la oferta</p>
-        <div className="body-modal-ofertas-update">
-          <Form className="mt-4">
+        <Modal.Body className="py-1 px-3">
+          <p className="text-base font-semibold py-2">
+            Ingrese los nuevos valores de la oferta
+          </p>
+          <Form>
             <Form.Control
               ref={nombreRef}
               type="text"
+              className=" focus:outline-none shadow-none focus:border-slate-300  rounded-md  border-gray-200"
               placeholder="Nombre de la oferta"
               defaultValue={oferta.nombre}
               onChange={handleInputChange}
@@ -87,7 +83,7 @@ const Actualizar = ({ oferta, setOferta }) => {
               name="descuento"
               max={100}
               placeholder="Porcentaje de descuento"
-              className="mt-2"
+              className="mt-2 focus:outline-none shadow-none focus:border-slate-300  rounded-md  border-gray-200"
               defaultValue={oferta.descuento}
               onChange={handleInputChange}
             />
@@ -96,11 +92,12 @@ const Actualizar = ({ oferta, setOferta }) => {
                 <Form.Control
                   ref={fechaIniRef}
                   type="date"
+                  className="focus:outline-none shadow-none focus:border-slate-300  rounded-md  border-gray-200"
                   defaultValue={oferta.fecha_inicio}
                   name="fechaIni"
                   onChange={handleInputChange}
                 />
-                <Form.Label className="label-date">
+                <Form.Label className="text-xs text-center w-full text-gray-500">
                   Fecha inicial de la oferta
                 </Form.Label>
               </Col>
@@ -108,29 +105,33 @@ const Actualizar = ({ oferta, setOferta }) => {
                 <Form.Control
                   ref={fechaFinRef}
                   type="date"
+                  className="focus:outline-none shadow-none focus:border-slate-300  rounded-md  border-gray-200"
                   defaultValue={oferta.fecha_fin}
                   name="fechaFin"
                   onChange={handleInputChange}
                 />
-                <Form.Label className="label-date">
+                <Form.Label className="text-xs text-center w-full text-gray-500">
                   Fecha final de la oferta
                 </Form.Label>
               </Col>
             </Row>
           </Form>
-        </div>
 
-        <div className="content-button-ofertas">
-          <Button variant="primary" onClick={handleUpdate}>
-            {isLoading ? (
-              <div className="spinner-container">
-                <Spinner animation="border" role="status" size="sm" />
-              </div>
-            ) : (
-              <> Actualizar oferta</>
-            )}
-          </Button>
-        </div>
+          <div className="w-full">
+            <Button
+              variant="primary"
+              className="w-full my-3"
+              onClick={handleUpdate}>
+              {isLoading ? (
+                <div className="spinner-container">
+                  <Spinner animation="border" role="status" size="sm" />
+                </div>
+              ) : (
+                <> Actualizar oferta</>
+              )}
+            </Button>
+          </div>
+        </Modal.Body>
       </Modal>
     </>
   );

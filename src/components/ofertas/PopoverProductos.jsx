@@ -36,20 +36,32 @@ export const PopoverProductos = ({
         placement="top-start"
         containerPadding={20}>
         <Popover id="popover-contained">
-          <Popover.Header as="h3">Productos</Popover.Header>
+          <Popover.Header as="h3" className="text-center">
+            Productos
+          </Popover.Header>
           <Popover.Body className="overflow-y-auto max-h-80">
-            {Array.isArray(listaProductos) &&
+            {!listaProductos ? (
+              <div className="w-full py-2 flex px-1">
+                <p>No hay productos</p>
+              </div>
+            ) : (
+              Array.isArray(listaProductos) &&
               listaProductos.map((producto) => (
                 <div key={producto.id} className="mb-3">
                   <Form.Check
                     type="checkbox"
+                    className=" flex items-center gap-1"
                     id={`producto-${producto.id}`}
-                    label={`${producto.marca} - ${producto.nombre} - ${producto.Inventarios[0].cantidad} Unidades`}
+                    label={` ${producto.nombre} - ${producto.Inventarios[0].cantidad} Unidades`}
                     onChange={(e) => handleProductSelection(e, producto.id)}
                   />
                 </div>
-              ))}
-            <Button onClick={handleListoClick}>Guardar</Button>
+              ))
+            )}
+
+            <Button onClick={handleListoClick} className="w-full mt-1">
+              Guardar
+            </Button>
           </Popover.Body>
         </Popover>
       </Overlay>

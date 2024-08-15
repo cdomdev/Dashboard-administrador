@@ -20,7 +20,7 @@ const Eliminar = ({ producto, setData }) => {
     <>
       <Button
         variant="outline-danger"
-        className="btn-custome-inventary"
+        className="text-xs md:text-sm"
         onClick={() => setShowModal(true)}>
         Eliminar
       </Button>

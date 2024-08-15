@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Crear from "./Crear";
-import { listar, productosPopover } from "../../services/ofertas";
 import Listado from "./Listado";
 
 const Ofertas = () => {

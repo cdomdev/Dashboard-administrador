@@ -1,9 +1,7 @@
-import axios from "axios";
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import API_HOST from "../../config/config";
 import { Exclamation } from "../icons/Exclamation";
-import { deleteOfert } from "@/services/ofertas";
+import { deleteOfert } from "../../services/ofertas";
 
 const Eliminar = ({ oferta, setOfertas }) => {
   const [showModal, setShowModal] = useState(false);
@@ -13,11 +11,9 @@ const Eliminar = ({ oferta, setOfertas }) => {
 
   const handleDeleteOferta = async () => {
     const response = await deleteOfert(oferta.id);
-    if (response) {
-      setOfertas(response);
-      setTimeout(() => {
-        setShowModal(false);
-      }, 2000);
+    if (response.status === 200) {
+      setOfertas(response.data.ofertas);
+      setShowModal(false);
     }
   };
 
@@ -31,7 +27,7 @@ const Eliminar = ({ oferta, setOfertas }) => {
         onHide={handleClose}
         backdrop="static"
         keyboard={false}>
-        <Modal.Title className="text-center text-lg text-red-700 py-2">
+        <Modal.Title className="text-center text-lg text-red-700 py-1">
           Esta a punto de eliminar una oferta
         </Modal.Title>
         <hr />
@@ -49,7 +45,7 @@ const Eliminar = ({ oferta, setOfertas }) => {
           <Button
             onClick={handleClose}
             variant="light"
-            className="delete bg-gray-400">
+            className="delete bg-gray-400 border-none">
             Cancelar
           </Button>
         </div>

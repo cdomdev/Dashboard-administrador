@@ -1,0 +1,18 @@
+:root {
+    --alistamiento: red;
+    --camino: #125df3;
+    --entregado: #008600;
+}
+
+.alistamiento{
+    background-color: red;
+    color: white;
+}
+.camino{
+    background-color: aquamarine;
+    color: white;
+}
+.entregado{
+    background-color: green;
+    color: white;
+}

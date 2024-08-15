@@ -10,7 +10,7 @@ export const Filtros = ({
   return (
     <>
       <Form.Select
-        className="mt-3 f-select"
+        className="text-sm md:text-base"
         onChange={(e) => setCategoriaSeleccionada(e.target.value)}
         value={categoriaSeleccionada}>
         <option value="">Categorias</option>
@@ -21,6 +21,7 @@ export const Filtros = ({
         ))}
       </Form.Select>
       <Form.Select
+        className="text-sm md:text-base"
         aria-label="Default select example"
         value={precioSeleccionado}
         onChange={handlePrecioChange}>

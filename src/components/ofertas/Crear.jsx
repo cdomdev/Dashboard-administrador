@@ -7,7 +7,6 @@ import { createOfert, productosPopover } from "../../services/ofertas";
 const Crear = ({ setOfertas }) => {
   const [listaProductos, setListaProductos] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
-  // inicar el estado de la oferta
   const [oferta, setOferta] = useState({
     nombre: "",
     descuento: "",
@@ -15,11 +14,10 @@ const Crear = ({ setOfertas }) => {
     fechaFin: "",
   });
 
-  // solcuiar la lista de productos para ofertas
   useEffect(() => {
     const fechData = async () => {
-      const response = await productosPopover();
-      setListaProductos(response.data);
+      const responseProduct = await productosPopover();
+      setListaProductos(responseProduct.data);
     };
 
     fechData();
@@ -66,17 +64,14 @@ const Crear = ({ setOfertas }) => {
         productos: selectedProducts,
       };
 
-      const response = await createOfert(newOferta)
-      const { ofertas } = response.data;
-      console.log(response.data);
-      if (response.status === 201) {
+      const ofertResponse = await createOfert(newOferta);
+      if (ofertResponse.status === 201) {
+        setOfertas(ofertResponse.data.ofertas);
         setSelectedProducts("");
-        setOfertas(ofertas);
+        setOferta("");
       } else {
         console.log("no se pudo crear la oferta");
       }
-
-      // reestablecer el estado
       setOferta({
         nombre: "",
         descuento: "",
