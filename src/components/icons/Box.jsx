@@ -3,7 +3,7 @@ export const Box = () => {
     <>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="icon icon-tabler icon-tabler-package w-10 h-10"
+        class="icon icon-tabler icon-tabler-package w-6 h-6"
         width="44"
         height="44"
         viewBox="0 0 24 24"
@@ -19,7 +19,6 @@ export const Box = () => {
         <path d="M12 12l-8 -4.5" />
         <path d="M16 5.25l-8 4.5" />
       </svg>
-      ;
     </>
   );
 };

@@ -4,7 +4,7 @@ import { Col, Row, Form, Button } from "react-bootstrap";
 import { PopoverProductos } from "./PopoverProductos";
 import { createOfert, productosPopover } from "../../services/ofertas";
 
-const Crear = ({ setOfertas }) => {
+const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
   const [listaProductos, setListaProductos] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [oferta, setOferta] = useState({
@@ -52,7 +52,9 @@ const Crear = ({ setOfertas }) => {
     const { nombre, descuento, fechaIni, fechaFin } = oferta;
 
     if (!nombre || !descuento || !fechaIni || !fechaFin) {
-      console.log("faltan datos");
+      setBgToast("warning");
+      setShowToast(true);
+      setToastMessage("Faltan datos para crear una oferta");
       return;
     }
     try {
@@ -69,6 +71,9 @@ const Crear = ({ setOfertas }) => {
         setOfertas(ofertResponse.data.ofertas);
         setSelectedProducts("");
         setOferta("");
+        setBgToast("success");
+        setShowToast(true);
+        setToastMessage("Se agrego una nueva oferta");
       } else {
         console.log("no se pudo crear la oferta");
       }

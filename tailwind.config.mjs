@@ -13,7 +13,13 @@ export default {
         cust: "repeat(auto-fit, minmax(600px, 1fr))",
         custe: "repeat(2, 50%);",
       },
+      colors: {
+        "custom-color1": "rgb(191, 190, 167)",
+        "custom-color2": "rgb(200, 200, 200)",
+        "custom-color3": "rgb(195, 195, 195)",
+      },
     },
   },
+  darkMode: "class",
   plugins: [require("flowbite/plugin")],
 };

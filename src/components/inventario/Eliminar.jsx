@@ -3,7 +3,13 @@ import { useState } from "react";
 import { Exclamation } from "../icons/Exclamation";
 import { deleteDataInventary } from "../../services/inventario";
 
-const Eliminar = ({ producto, setData }) => {
+const Eliminar = ({
+  producto,
+  setData,
+  setBgToast,
+  setShowToast,
+  setToastMessage,
+}) => {
   const [showModal, setShowModal] = useState(false);
 
   //   solcitud para elminar producto seleccionado
@@ -13,6 +19,9 @@ const Eliminar = ({ producto, setData }) => {
     if (response && response.status === 200) {
       setData(response.data.daleteUpdate);
       setShowModal(false);
+      setBgToast("success");
+      setToastMessage("Producto eliminado con exito");
+      setShowToast(true);
     }
   };
 

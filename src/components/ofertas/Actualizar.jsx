@@ -2,7 +2,13 @@ import { Button, Form, Modal, Row, Col, Spinner } from "react-bootstrap";
 import { useState, useRef } from "react";
 import { updateOfert } from "../../services/ofertas";
 
-const Actualizar = ({ oferta, setOfertas }) => {
+const Actualizar = ({
+  oferta,
+  setOfertas,
+  setBgToast,
+  setShowToast,
+  setToastMessage,
+}) => {
   const [showModal, setShowModal] = useState(false);
   const [updatedValues, setUpdatedValues] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -39,9 +45,15 @@ const Actualizar = ({ oferta, setOfertas }) => {
       if (response.status === 200) {
         setOfertas(response.data.ofertas);
         setShowModal(false);
+        setBgToast("success");
+        setToastMessage("Oferta actualizada con exito");
+        setShowToast(true);
       }
     } catch (error) {
       console.log("Error al intentar actulizar un oferta", error);
+      setBgToast("warning");
+      setToastMessage("Algo salio mal, intentelo de nuevo");
+      setShowToast(true);
     } finally {
       setIsLoading(false);
     }

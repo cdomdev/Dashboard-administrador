@@ -2,7 +2,13 @@ import { useState } from "react";
 import { Button, Spinner } from "react-bootstrap";
 import { saveProducts } from "../../services/productos";
 
-const GuardarProductos = ({ listadoState, setListadoState }) => {
+const GuardarProductos = ({
+  listadoState,
+  setListadoState,
+  setBgToast,
+  setShowToast,
+  setToastMessage,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleGuardarProducto = async () => {
@@ -21,19 +27,26 @@ const GuardarProductos = ({ listadoState, setListadoState }) => {
       const response = await saveProducts(updatedList);
 
       if (response && response.status === 200) {
-        console.log("guardado");
+        setBgToast("success");
+        setShowToast(true);
+        setToastMessage("Los productos se guardaroin con exito");
         setListadoState([]);
         localStorage.removeItem("productos");
       } else {
-        console.log("No guardado");
+        setBgToast("danger");
+        setShowToast(true);
+        setToastMessage(
+          "Algo salio mal al guardar los productos, intentelo de nuevo"
+        );
       }
     } catch (error) {
       if (error.response.status === 403) {
         console.log("Sin permisos");
       } else if (error.response.status === 500) {
-        console.log("servidor mal");
+        setBgToast("danger");
+        setShowToast(true);
+        setToastMessage("Hubo un error en el servidor, intentelo de nuevo");
       }
-
       console.error("Error al guardar el producto:", error.message);
     } finally {
       setIsLoading(false);

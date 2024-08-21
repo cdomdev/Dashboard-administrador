@@ -1,29 +1,84 @@
 import { getDataStorage } from "@/utils/getDataStorage";
-import { Table } from "react-bootstrap";
+import { Form, Table } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import formateValue from "../../utils/formateValue";
 import { ModifcarEstado } from "./ModifcarEstado";
+import { Back } from "../icons/Back";
 
 const DetallePedido = () => {
   const [data, setData] = useState([]);
-  const [user, setUser] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [estado, setEstado] = useState("");
+  const [user, setUser] = useState({});
+
   useEffect(() => {
-    setUser(getDataStorage("dataUserOrders"));
-    setData(getDataStorage("dataOrdersUser"));
+    const storedData = getDataStorage("dataOrderUser");
+    setData(storedData);
+    setFilteredData(storedData);
+    setUser(getDataStorage(`dataUser`));
   }, []);
 
+  const handleStateChange = (e) => {
+    const selectedState = e.target.value;
+    setEstado(selectedState);
+
+    if (selectedState) {
+      const pedidoFiltrado = data.filter(
+        (pedido) =>
+          pedido.detalles_pedido[0]?.estado_pedido.trim() === selectedState
+      );
+
+      if (pedidoFiltrado.length > 0) {
+        setFilteredData(pedidoFiltrado);
+      } else {
+        setFilteredData([]);
+      }
+    } else {
+      setFilteredData(data);
+    }
+  };
+
   return (
-    <section className="mt-3 bg-white min-h-screen p-2 md:p-4 gap-5 flex flex-col">
-      {!Array.isArray(data) || data.length === 0 ? (
+    <section className="mt-3 bg-white min-h-screen p-2 md:p-4 gap-2 flex flex-col">
+      <div className="border py-2 px-5 bg-[#e7e9ed] flex justify-between items-center ">
+        <a
+          href="/Ventas"
+          className="flex items-center cursor-pointer p-2 rounded-md  text-white shadow-sm hover:scale-110 duration-150 bg-slate-500 hover:bg-slate-600">
+          <Back />
+          <p className="text-base">Volver a compras</p>
+        </a>
+        <div className="flex items-center gap-2">
+          <p className="font-semibold">Filtrar por: </p>
+          <Form>
+            <Form.Select
+              className="text-sm md:text-base"
+              aria-label="Default select example"
+              onChange={handleStateChange}
+              value={estado}>
+              <option value="">Seleccione un estado</option>
+              <option value="alistamiento">En alistamiento</option>
+              <option value="camino">En camino</option>
+              <option value="entregado">Entregados</option>
+            </Form.Select>
+          </Form>
+        </div>
+      </div>
+      {!Array.isArray(filteredData) || filteredData === null ? (
         <span className="bg-gray-500 w-full">
           <p className="bg-gray-200 text-center py-2 font-semibold">
             Cargando datos...
           </p>
         </span>
+      ) : filteredData.length === 0 ? (
+        <span className="bg-[#f5f6fa]  w-full">
+          <p className="text-center py-2 font-semibold h-full">
+            No hay pedidos con ese estado.
+          </p>
+        </span>
       ) : (
-        data.map((order, index) => (
-          <div key={order.id || index} className=" p-0 md:p-2 border">
-            <div className=" bg-gray-300 py-2">
+        filteredData.map((order, index) => (
+          <div key={order.id || index} className="p-0 md:p-2 border">
+            <div className="bg-gray-300 py-2">
               <h2 className="text-center text-sm md:text-base font-semibold">
                 Detalles de la compra N° {index + 1}
               </h2>
@@ -36,6 +91,7 @@ const DetallePedido = () => {
                       <th className="text-xs md:text-sm">Método de Pago</th>
                       <th className="text-xs md:text-sm">Total pagado</th>
                       <th className="text-xs md:text-sm">Cantidad</th>
+                      <th className="text-xs md:text-sm">Costo de envio</th>
                       <th className="text-xs md:text-sm">Descuento</th>
                       <th className="text-xs md:text-sm">Estado del pago</th>
                     </tr>
@@ -46,12 +102,14 @@ const DetallePedido = () => {
                         {order.detalles_pedido[0]?.metodo_pago}
                       </td>
                       <td className="text-xs md:text-sm">
-                        {formateValue(
-                          parseFloat(order.detalles_pedido[0]?.total_pago)
-                        )}
+                        $: {formateValue(order.detalles_pedido[0]?.total_pago)}
                       </td>
                       <td className="text-xs md:text-sm">
                         {order.detalles_pedido[0]?.cantidad}
+                      </td>
+                      <td className="text-xs md:text-sm">
+                        $:{" "}
+                        {formateValue(order.detalles_pedido[0]?.costo_de_envio)}
                       </td>
                       <td className="text-xs md:text-sm">
                         {order.detalles_pedido[0]?.descuento}
@@ -64,7 +122,7 @@ const DetallePedido = () => {
                   </tbody>
                 </Table>
                 <h2 className="text-center pb-2 font-semibold text-sm md:text-base">
-                  Datos del comprador{" "}
+                  Datos del comprador
                 </h2>
                 <Table striped bordered hover size="sm" responsive>
                   <thead>
@@ -81,19 +139,19 @@ const DetallePedido = () => {
                   <tbody>
                     <tr>
                       <td className="text-xs md:text-sm text-wrap">
-                        {user.name || user.nombre}
+                        {user.name || user?.nombre}
                       </td>
                       <td className="text-xs md:text-sm text-wrap">
-                        {user.email}
+                        {user?.email}
                       </td>
                       <td className="text-xs md:text-sm text-wrap">
-                        {user.telefono}
+                        {user?.telefono}
                       </td>
                       <td className="text-xs md:text-sm text-wrap">
-                        {user.direccion}
+                        {user?.direccion}
                       </td>
                       <td className="text-xs md:text-sm text-wrap">
-                        {user.detalles}
+                        {user?.detalles}
                       </td>
                     </tr>
                   </tbody>
@@ -107,17 +165,17 @@ const DetallePedido = () => {
               {order.detalles_pedido.map((detalle, index) => (
                 <div
                   key={index}
-                  className="p-3 max-w-36 md:max-w-48 bg-white flex flex-col  items-center rounded-md">
+                  className="p-3 max-w-36 md:max-w-48 bg-white flex flex-col items-center rounded-md">
                   <img
                     src={detalle.Producto.image}
                     alt="img"
                     loading="lazy"
-                    className="w-20 md:w-32 "
+                    className="w-20 md:w-32"
                   />
-                  <p className=" text-[10px] md:text-xs">
+                  <p className="text-[10px] md:text-xs">
                     Ref: {detalle.Producto.referencia}
                   </p>
-                  <p className=" text-[11px] md:text-sm">
+                  <p className="text-[11px] md:text-sm">
                     {detalle.Producto.nombre}
                   </p>
                   <p className="font-semibold text-sm md:text-base">

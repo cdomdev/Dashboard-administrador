@@ -2,23 +2,41 @@ import { Button, Form, FloatingLabel } from "react-bootstrap";
 import { useState } from "react";
 import { createCategory } from "@/services/categorias";
 
-export const Crear = ({ setCategorias, guy }) => {
+export const Crear = ({
+  setCategorias,
+  guy,
+  setBgToast,
+  setShowToast,
+  setToastMessage,
+}) => {
   const [categoryName, setCategoryName] = useState("");
 
   const handleCategory = async () => {
     try {
-      if (!categoryName) {
+      if (
+        !categoryName ||
+        typeof categoryName !== "string" ||
+        categoryName.length === 0
+      ) {
+        setBgToast("danger");
+        setShowToast(true);
+        setToastMessage("Este campo solo debe contener texto");
         return;
       }
 
       const data = { nombre: categoryName };
-      const response = await createCategory(data)
-
+      const response = await createCategory(data);
       if (response.status === 201) {
         setCategorias(response.data.categorias);
         setCategoryName("");
+        setBgToast("success");
+        setShowToast(true);
+        setToastMessage("Nueva categoria agregada con exito");
       }
     } catch (error) {
+      setBgToast("danger");
+      setShowToast(true);
+      setToastMessage("Algo salio mal, intentalo de nuevo");
       console.log("Error en la crecion de la categoria", error);
     }
   };

@@ -3,7 +3,13 @@ import { Button, Modal } from "react-bootstrap";
 import { Exclamation } from "../icons/Exclamation";
 import { deleteOfert } from "../../services/ofertas";
 
-const Eliminar = ({ oferta, setOfertas }) => {
+const Eliminar = ({
+  oferta,
+  setOfertas,
+  setBgToast,
+  setShowToast,
+  setToastMessage,
+}) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleClose = () => setShowModal(false);
@@ -14,6 +20,13 @@ const Eliminar = ({ oferta, setOfertas }) => {
     if (response.status === 200) {
       setOfertas(response.data.ofertas);
       setShowModal(false);
+      setBgToast("success");
+      setShowToast(true);
+      setToastMessage("Oferta eliminada con exito");
+    } else {
+      setBgToast("warning");
+      setShowToast(true);
+      setToastMessage("Algo salio mal, intentalo de neuvo");
     }
   };
 

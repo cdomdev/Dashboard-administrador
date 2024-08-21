@@ -4,7 +4,14 @@ import { v4 as uuidv4 } from "uuid";
 import { Up } from "../icons/Up";
 import { saveImage } from "../../services/productos";
 
-const Crear = ({ setListado, categorias, subcategorias }) => {
+const Crear = ({
+  setListado,
+  categorias,
+  subcategorias,
+  setBgToast,
+  setShowToast,
+  setToastMessage,
+}) => {
   const [fileName, setFileName] = useState("");
 
   const [selectedCategoria, setSelectedCategoria] = useState("");
@@ -65,6 +72,9 @@ const Crear = ({ setListado, categorias, subcategorias }) => {
       !nombre ||
       imagesToSend.length === 0
     ) {
+      setBgToast("danger");
+      setShowToast(true);
+      setToastMessage("Faltan datos para el nuevo producto");
       return;
     }
 
@@ -125,6 +135,9 @@ const Crear = ({ setListado, categorias, subcategorias }) => {
           image: "",
         });
         setFileName("");
+        setToastMessage("Producto agregado exitosamente");
+        setBgToast("success");
+        setShowToast(true);
       }
     } catch (error) {
       console.log(`Hubo un error en la solicitud ${error}`);

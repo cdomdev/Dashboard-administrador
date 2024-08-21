@@ -4,9 +4,9 @@ export const createCategory = async (nombre) => {
   try {
     const response = await axios.post(
       "http://localhost:3000/api/categories/create",
-      { nombre }
+      nombre
     );
-    return response.data;
+    return response;
   } catch (error) {
     console.error("Error creating category:", error);
     throw error;
@@ -38,7 +38,7 @@ export const deleteCategory = async (id) => {
     const response = await axios.delete(
       `http://localhost:3000/api/categories/delete/${id}`
     );
-    return response.data;
+    return response;
   } catch (error) {
     console.error("Error deleting category:", error);
     throw error;

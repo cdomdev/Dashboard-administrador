@@ -5,8 +5,26 @@ export const Filtros = ({
   setCategoriaSeleccionada,
   productos,
   precioSeleccionado,
-  handlePrecioChange,
+  setData,
+  setPrecioSeleccionado,
+  data,
 }) => {
+  const handlePrecioChange = (e) => {
+    setPrecioSeleccionado(e.target.value);
+
+    if (e.target.value === "menor-mayor") {
+      const productosOrdenados = [...data].sort(
+        (a, b) => parseFloat(a.valor) - parseFloat(b.valor)
+      );
+      setData(productosOrdenados);
+    } else if (e.target.value === "mayor-menor") {
+      const productosOrdenados = [...data].sort(
+        (a, b) => parseFloat(b.valor) - parseFloat(a.valor)
+      );
+      setData(productosOrdenados);
+    }
+  };
+
   return (
     <>
       <Form.Select

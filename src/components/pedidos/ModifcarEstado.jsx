@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import "./style.css";
 import { updateState } from "../../services/pedidos";
+import { ToastCammon } from "../ToastCammon";
 
 const states = {
   alistamiento: "alistamiento",
@@ -11,15 +12,26 @@ const states = {
 
 export const ModifcarEstado = ({ pedido }) => {
   const [estado, setEstado] = useState(pedido.estado);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [bgToast, setBgToast] = useState("");
 
   const handleChangeEstado = async (e) => {
     try {
       const response = await updateState(pedido.id, estado);
 
       if (response.status === 200) {
-        console.log("estado actulizado");
+        setShowToast(true);
+        setBgToast("success");
+        setToastMessage(
+          "Estado del pedido actualizado con exito, el color cambiara una salga y vuelva a entrar a los pedidos de este usuario"
+        );
+        setEstado(response.data.estado);
       }
     } catch (error) {
+      setShowToast(true);
+      setBgToast("danger");
+      setToastMessage("Algo salio mal, intentelo de nuevo");
       console.log("Error en la actulizacion del estado", error);
     }
   };
@@ -32,6 +44,12 @@ export const ModifcarEstado = ({ pedido }) => {
 
   return (
     <div className="flex items-center justify-end gap-2">
+      <ToastCammon
+        bgToast={bgToast}
+        setShowToast={setShowToast}
+        showToast={showToast}
+        toastMessage={toastMessage}
+      />
       <p className="hidden md:block text-sm md:text-base">
         Estado del pedido:{" "}
       </p>

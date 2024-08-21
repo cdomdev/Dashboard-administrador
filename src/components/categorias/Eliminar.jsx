@@ -1,36 +1,49 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import {deleteCategory} from '../../services/categorias'
+import { deleteCategory } from "../../services/categorias";
 
-const Eliminar = ({ setCategorias, categorias, guy }) => {
+const Eliminar = ({
+  setCategorias,
+  categorias,
+  guy,
+  setBgToast,
+  setShowToast,
+  setToastMessage,
+}) => {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
 
   const handleCategoryChange = (e) => {
     const id = e.target.value;
     setSelectedCategoryId(id);
   };
-  const handleCategoryDelete = async () => {
-    try {
-      if (!selectedCategoryId) {
-        console.log("mal");
-        return;
-      }
-      const id = parseInt(selectedCategoryId);
-      console.log(id);
 
-      // corregir constrolador de la api, el id se saca de los parametros de la url
+  const handleCategoryDelete = async () => {
+    if (!selectedCategoryId) {
+      setToastMessage("Por favor seleccione una categoría");
+      setBgToast("warning");
+      setShowToast(true);
+      return;
+    }
+
+    try {
+      const id = parseInt(selectedCategoryId);
       const response = await deleteCategory(id);
 
       if (response.status === 200) {
         setCategorias(response.data.categorias);
-        console.log(response);
-      } else {
+        setBgToast("success");
+        setToastMessage(`Categoria eliminada con exito`);
+        setShowToast(true);
+        selectedCategoryId(null);
       }
     } catch (error) {
       console.error("Error al intentar eliminar la categoría", error);
       if (error.response.status === 401 || error.response === 403) {
         console.log("No tienes permisos");
       }
+      setBgToast("danger");
+      setToastMessage("Algo salio mal, por favor intentelo de nuevo");
+      setShowToast(true);
     }
   };
 

@@ -4,7 +4,5 @@ import GestionCategorias from "../components/categorias/GestionCategorias.jsx";
 ---
 
 <Layout title="Categorias">
-  <div>
-    <GestionCategorias client:load />
-  </div>
+  <GestionCategorias client:only="react" />
 </Layout>

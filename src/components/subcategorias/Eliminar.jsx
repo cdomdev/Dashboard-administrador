@@ -2,28 +2,46 @@ import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { deleteSubcategory } from "../../services/subcategorias";
 
-const Eliminar = ({ setCategorias, categorias, guy }) => {
+const Eliminar = ({
+  setCategorias,
+  categorias,
+  guy,
+  setBgToast,
+  setShowToast,
+  setToastMessage,
+}) => {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
 
   const handleCategoryChange = (e) => {
     const id = e.target.value;
     setSelectedCategoryId(id);
   };
-  const handleCategoryDelete = async () => {
-    try {
-      if (!selectedCategoryId) {
-        console.log("faltan datos");
-        return;
-      }
-      const id = parseInt(selectedCategoryId);
 
-      console.log(id);
-      const response = await deleteSubcategory(id)
+  const handleCategoryDelete = async () => {
+    if (!selectedCategoryId) {
+      setToastMessage("Por favor seleccione una subcategoría");
+      setBgToast("warning");
+      setShowToast(true);
+      return;
+    }
+
+    try {
+      const id = parseInt(selectedCategoryId);
+      const response = await deleteSubcategory(id);
+
       if (response.status === 200) {
         setCategorias(response.data.categorias);
-      } else {
+        setToastMessage("Subcategoria eliminada con exito");
+        setBgToast("success");
+        setSelectedCategoryId(null);
+        setShowToast(true);
       }
     } catch (error) {
+      if (error && error.response === 500) {
+        setToastMessage("Algo salio interno, intentalo de nuevo");
+        setBgToast("success");
+        setSelectedCategoryId(null);
+      }
       console.error("Error al intentar eliminar la categoría", error);
     }
   };

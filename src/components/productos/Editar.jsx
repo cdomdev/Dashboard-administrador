@@ -2,7 +2,13 @@ import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { getDataStorage } from "../../utils/getDataStorage";
 
-const Editar = ({ producto, setListado }) => {
+const Editar = ({
+  producto,
+  setListado,
+  setBgToast,
+  setToastMessage,
+  setShowToast,
+}) => {
   const [showModal, setShowModal] = useState(false);
 
   const guardarEdicion = async (e, id) => {
@@ -37,7 +43,10 @@ const Editar = ({ producto, setListado }) => {
       )
     );
     if (productoActualizado) {
-      alert("Actulizado");
+      setToastMessage("Producto actulizado");
+      setBgToast("success");
+      setShowToast(true);
+      setShowModal(false);
     }
   };
 

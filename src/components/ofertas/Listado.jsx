@@ -5,7 +5,13 @@ import { useEffect } from "react";
 import { listar } from "../../services/ofertas";
 import { Accordion } from "react-bootstrap";
 
-const Listado = ({ ofertas, setOfertas }) => {
+const Listado = ({
+  ofertas,
+  setOfertas,
+  setBgToast,
+  setShowToast,
+  setToastMessage,
+}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -21,7 +27,7 @@ const Listado = ({ ofertas, setOfertas }) => {
 
   return (
     <div className="section-listado-ofertas">
-      <h4 className="text-lg font-semibold mb-2 bg-white px-2 py-1 border">
+      <h4 className="text-lg font-semibold mb-2 bg-white px-2 py-1">
         Ofertas vigentes
       </h4>
       <Accordion defaultActiveKey="0">
@@ -66,8 +72,20 @@ const Listado = ({ ofertas, setOfertas }) => {
                     </ul>
                   </div>
                   <div className="flex flex-col gap-2 ">
-                    <Eliminar oferta={oferta} setOfertas={setOfertas} />
-                    <Actualizar oferta={oferta} setOfertas={setOfertas} />
+                    <Eliminar
+                      oferta={oferta}
+                      setOfertas={setOfertas}
+                      setBgToast={setBgToast}
+                      setShowToast={setShowToast}
+                      setToastMessage={setToastMessage}
+                    />
+                    <Actualizar
+                      oferta={oferta}
+                      setOfertas={setOfertas}
+                      setBgToast={setBgToast}
+                      setShowToast={setShowToast}
+                      setToastMessage={setToastMessage}
+                    />
                   </div>
                 </div>
               </Accordion.Body>

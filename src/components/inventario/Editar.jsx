@@ -2,7 +2,14 @@ import { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { stockUpdate } from "../../services/inventario";
 
-const Editar = ({ producto, currentStock, setProductos }) => {
+const Editar = ({
+  producto,
+  currentStock,
+  setProductos,
+  setBgToast,
+  setShowToast,
+  setToastMessage,
+}) => {
   const [showModal, setShowModal] = useState(false);
   const [newStock, setNewStock] = useState(currentStock);
 
@@ -13,9 +20,16 @@ const Editar = ({ producto, currentStock, setProductos }) => {
       if (response.status === 200) {
         setShowModal(false);
         setProductos(response.data.inventaryUpdate);
+        setBgToast("success");
+        setToastMessage("Cantidad en stock modificada con exito");
+        setShowToast(true);
       }
     } else {
-      console.log("cantidad de inventario vacia");
+      setBgToast("danger");
+      setToastMessage(
+        "Hubo un error al modificar el stock del producto, intentelo de nuevo"
+      );
+      setShowToast(true);
     }
   };
 

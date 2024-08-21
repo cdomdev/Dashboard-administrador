@@ -2,23 +2,36 @@ import { Button, Form, FloatingLabel } from "react-bootstrap";
 import { useState } from "react";
 import { createSubcategory } from "@/services/subcategorias";
 
-export const Crear = ({ setCategorias, guy }) => {
+export const Crear = ({
+  setCategorias,
+  guy,
+  setBgToast,
+  setShowToast,
+  setToastMessage,
+}) => {
   const [categoryName, setCategoryName] = useState("");
 
   const handleCategory = async () => {
     try {
-      if (!categoryName) {
-        console.log("faltan datos");
+      if (
+        !categoryName ||
+        typeof categoryName !== "string" ||
+        categoryName.length === 0
+      ) {
+        setBgToast("danger");
+        setShowToast(true);
+        setToastMessage("Este campo solo debe contener texto");
         return;
       }
 
       const data = { nombre: categoryName };
-      const response = await createSubcategory(data)
-      console.log(response);
+      const response = await createSubcategory(data);
       if (response.status === 201) {
-        console.log(response);
         setCategorias(response.data.categorias);
-        setCategoryName(" ");
+        setCategoryName("");
+        setToastMessage("Nueva subcategoria agregada con exito");
+        setBgToast("success");
+        setShowToast(true);
       }
     } catch (error) {
       console.log("Error en la crecion de la categoria", error);

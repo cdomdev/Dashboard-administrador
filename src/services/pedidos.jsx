@@ -30,9 +30,9 @@ export const updateState = async (id, estado) => {
   }
 };
 
-export const orderUser = async (id, url) => {
+export const orderUser = async (id, ruta) => {
   try {
-    const response = await axios.post(`${API_HOST}/api/listar/${url}/${id}`);
+    const response = await axios.get(`${API_HOST}/api/listar/${ruta}/${id}`);
     return response;
   } catch (e) {
     console.log(e);

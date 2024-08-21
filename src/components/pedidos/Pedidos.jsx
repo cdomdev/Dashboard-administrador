@@ -1,24 +1,20 @@
 import { useState } from "react";
-import axios from "axios";
 import { Spinner } from "react-bootstrap";
-import API_HOST from "../../config/config";
-// import Box from "../icons/Box.astro";
+import { Box } from "../icons/Box.jsx";
+import { orderUser } from "../../services/pedidos";
 
-const Pedidos = ({ user, url }) => {
+export const Pedidos = ({ user, ruta }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const viewOrders = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.post(
-        `${API_HOST}/api/listar/${url}/${user.id}`
-      );
-      console.log(response.data);
+      const response = await orderUser(user.id, ruta);
       if (response.status === 200) {
         const ordersUser = response.data.pedidos;
         window.location.href = "/Detalles";
-        localStorage.setItem("dataOrdersUser", JSON.stringify(ordersUser));
-        localStorage.setItem("dataUserOrders", JSON.stringify(user));
+        localStorage.setItem("dataOrderUser", JSON.stringify(ordersUser));
+        localStorage.setItem("dataUser", JSON.stringify(user));
       }
     } catch (e) {
       console.log("Error al listar el pedido", e);
@@ -28,16 +24,16 @@ const Pedidos = ({ user, url }) => {
   };
 
   return (
-    <button onClick={viewOrders} className="btn-orders">
+    <button className="btn-orders" onClick={viewOrders}>
       {isLoading ? (
         <div className="spinner-container  ">
           <Spinner animation="border" role="status" size="sm" />
         </div>
       ) : (
-        <> Tiene pedidos</>
+        <span className="flex items-center gap-1">
+          <Box /> Ver pedidos
+        </span>
       )}
     </button>
   );
 };
-
-export default Pedidos;

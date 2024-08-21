@@ -1,10 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Editar from "./Editar";
 import Delete from "./Delete";
 import { getDataStorage } from "../../utils/getDataStorage";
 import formateValue from "../../utils/formateValue";
 
-const Listado = ({ listado, setListado }) => {
+const Listado = ({
+  listado,
+  setListado,
+  setBgToast,
+  setToastMessage,
+  setShowToast,
+}) => {
   useEffect(() => {
     setListado(getDataStorage("productos"));
   }, []);
@@ -21,6 +27,7 @@ const Listado = ({ listado, setListado }) => {
                     src={producto.image}
                     alt="Preview"
                     className="w-36 bg-white"
+                    loading="lazy"
                   />
                 )}
                 <div className="flex flex-col w-full p-2 ">
@@ -34,7 +41,7 @@ const Listado = ({ listado, setListado }) => {
                   </span>
                   <span>
                     <strong>Valor: $ </strong>
-                    {formateValue(parseInt(producto.valor))}
+                    {formateValue(producto.valor)}
                   </span>
                   <span>
                     <strong>Cantidad: </strong>
@@ -56,8 +63,20 @@ const Listado = ({ listado, setListado }) => {
                   <p className="text-wrap">{producto.description}</p>
                 </div>
                 <div className="w-full flex flex-col gap-2">
-                  <Editar producto={producto} setListado={setListado} />
-                  <Delete id={producto.id} setListado={setListado} />
+                  <Editar
+                    producto={producto}
+                    setListado={setListado}
+                    setBgToast={setBgToast}
+                    setShowToast={setShowToast}
+                    setToastMessage={setToastMessage}
+                  />
+                  <Delete
+                    id={producto.id}
+                    setListado={setListado}
+                    setBgToast={setBgToast}
+                    setShowToast={setShowToast}
+                    setToastMessage={setToastMessage}
+                  />
                 </div>
               </div>
             </article>

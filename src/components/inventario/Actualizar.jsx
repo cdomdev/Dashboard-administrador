@@ -4,7 +4,13 @@ import { listarCat } from "../../services/categorias";
 import { listarSub } from "../../services/subcategorias";
 import { updateDataProduct } from "@/services/inventario";
 
-const Actualizar = ({ producto, setData }) => {
+const Actualizar = ({
+  producto,
+  setData,
+  setBgToast,
+  setShowToast,
+  setToastMessage,
+}) => {
   const [showModal, setShowModal] = useState(false);
   const [categorias, setCategorias] = useState([]);
   const [subcategorias, setSubcategorias] = useState([]);
@@ -83,13 +89,20 @@ const Actualizar = ({ producto, setData }) => {
         productosActualizado,
         producto.id
       );
-      console.log(response.data);
       if (response.status === 200) {
         setShowModal(false);
         setData(response.data.productosUpdate);
+        setBgToast("success");
+        setToastMessage("Producto actualizado con exito");
+        setShowToast(true);
       }
     } catch (error) {
       console.log("Error en el servidor", error);
+      setBgToast("danger");
+      setToastMessage(
+        "Hubo un error al acualizar datos del producto, intentelo de nuevo"
+      );
+      setShowToast(true);
     } finally {
       setIsLoading(false);
     }
