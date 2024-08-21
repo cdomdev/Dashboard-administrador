@@ -28,7 +28,7 @@ const ListadoPedidos = () => {
   return (
     <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen">
       <div className="dark:border-gray-700 mt-1">
-        <div className="w-full pt-2 bg-white p-3 min-h-screen mt-3">
+        <div className="w-full pt-2 bg-white p-3 min-h-screen mt-4">
           <h2 className="text-center mt-3 mb-1 border py-2 bg-[#1976d2] text-white text-lg">
             Listado de usuarios pedidos
           </h2>

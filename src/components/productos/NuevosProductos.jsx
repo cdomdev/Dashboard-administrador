@@ -40,7 +40,7 @@ const NuevosProductos = () => {
 
   return (
     <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen">
-      <div className="dark:border-gray-700 mt-1">
+      <div className="dark:border-gray-700 mt-2">
         <section className="productos flex flex-col md:flex-row gap-2 md:gap-4 py-3 w-full relative">
           <ToastCammon
             bgToast={bgToast}

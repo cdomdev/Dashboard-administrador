@@ -6,6 +6,7 @@ import Actualizar from "./Actualizar";
 import Eliminar from "./Eliminar";
 import { Filtros } from "./Filtros";
 import { ToastCammon } from "../ToastCammon";
+import { checkSession } from "@/utils/checkSession";
 
 const GestionInventario = () => {
   const [data, setData] = useState([]);
@@ -47,8 +48,8 @@ const GestionInventario = () => {
         showToast={showToast}
         toastMessage={toastMessage}
       />
-      <div className="dark:border-gray-700 mt-1">
-        <div className="flex bg-white items-center mb-2 mt-3 px-4 justify-end">
+      <div className="dark:border-gray-700 mt-2">
+        <div className="flex bg-white items-center mb-2 mt-4 px-4 justify-end">
           <span className="mr-3 text-base font-semibold hidden md:block">
             Filtrar por:{" "}
           </span>

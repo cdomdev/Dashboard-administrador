@@ -17,9 +17,23 @@ export default {
         "custom-color1": "rgb(191, 190, 167)",
         "custom-color2": "rgb(200, 200, 200)",
         "custom-color3": "rgb(195, 195, 195)",
+        "color-a": "#fbddb9",
+        "color-b": "#6ee35e",
+        "color-c": "#cd76d8",
+        "color-d": "#c86464",
+        "color-e": "#33ddc0",
+        "color-f": "#284cc5",
       },
     },
   },
+
   darkMode: "class",
-  plugins: [require("flowbite/plugin")],
+
+  plugins: [
+    require("tailwindcss"),
+    require("autoprefixer"),
+    require("flowbite/plugin")({
+      charts: true,
+    }),
+  ],
 };

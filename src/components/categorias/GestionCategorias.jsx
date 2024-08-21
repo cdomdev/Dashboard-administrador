@@ -27,7 +27,7 @@ const GestionCategorias = () => {
         toastMessage={toastMessage}
       />
       <div className="dark:border-gray-700 mt-1">
-        <div className="flex flex-col md:grid md:grid-cols-2 gap-1 pt-3">
+        <div className="flex flex-col md:grid md:grid-cols-2 gap-1 pt-4">
           <div className="flex flex-col gap-1">
             <Crear
               guy={"categoria"}

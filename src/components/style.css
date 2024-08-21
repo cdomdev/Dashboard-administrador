@@ -1,0 +1,17 @@
+#drop-1,
+#drop-2,
+#drop-3,
+#drop-4,
+#drop-5 {
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+
+li:hover #drop-1,
+li:hover #drop-2,
+li:hover #drop-3,
+li:hover #drop-4,
+li:hover #drop-5 {
+    display: block;
+}

@@ -7,6 +7,8 @@ export const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const dataKey = process.env.VITE_DATA_ADMIN_SESION;
+  console.log(dataKey);
 
   useEffect(() => {
     setIsAuthenticated(checkSession());
@@ -34,7 +36,11 @@ export const Auth = () => {
           withCredentials: true,
         }
       );
-      console.log(response);
+      if (response.status === 200) {
+        window.location.href = "/Dashboard";
+      }
+      localStorage.setItem(dataKey, JSON.stringify(response.data));
+
       if (response && response.status === 404) {
         localStorage.setItem("access_token", response.data.access_token);
         window.location.href = "/";
@@ -67,7 +73,7 @@ export const Auth = () => {
         <span className="text-center block mt-2 text-xs font-semibold text-red-600">
           <p className="text-base">{message}</p>
         </span>
-        <form className="max-w-sm m-auto w-full">
+        <form className="max-w-sm m-auto w-full" onSubmit={handleSubmit}>
           <label
             htmlFor="email-address-icon"
             className="block my-1 mx-1 text-sm font-medium text-gray-900 dark:text-white">

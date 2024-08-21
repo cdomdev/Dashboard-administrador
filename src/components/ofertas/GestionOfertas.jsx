@@ -26,7 +26,7 @@ const Ofertas = () => {
         showToast={showToast}
       />
       <div className="dark:border-gray-700 mt-1">
-        <div className="flex flex-col md:flex-row pt-3 gap-1">
+        <div className="flex flex-col md:flex-row pt-3 gap-1 mt-2">
           <div className="min-w-w-3/6">
             <Crear
               setOfertas={setOfertas}

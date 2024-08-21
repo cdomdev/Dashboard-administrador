@@ -9,7 +9,6 @@ export const Profile = () => {
     if (typeof window !== "undefined") {
       const storedData = getDataStorage("userOnValidateScesOnline");
       setData(storedData);
-      console.log(storedData);
     }
   }, []);
 
@@ -26,7 +25,7 @@ export const Profile = () => {
           data-dropdown-toggle="userDropdown"
           data-dropdown-placement="bottom-start"
           className="w-10 h-10 rounded-full cursor-pointer relative"
-          src={data?.picture}
+          src={data.picture}
           alt="profile user"
           onClick={toggleDropdown}
           loading="lazy"
@@ -47,37 +46,21 @@ export const Profile = () => {
 
       <div
         id="userDropdown"
-        className={`z-10 absolute right-3 -bottom-56 ${
+        className={`z-10 absolute right-3 -bottom-[170px] ${
           dropdownOpen ? "block" : "hidden"
         } bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}>
         <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-          <div>{data?.name || "Bonnie Green"}</div>
-          <div className="font-medium truncate">
-            {data?.email || "name@flowbite.com"}
-          </div>
+          <div>{data.user?.name || data.user?.nombre}</div>
+          <div className="font-medium truncate">{data.user?.email || ""}</div>
         </div>
         <ul
           className="py-2 text-sm text-gray-700 dark:text-gray-200"
           aria-labelledby="avatarButton">
           <li>
             <a
-              href="#"
+              href="/Dashboard"
               className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
               Dashboard
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-              Settings
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-              Earnings
             </a>
           </li>
         </ul>

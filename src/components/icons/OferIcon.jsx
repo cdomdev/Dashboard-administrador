@@ -9,7 +9,7 @@ export const OferIcon = () => {
       strokeWidth="1.5"
       stroke="#2c3e50"
       fill="none"
-      strokeLinecapp="round"
+      strokeLinecap="round"
       strokeLinejoin="round">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
       <path d="M9 15l6 -6"></path>
