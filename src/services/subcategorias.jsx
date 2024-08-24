@@ -1,8 +1,9 @@
 import axios from "axios";
+import { api } from "@/config/axios.conf";
 
 export const createSubcategory = async (nombre) => {
   try {
-    const response = await axios.post(
+    const response = await api.post(
       "http://localhost:3000/api/subcategories/create",
       nombre
     );
@@ -27,7 +28,7 @@ export const listarSub = async () => {
 
 export const deleteSubcategory = async (id) => {
   try {
-    const response = await axios.delete(
+    const response = await api.delete(
       `http://localhost:3000/api/subcategories/delete/${id}`
     );
     return response;

@@ -16,17 +16,43 @@ const Eliminar = ({
   const handleShow = () => setShowModal(true);
 
   const handleDeleteOferta = async () => {
-    const response = await deleteOfert(oferta.id);
-    if (response.status === 200) {
-      setOfertas(response.data.ofertas);
-      setShowModal(false);
-      setBgToast("success");
-      setShowToast(true);
-      setToastMessage("Oferta eliminada con exito");
-    } else {
-      setBgToast("warning");
-      setShowToast(true);
-      setToastMessage("Algo salio mal, intentalo de neuvo");
+    try {
+      const response = await deleteOfert(oferta.id);
+      if (response.status === 200) {
+        setOfertas(response.data.ofertas);
+        setShowModal(false);
+        setBgToast("success");
+        setShowToast(true);
+        setToastMessage("Oferta eliminada con exito");
+      } else {
+        setBgToast("warning");
+        setShowToast(true);
+        setToastMessage("Algo salio mal, intentalo de neuvo");
+      }
+    } catch (error) {
+      console.error("Error al intentar eliminar una oferta");
+      if (error.response) {
+        const { status } = error.response;
+        if (status === 401 || status === 403) {
+          setBgToast("warning");
+          setToastMessage("No tienes los permisos para esta operación");
+          setShowToast(true);
+          setShowModal(false);
+        } else if (status === 500) {
+          setBgToast("danger");
+          setToastMessage(
+            "Hubo un error intentar eliminar la oferta, inténtelo de nuevo"
+          );
+          setShowToast(true);
+          setShowModal(false);
+        } else {
+          setBgToast("danger");
+          setToastMessage(
+            "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde."
+          );
+          setShowToast(true);
+        }
+      }
     }
   };
 

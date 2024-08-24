@@ -15,14 +15,41 @@ const Editar = ({
 
   const handleSaveChanges = async () => {
     if (!isNaN(newStock) && newStock.trim() !== "") {
-      const updatedStock = parseInt(newStock);
-      const response = await stockUpdate(updatedStock, producto.id);
-      if (response.status === 200) {
-        setShowModal(false);
-        setProductos(response.data.inventaryUpdate);
-        setBgToast("success");
-        setToastMessage("Cantidad en stock modificada con exito");
-        setShowToast(true);
+      try {
+        const updatedStock = parseInt(newStock);
+        const response = await stockUpdate(updatedStock, producto.id);
+        if (response.status === 200) {
+          setShowModal(false);
+          setProductos(response.data.inventaryUpdate);
+          setBgToast("success");
+          setToastMessage("Cantidad en stock modificada con exito");
+          setShowToast(true);
+        } else if (response.status === 404) {
+          setBgToast("warning");
+          setToastMessage(
+            "Algo salio mal al intentar modificar cantidad del producto, intentalo de nuevo"
+          );
+        }
+      } catch (error) {
+        console.error(
+          "Error al actualizar la información del producto en inventario:",
+          error
+        );
+
+        const status = error.response.status || error.status;
+        if (status === 401 || status === 403) {
+          setBgToast("warning");
+          setToastMessage("No tienes los permisos para esta operación");
+          setShowToast(true);
+          setShowModal(false);
+        } else if (status === 500) {
+          setBgToast("danger");
+          setToastMessage(
+            "Hubo un error al actualizar la cantidad de del producto, inténtelo de nuevo"
+          );
+          setShowToast(true);
+          setShowModal(false);
+        }
       }
     } else {
       setBgToast("danger");

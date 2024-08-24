@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 export const Notificaciones = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [messages, setMessages] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       const data = await notificaciones();
@@ -38,24 +39,26 @@ export const Notificaciones = () => {
       </button>
 
       <div
-        className={`z-10 absolute right-1 -bottom-[100px] ${
+        className={`z-10 right-1 -bottom-10 md:-bottom-[40px] h-auto absolute ${
           dropdownOpen ? "block" : "hidden"
-        } bg-white divide-y divide-gray-100 rounded-lg shadow w-96 dark:bg-gray-700 dark:divide-gray-600 `}>
-        {messages && messages?.notifications ? (
-          <ul className="flex flex-col gap-2">
+        } bg-white divide-y divide-gray-100 rounded-lg shadow w-80 md:w-96 dark:bg-gray-700 dark:divide-gray-600 `}>
+        {messages.notifications && messages.notifications.length > 0 ? (
+          <ul className="flex flex-col">
             {messages.notifications.map((noti) => (
               <li
                 key={noti.id}
-                className="text-[12px] flex flex-col hover:bg-gray-300 p-2 rounded-sm cursor-pointer">
-                {noti.mensaje}
-                <span className="text-gray-600 text-right pr-7">
-                  {formatTimestamp(noti.createdAt)}
-                </span>
+                className="text-[10px] md:text-[11px] flex gap-1 hover:bg-gray-300 p-2 rounded-sm items-center justify-between">
+                <div className="">
+                  <p className="text-wrap leading-3">{noti.mensaje}</p>
+                  <span className="text-gray-600 text-right">
+                    {formatTimestamp(noti.createdAt)}
+                  </span>
+                </div>
               </li>
             ))}
           </ul>
         ) : (
-          <p>cargando...</p>
+          <div className="p-2 text-center">No hay notificaciones</div>
         )}
       </div>
     </>

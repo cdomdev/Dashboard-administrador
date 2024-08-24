@@ -11,17 +11,36 @@ const Eliminar = ({
   setToastMessage,
 }) => {
   const [showModal, setShowModal] = useState(false);
-
-  //   solcitud para elminar producto seleccionado
-
   const handleDelete = async () => {
-    const response = await deleteDataInventary(producto.id);
-    if (response && response.status === 200) {
-      setData(response.data.daleteUpdate);
-      setShowModal(false);
-      setBgToast("success");
-      setToastMessage("Producto eliminado con exito");
-      setShowToast(true);
+    try {
+      const response = await deleteDataInventary(producto.id);
+      if (response && response.status === 200) {
+        setData(response.data.daleteUpdate);
+        setShowModal(false);
+        setBgToast("success");
+        setToastMessage("Producto eliminado con exito");
+        setShowToast(true);
+      }
+    } catch (error) {
+      console.error(
+        "Error al intentar eliminar el producto de inventario:",
+        error
+      );
+
+      const status = error.response.status || error.status;
+      if (status === 401 || status === 403) {
+        setBgToast("warning");
+        setToastMessage("No tienes los permisos para esta operación");
+        setShowToast(true);
+        setShowModal(false);
+      } else if (status === 500) {
+        setBgToast("danger");
+        setToastMessage(
+          "Hubo un error al intentar eliminar el producto, inténtelo de nuevo"
+        );
+        setShowToast(true);
+        setShowModal(false);
+      }
     }
   };
 

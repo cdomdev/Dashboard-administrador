@@ -51,9 +51,28 @@ const Actualizar = ({
       }
     } catch (error) {
       console.log("Error al intentar actulizar un oferta", error);
-      setBgToast("warning");
-      setToastMessage("Algo salio mal, intentelo de nuevo");
-      setShowToast(true);
+      if (error.response) {
+        const { status } = error.response;
+        if (status === 401 || status === 403) {
+          setBgToast("warning");
+          setToastMessage("No tienes los permisos para esta operación");
+          setShowToast(true);
+          setShowModal(false);
+        } else if (status === 500) {
+          setBgToast("danger");
+          setToastMessage(
+            "Hubo un error intentar actulizar la oferta, inténtelo de nuevo"
+          );
+          setShowToast(true);
+          setShowModal(false);
+        } else {
+          setBgToast("danger");
+          setToastMessage(
+            "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde."
+          );
+          setShowToast(true);
+        }
+      }
     } finally {
       setIsLoading(false);
     }

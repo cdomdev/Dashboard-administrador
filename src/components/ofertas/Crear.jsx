@@ -84,7 +84,27 @@ const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
         fechaFin: "",
       });
     } catch (error) {
-      console.log("Error en la creacion de la oferta:", error);
+      console.error("Error en la creacion de la oferta:", error);
+      if (error.response) {
+        const { status } = error.response;
+        if (status === 401 || status === 403) {
+          setBgToast("warning");
+          setToastMessage("No tienes los permisos para esta operación");
+          setShowToast(true);
+        } else if (status === 500) {
+          setBgToast("danger");
+          setToastMessage(
+            "Hubo un error crear una nueva oferta, inténtelo de nuevo"
+          );
+          setShowToast(true);
+        } else {
+          setBgToast("danger");
+          setToastMessage(
+            "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde."
+          );
+          setShowToast(true);
+        }
+      }
     }
   };
 

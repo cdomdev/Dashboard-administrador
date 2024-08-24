@@ -1,5 +1,6 @@
 import axios from "axios";
 import API_HOST from "../config/config";
+import { api } from "@/config/axios.conf";
 
 const listar = async () => {
   try {
@@ -17,7 +18,7 @@ export default listar;
 
 export const updateState = async (id, estado) => {
   try {
-    const response = await axios.post(
+    const response = await api.post(
       `${API_HOST}/api/update/state-orders/${id}`,
       {
         estado: estado,
@@ -27,6 +28,7 @@ export const updateState = async (id, estado) => {
     return response;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 };
 

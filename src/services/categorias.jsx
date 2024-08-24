@@ -1,8 +1,9 @@
+import { api } from "@/config/axios.conf";
 import axios from "axios";
 
 export const createCategory = async (nombre) => {
   try {
-    const response = await axios.post(
+    const response = await api.post(
       "http://localhost:3000/api/categories/create",
       nombre
     );
@@ -35,7 +36,7 @@ export const listarCat = async () => {
 
 export const deleteCategory = async (id) => {
   try {
-    const response = await axios.delete(
+    const response = await api.delete(
       `http://localhost:3000/api/categories/delete/${id}`
     );
     return response;

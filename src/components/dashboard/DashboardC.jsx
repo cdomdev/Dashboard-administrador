@@ -4,12 +4,13 @@ import { Time } from "../icons/Time";
 import { SendBox } from "../icons/SendBox";
 import { Sale } from "../icons/Sale";
 import { Users } from "../icons/Users";
-import balances from "@/services/balances";
+import { balances } from "@/services/balances";
 import formateValue from "@/utils/formateValue";
 import { useEffect, useState } from "react";
 import { checkSession } from "@/utils/checkSession";
 import { Loader } from "../Loader";
-import { Graficas } from "../Graficas";
+import { Graficas } from "./Graficas";
+import { Ventas } from "@/components/dashboard/Ventas";
 
 const DashboardC = () => {
   const [response, setResponse] = useState({});
@@ -40,7 +41,7 @@ const DashboardC = () => {
       ) : (
         <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] ">
           <div className="dark:border-gray-700 mt-4 bg-white min-h-screen px-2 ">
-            <section className="flex flex-col gap-4">
+            <section className="flex gap-4">
               <div className="flex gap-1 justify-center flex-wrap h-auto py-4 px-2 items-center w-full ">
                 <CardItems
                   title="Total ordenes"
@@ -84,110 +85,15 @@ const DashboardC = () => {
                 </CardItems>
               </div>
             </section>
-            <section className="flex flex-col md:grid md:grid-cols-2 gap-3">
+            <section className=" grid grid-cols-1 lg:grid-cols-2 gap-3 ">
               <div className="h-auto rounded-md p-2 bg-white shadow">
-                <h2 className="text-lg md:text-2xl font-semibold">
+                <h2 className="text-lg md:text-2xl font-semibold pl-1 md:pl-4">
                   Productos mas vendidos
                 </h2>
                 <Graficas />
               </div>
-              <div className="rounded-md p-4 bg-white shadow">
-                <div>
-                  <h2 className="font-semibold text-lg md:text-2xl">
-                    Ventas recientes
-                  </h2>
-                  <p className="text-sm text-slate-500">
-                    Se Realizaron 10 ventas este mes
-                  </p>
-                </div>
-                <div className="pl-2 pt-4">
-                  <ul className="flex flex-col gap-1">
-                    <li className="flex justify-between gap-7 py-2 px-1 items-center">
-                      <div className="flex gap-7 items-center">
-                        <div>
-                          <button
-                            type="button"
-                            className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                            aria-expanded="false"
-                            data-dropdown-toggle="dropdown-user">
-                            <img
-                              className="w-8 h-8 rounded-full"
-                              src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                              alt="user photo"
-                            />
-                          </button>
-                        </div>
-                        <div>
-                          <p className="font-semibold -0">Nombre</p>
-                          <span className="text-sm text-slate-600">
-                            correo@gmail.com
-                          </span>
-                        </div>
-                      </div>
-                      <div className="pr-6">
-                        <span className="font-extrabold text-lg">
-                          + 150.000
-                        </span>
-                      </div>
-                    </li>
-                    <li className="flex justify-between gap-7 py-2 px-1 items-center">
-                      <div className="flex gap-7 items-center">
-                        <div>
-                          <button
-                            type="button"
-                            className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                            aria-expanded="false"
-                            data-dropdown-toggle="dropdown-user">
-                            <img
-                              className="w-8 h-8 rounded-full"
-                              src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                              alt="user photo"
-                            />
-                          </button>
-                        </div>
-                        <div>
-                          <p className="font-semibold -0">Nombre</p>
-                          <span className="text-sm text-slate-600">
-                            correo@gmail.com
-                          </span>
-                        </div>
-                      </div>
-                      <div className="pr-6">
-                        <span className="font-extrabold text-lg">
-                          + 150.000
-                        </span>
-                      </div>
-                    </li>
-                    <li className="flex justify-between gap-7 py-2 px-1 items-center">
-                      <div className="flex gap-7 items-center">
-                        <div>
-                          <button
-                            type="button"
-                            className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                            aria-expanded="false"
-                            data-dropdown-toggle="dropdown-user">
-                            <img
-                              className="w-8 h-8 rounded-full"
-                              src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                              alt="user photo"
-                            />
-                          </button>
-                        </div>
-                        <div>
-                          <p className="font-semibold -0">Nombre</p>
-                          <span className="text-sm text-slate-600">
-                            correo@gmail.com
-                          </span>
-                        </div>
-                      </div>
-                      <div className="pr-6">
-                        <span className="font-extrabold text-lg">
-                          + 150.000
-                        </span>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
+              <div className="rounded-md sm:p-1 p-4 bg-white shadow">
+                <Ventas />
               </div>
             </section>
           </div>

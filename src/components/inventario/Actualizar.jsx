@@ -89,20 +89,40 @@ const Actualizar = ({
         productosActualizado,
         producto.id
       );
-      if (response.status === 200) {
+      if (response && response.status === 200) {
         setShowModal(false);
         setData(response.data.productosUpdate);
         setBgToast("success");
         setToastMessage("Producto actualizado con exito");
         setShowToast(true);
+      } else if (response.status === 404) {
+        setBgToast("warning");
+        setToastMessage(
+          "Algo salio mal al intentar actulizar el producto, intentalo de nuevo"
+        );
+        setShowToast(true);
+        setShowModal(false);
       }
     } catch (error) {
-      console.log("Error en el servidor", error);
-      setBgToast("danger");
-      setToastMessage(
-        "Hubo un error al acualizar datos del producto, intentelo de nuevo"
+      console.error(
+        "Error al actualizar la información del producto en inventario:",
+        error
       );
-      setShowToast(true);
+
+      const status = error.response.status || error.status;
+      if (status === 401 || status === 403) {
+        setBgToast("warning");
+        setToastMessage("No tienes los permisos para esta operación");
+        setShowToast(true);
+        setShowModal(false);
+      } else if (status === 500) {
+        setBgToast("danger");
+        setToastMessage(
+          "Hubo un error al actualizar los datos del producto, inténtelo de nuevo"
+        );
+        setShowToast(true);
+        setShowModal(false);
+      }
     } finally {
       setIsLoading(false);
     }

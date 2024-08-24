@@ -11,6 +11,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { bestSaller } from "@/services/balances";
 
 export const Graficas = () => {
   const [products, setProducts] = useState([]);
@@ -18,12 +19,12 @@ export const Graficas = () => {
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white p-3 flex flex-col items-center justify-center max-w-52">
-          <p className="label text-xs text-wrap text-center">{`${payload[0].payload.nombre}`}</p>
+        <div className="bg-white p-2 flex flex-col items-center justify-center max-w-44 rounded-lg shadow-md">
+          <p className="label text-xs text-wrap text-center font-semibold bg-gray-200 p-2 rounded-md">{`${payload[0].payload.nombre}`}</p>
           <img
             src={payload[0].payload.image}
             alt="imagen de producto"
-            className="w-20 h-19"
+            className="h-24"
           />
           <p className="label text-lg font-semibold text-wrap bg-white text-black flex">{`Ventas: ${payload[0].value}`}</p>
         </div>
@@ -34,18 +35,18 @@ export const Graficas = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(`${API_HOST}/api/see-best-sallers`)
-      .then((response) => {
+    const fetchData = async () => {
+      const response = await bestSaller();
+      if (response) {
         const productsWithIndex = response.data.data.map((product, index) => ({
           ...product,
           index: index + 1,
         }));
         setProducts(productsWithIndex);
-      })
-      .catch((error) => {
-        console.log("Error al listar los productos más vendidos", error);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (

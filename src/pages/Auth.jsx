@@ -7,8 +7,6 @@ export const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const dataKey = process.env.VITE_DATA_ADMIN_SESION;
-  console.log(dataKey);
 
   useEffect(() => {
     setIsAuthenticated(checkSession());
@@ -23,7 +21,6 @@ export const Auth = () => {
     const formData = new FormData(event.currentTarget);
     const email = formData.get("email");
     const password = formData.get("password");
-
     setIsLoading(true);
     try {
       const response = await axios.post(
@@ -39,12 +36,15 @@ export const Auth = () => {
       if (response.status === 200) {
         window.location.href = "/Dashboard";
       }
-      localStorage.setItem(dataKey, JSON.stringify(response.data));
+      localStorage.setItem(
+        "userOnValidateScesOnline",
+        JSON.stringify(response.data.user)
+      );
 
-      if (response && response.status === 404) {
-        localStorage.setItem("access_token", response.data.access_token);
-        window.location.href = "/";
-      }
+      // if (response && response.status === 404) {
+      //   localStorage.setItem("access_token", response.data.access_token);
+      //   window.location.href = "/";
+      // }
     } catch (error) {
       // if (error && error.response.status === 404) {
       //   setMessage("¡No se encontro usuario con estos datos!");

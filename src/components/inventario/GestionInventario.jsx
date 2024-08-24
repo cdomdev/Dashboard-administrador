@@ -56,12 +56,8 @@ const GestionInventario = () => {
           <div className="flex items-center justify-center gap-2 py-2">
             <Filtros
               categoriaSeleccionada={categoriaSeleccionada}
-              precioSeleccionado={precioSeleccionado}
-              productos={data}
               setCategoriaSeleccionada={setCategoriaSeleccionada}
-              setPrecioSeleccionado={setPrecioSeleccionado}
-              setData={setData}
-              data={data}
+              productos={data}
             />
           </div>
         </div>

@@ -37,12 +37,28 @@ const Eliminar = ({
         setShowToast(true);
       }
     } catch (error) {
-      if (error && error.response === 500) {
-        setToastMessage("Algo salio interno, intentalo de nuevo");
-        setBgToast("success");
-        setSelectedCategoryId(null);
-      }
       console.error("Error al intentar eliminar la categoría", error);
+
+      if (error.response) {
+        const { status } = error.response;
+        if (status === 401 || status === 403) {
+          setBgToast("warning");
+          setToastMessage("No tienes los permisos para esta operación");
+          setShowToast(true);
+        } else if (status === 500) {
+          setBgToast("danger");
+          setToastMessage(
+            "Hubo un error al intentare eliminar la seubcategoria, inténtelo de nuevo"
+          );
+          setShowToast(true);
+        } else {
+          setBgToast("danger");
+          setToastMessage(
+            "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde."
+          );
+          setShowToast(true);
+        }
+      }
     }
   };
 

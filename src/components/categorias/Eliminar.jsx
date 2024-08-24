@@ -28,7 +28,6 @@ const Eliminar = ({
     try {
       const id = parseInt(selectedCategoryId);
       const response = await deleteCategory(id);
-
       if (response.status === 200) {
         setCategorias(response.data.categorias);
         setBgToast("success");
@@ -38,12 +37,26 @@ const Eliminar = ({
       }
     } catch (error) {
       console.error("Error al intentar eliminar la categoría", error);
-      if (error.response.status === 401 || error.response === 403) {
-        console.log("No tienes permisos");
+      if (error.response) {
+        const { status } = error.response;
+        if (status === 401 || status === 403) {
+          setBgToast("warning");
+          setToastMessage("No tienes los permisos para esta operación");
+          setShowToast(true);
+        } else if (status === 500) {
+          setBgToast("danger");
+          setToastMessage(
+            "Hubo un error al eliminar la categoría, inténtelo de nuevo"
+          );
+          setShowToast(true);
+        } else {
+          setBgToast("danger");
+          setToastMessage(
+            "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde."
+          );
+          setShowToast(true);
+        }
       }
-      setBgToast("danger");
-      setToastMessage("Algo salio mal, por favor intentelo de nuevo");
-      setShowToast(true);
     }
   };
 
