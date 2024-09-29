@@ -1,10 +1,16 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import { Auth } from "./Auth";
+import DashboardC from "../components/dashboard/DashboardC";
+import Layout from "@/layouts/Layout.astro";
+const cookies = Astro.cookies;
+const authToken = cookies.get("access_token");
+const isAuthenticated = authToken !== undefined;
+
+if(!isAuthenticated){
+  return Astro.redirect('/auth')
+}
+
 ---
 
-<Layout title="Login">
-  <main>
-    <Auth client:visible />
-  </main>
+<Layout title="Suministros">
+  <DashboardC client:only="react" />
 </Layout>

@@ -1,5 +1,6 @@
 import axios from "axios";
 import API_HOST from "../config/config";
+import { api } from "@/config/axios.conf";
 
 export const saveImage = async (formData) => {
   try {
@@ -24,7 +25,7 @@ export const saveImage = async (formData) => {
 
 export const saveProducts = async (updatedList) => {
   try {
-    const response = await axios.post(`${API_HOST}/api/save-news-products`, {
+    const response = await api.post(`${API_HOST}/api/save-news-products`, {
       productos: updatedList,
     });
 

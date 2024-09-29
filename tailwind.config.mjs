@@ -24,6 +24,10 @@ export default {
         "color-e": "#33ddc0",
         "color-f": "#284cc5",
       },
+      fontFamily: {
+        "text-cust-1": "Roboto, sans-serif",
+        "text-cust-2": "Montserrat, sans-serif"
+      },
     },
   },
 

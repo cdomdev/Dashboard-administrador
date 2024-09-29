@@ -15,7 +15,6 @@ import { bestSaller } from "@/services/balances";
 
 export const Graficas = () => {
   const [products, setProducts] = useState([]);
-
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (

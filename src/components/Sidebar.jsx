@@ -6,30 +6,24 @@ import { CatIcon } from "./icons/CatIcon.jsx";
 import { SubIcon } from "./icons/SubIcon.jsx";
 import { Logo } from "./icons/Logo.jsx";
 import { Profile } from "./Profile.jsx";
-import { useEffect, useState } from "react";
-import { checkSession } from "@/utils/checkSession.jsx";
+import { useState } from "react";
 import { Notificaciones } from "./Notificaciones.jsx";
 
-export const Sidebar = () => {
-  const [hasSession, setHasSession] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    const session = checkSession();
-    setHasSession(session);
-  }, []);
+export const Sidebar = ({ isAuthenticated }) => {
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  if (!hasSession) {
-    return null;
+  if (!isAuthenticated) {
+    return null
   }
 
   return (
-    <header>
-      <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+    <>
+      <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 font-text-cust-2">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start rtl:justify-end">
@@ -50,10 +44,10 @@ export const Sidebar = () => {
                 />
               </svg>
 
+
               <div
-                className={`${
-                  isOpen ? "translate-x-0" : "-translate-x-full"
-                } fixed z-50 top-0 left-0 min-h-screen bg-white w-8/12 transform transition-transform duration-300`}>
+                className={`${isOpen ? "translate-x-0" : "-translate-x-full"
+                  } fixed z-50 top-0 left-0 min-h-screen bg-white w-8/12 transform transition-transform duration-300`}>
                 <div className="p-4">
                   <div className="flex justify-end">
                     <svg
@@ -157,7 +151,7 @@ export const Sidebar = () => {
                 </div>
               </div>
 
-              <a href="/Dashboard" className="flex justify-center items-center">
+              <a href="/" className="flex justify-center items-center">
                 <Logo />
               </a>
             </div>
@@ -170,13 +164,13 @@ export const Sidebar = () => {
       </nav>
       <aside
         id="logo-sidebar"
-        className="fixed lg:block top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200   sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+        className="fixed lg:block font-text-cust-2 top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200   sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
         aria-label="Sidebar">
         <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
           <ul className="space-y-2 font-medium">
             <li>
               <a
-                href="/Dashboard"
+                href="/"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                 <svg
                   className="w-7 h-7 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -210,7 +204,7 @@ export const Sidebar = () => {
             </li>
             <li>
               <a
-                href="/Ventas"
+                href="/pedidos"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                 <VenIcons />
                 <span className="flex-1 ms-3 whitespace-nowrap">Ventas</span>
@@ -247,6 +241,6 @@ export const Sidebar = () => {
           </ul>
         </div>
       </aside>
-    </header>
+    </>
   );
 };

@@ -1,10 +1,10 @@
-import axios from "axios";
 import API_HOST from "../config/config";
 import { api } from "@/config/axios.conf";
+import { error } from "node_modules/astro/dist/core/logger/core";
 
-const listar = async () => {
+export const listar = async () => {
   try {
-    const response = await axios.get(
+    const response = await api.get(
       "http://localhost:3000/api/listar/usuarios-con-pedidos"
     );
     return response.data;
@@ -14,7 +14,6 @@ const listar = async () => {
   }
 };
 
-export default listar;
 
 export const updateState = async (id, estado) => {
   try {
@@ -24,7 +23,6 @@ export const updateState = async (id, estado) => {
         estado: estado,
       }
     );
-
     return response;
   } catch (error) {
     console.log(error);
@@ -34,9 +32,10 @@ export const updateState = async (id, estado) => {
 
 export const orderUser = async (id, ruta) => {
   try {
-    const response = await axios.get(`${API_HOST}/api/listar/${ruta}/${id}`);
+    const response = await api.get(`${API_HOST}/api/listar/${ruta}/${id}`);
     return response;
   } catch (e) {
     console.log(e);
+    throw error
   }
 };

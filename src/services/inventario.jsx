@@ -1,7 +1,6 @@
 import axios from "axios";
 import API_HOST from "../config/config";
 import { api } from "@/config/axios.conf";
-import { error } from "node_modules/astro/dist/core/logger/core";
 
 export const productos = async () => {
   try {

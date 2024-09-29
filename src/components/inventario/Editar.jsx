@@ -71,22 +71,22 @@ const Editar = ({
       <Modal
         show={showModal}
         onHide={() => setShowModal(false)}
-        className="modal-edit-inventary">
+        className="font-text-cust-2">
         <Modal.Header closeButton className="py-1 px-3">
           <Modal.Title className="text-lg pl-3 font-semibold">
-            Modificar cantidad en inventario
+            Modificar stock
           </Modal.Title>
         </Modal.Header>
         <hr className="text-slate-400" />
         <Modal.Body className="px-3 py-2">
-          <p className="text-base text-wrap pl-1">
+          <p className="text-wrap pl-1 text-sm">
             En esta seccion podra modificar la cantidad en inventario del
             producto seleccionado.
           </p>
           <br />
-          <p className="font-semibold pl-1">Ingrese la nueva cantidad:</p>
+          <p className="font-semibold pl-1 mb-2 text-sm">Ingrese la nueva cantidad:</p>
           <Form.Control
-            className="mt-2 rounded-md border-slate-300 focus:outline-none shadow-none focus:border-slate-300"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
             type="number"
             value={newStock}
             onChange={(e) => setNewStock(e.target.value)}
@@ -95,13 +95,13 @@ const Editar = ({
         <Modal.Footer className="flex border-none flex-col w-full px-3 gap-2">
           <Button
             variant="primary"
-            className="w-full m-0"
+            className="w-full m-0 uppercase text-sm py-2"
             onClick={handleSaveChanges}>
             Guardar cambios
           </Button>
           <Button
             variant="secondary"
-            className="w-full m-0"
+            className="w-full m-0 uppercase text-sm py-2"
             onClick={() => setShowModal(false)}>
             Cancelar
           </Button>

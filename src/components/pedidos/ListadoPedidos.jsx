@@ -1,15 +1,13 @@
 import { useState } from "react";
 import { Table } from "react-bootstrap";
-import listar from "../../services/pedidos";
+import { listar } from "../../services/pedidos";
 import { useEffect } from "react";
 import { Pedidos } from "./Pedidos";
-import { checkSession } from "@/utils/checkSession";
 
 const ListadoPedidos = () => {
   const [pedidos, setPedidos] = useState(null);
 
   useEffect(() => {
-    const sesion = checkSession();
     const fetchData = async () => {
       try {
         const response = await listar();
@@ -20,13 +18,11 @@ const ListadoPedidos = () => {
     };
 
     fetchData();
-    if (!sesion) {
-      window.location.href = "/";
-    }
+
   }, []);
 
   return (
-    <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen">
+    <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen font-text-cust-2">
       <div className="dark:border-gray-700 mt-1">
         <div className="w-full pt-2 bg-white p-3 min-h-screen mt-4">
           <h2 className="text-center mt-3 mb-1 border py-2 bg-[#1976d2] text-white text-lg">

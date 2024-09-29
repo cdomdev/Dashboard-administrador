@@ -24,7 +24,7 @@ export const ModifcarEstado = ({ pedido }) => {
         setShowToast(true);
         setBgToast("success");
         setToastMessage(
-          "Estado del pedido actualizado con exito, el color cambiara una salga y vuelva a entrar a los pedidos de este usuario"
+          "Estado del pedido actualizado con exito, en un momento se vera reflejado en nuevo estado"
         );
         setEstado(response.data.estado);
       }
@@ -55,8 +55,8 @@ export const ModifcarEstado = ({ pedido }) => {
     }
   };
 
-  const estadoPedido = pedido.detalles_pedido[0]?.estado_pedido
-    ? pedido.detalles_pedido[0]?.estado_pedido
+  const estadoPedido = pedido.estado_pedido
+    ? pedido.estado_pedido
     : "Pedido sin estado";
 
   const estadoClase = states[estadoPedido] || "";

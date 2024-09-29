@@ -136,7 +136,7 @@ const Actualizar = ({
         onClick={() => setShowModal(true)}>
         Actualizar producto
       </Button>
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
+      <Modal show={showModal} onHide={() => setShowModal(false)} className="font-text-cust-2">
         <Modal.Header closeButton className="py-1 px-3">
           <Modal.Title className="text-lg font-semibold">
             Actulizar informacion del producto
@@ -144,7 +144,7 @@ const Actualizar = ({
         </Modal.Header>
         <hr />
         <Modal.Body className="px-4 py-2">
-          <p className="text-base text-wrap py-2">
+          <p className=" text-wrap py-2 text-sm">
             En esta seccion puede modificar valores como: <br />
             <strong className="text-blue-600">
               {" "}
@@ -156,14 +156,14 @@ const Actualizar = ({
             <Form.Control
               type="text"
               name="titulo"
-              className="mt-3 focus:outline-none shadow-none focus:border-slate-300  rounded-md  border-gray-200"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light mb-2"
               defaultValue={producto.nombre}
               ref={nombreRef}
             />
             <Form.Control
               type="text"
               name="titulo"
-              className="titulo-editado mt-2  focus:outline-none shadow-none focus:border-slate-300 rounded-md  border-gray-200"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light mb-2"
               defaultValue={producto.marca}
               ref={tituloRef}
             />
@@ -171,21 +171,21 @@ const Actualizar = ({
               placeholder="Actualizar precio"
               name="valor"
               defaultValue={parseInt(producto.valor, 10)}
-              className="mt-2 focus:outline-none shadow-none focus:border-slate-300 py-2"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light mb-2"
               ref={valorRef}
             />
             <Form.Control
               placeholder="Actualizar referencia"
               name="referencia"
               defaultValue={producto.referencia}
-              className="mt-2 focus:outline-none shadow-none focus:border-slate-300 py-2"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light mb-2"
               ref={referenciaRef}
             />
 
             <Form.Control
               as="select"
               onChange={handleCategoryChange}
-              className="mt-2 focus:outline-none shadow-none focus:border-slate-300 py-2"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light mb-2"
               value={selectedCategoria}>
               <option value="">
                 {producto && producto.categoria
@@ -201,7 +201,7 @@ const Actualizar = ({
             </Form.Control>
             <Form.Control
               as="select"
-              className="mt-2 focus:outline-none shadow-none focus:border-slate-300 py-2"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light mb-2"
               onChange={handleSubcategoryChange}
               value={selectedSubCategoria}>
               <option value="">
@@ -218,8 +218,9 @@ const Actualizar = ({
             <Form.Control
               as="textarea"
               name="descripcion"
+              rows={10}
               defaultValue={producto.description}
-              className="descripcion-editada mt-3 focus:outline-none shadow-none focus:border-slate-300"
+              className="bg-gray-50 border min-h-52 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light mb-2"
               ref={descripcionRef}
             />
             <span className="w-full ">

@@ -1,6 +1,12 @@
 ---
 import GestionOfertas from "../components/ofertas/GestionOfertas.jsx";
 import Layout from "../layouts/Layout.astro";
+const cookies = Astro.cookies;
+const authToken = cookies.get("access_token");
+const isAuthenticated = authToken !== undefined;
+if(!isAuthenticated){
+  return Astro.redirect('/auth')
+}
 ---
 
 <Layout title="Ofertas">

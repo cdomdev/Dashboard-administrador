@@ -28,7 +28,7 @@ const Delete = ({
   };
   return (
     <Button
-      className="btn-custom"
+      className="text-sm uppercase"
       variant="danger"
       onClick={() => borrarProducto()}>
       Borrar

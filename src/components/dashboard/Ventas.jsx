@@ -2,6 +2,7 @@ import { ventas } from "@/services/balances";
 import { useEffect, useState } from "react";
 import formateValue from "@/utils/formateValue";
 import { filterByDate } from "@/utils/filterByDate";
+import { pagoTotalDePedidos } from "@/utils/pagoTotal";
 
 export const Ventas = () => {
   const [dataVentas, setDataVentas] = useState([]);
@@ -44,8 +45,8 @@ export const Ventas = () => {
             {filter === "este-mes"
               ? "este mes"
               : filter === "mes-pasado"
-              ? "el mes pasado"
-              : "en total"}
+                ? "el mes pasado"
+                : "en total"}
           </p>
         </div>
         <div>
@@ -65,17 +66,17 @@ export const Ventas = () => {
       <div className="pl-2 pt-4  max-h-[350px] overflow-y-auto">
         <ul className="flex flex-col gap-1">
           {filteredVentas.length > 0 ? (
-            filteredVentas.map((data, index) => (
-              <li
-                key={data.id || index}
-                className="flex justify-between gap-1 md:gap-7 py-2 px-1 items-center">
+            filteredVentas.map((usuario, index) => (
+              < li
+                key={usuario.id || index}
+                className="flex justify-between gap-1 md:gap-7 py-2 px-1 items-center" >
                 <div className="flex gap-4">
                   <div>
-                    {data.picture ? (
+                    {usuario.picture ? (
                       <img
-                        src={data.picture}
+                        src={usuario.picture}
                         alt="avatar del usuario, si existe"
-                        className="rounded-full cursor-pointer relative w-10 h-10"
+                        className="rounded-full cursor-pointer relative w-14 h-10"
                         loading="lazy"
                       />
                     ) : (
@@ -95,28 +96,20 @@ export const Ventas = () => {
                   </div>
                   <div className="flex flex-col w-full leading-4">
                     <span className="text-sm md:text-base font-semibold">
-                      {data.name || data.nombre}
+                      {usuario.nombre}
                     </span>
                     <span className="text-xs md:text-sm text-gray-600">
-                      {data.email}
+                      {usuario.email}
                     </span>
                   </div>
                 </div>
                 <div>
-                  {data.pedidos.map((pedido, i) => (
-                    <span key={i}>
-                      {pedido.detalles_pedido.map((detalle) => (
-                        <span
-                          key={detalle.id}
-                          className=" text-base md:text-lg font-extrabold flex pesos gap-1 md:gap-2 items-center">
-                          + {formateValue(detalle.total_pago)}
-                          <p className="font-light text-gray-700 hidden md:block md:text-sm">
-                            COP
-                          </p>
-                        </span>
-                      ))}
-                    </span>
-                  ))}
+                  <span className="text-base md:text-lg font-extrabold flex pesos gap-1 md:gap-2 items-center">
+                    + {pagoTotalDePedidos(usuario.pedidos)}
+                    <p className="font-light text-gray-700 hidden md:block md:text-sm">
+                      COP
+                    </p>
+                  </span>
                 </div>
               </li>
             ))
@@ -126,7 +119,7 @@ export const Ventas = () => {
             </div>
           )}
         </ul>
-      </div>
+      </div >
     </>
   );
 };

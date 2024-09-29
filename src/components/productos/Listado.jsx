@@ -31,35 +31,35 @@ const Listado = ({
                   />
                 )}
                 <div className="flex flex-col w-full p-2 ">
-                  <span>
-                    <strong>Marca: </strong>
+                  <span className="text-sm">
+                    <strong className="text-sm">Marca: </strong>
                     {producto.marca}
                   </span>
-                  <span>
-                    <strong>Nombre: </strong>
+                  <span className="text-sm">
+                    <strong className="text-sm">Nombre: </strong>
                     {producto.nombre}
                   </span>
                   <span>
-                    <strong>Valor: $ </strong>
+                    <strong className="text-sm">Valor: $ </strong>
                     {formateValue(producto.valor)}
                   </span>
-                  <span>
-                    <strong>Cantidad: </strong>
+                  <span className="text-sm">
+                    <strong className="text-sm">Cantidad: </strong>
                     {producto.cantidad}
                   </span>
                   <span>
-                    <strong>Referencia: </strong>
+                    <strong className="text-sm">Referencia: </strong>
                     {producto.referencia}
                   </span>
-                  <span>
-                    <strong>Categoria: </strong>
+                  <span className="text-sm">
+                    <strong className="text-sm">Categoria: </strong>
                     {producto.categoria}
                   </span>
-                  <span>
-                    <strong>Subcategoria: </strong>
+                  <span className="text-sm">
+                    <strong className="text-sm">Subcategoria: </strong>
                     {producto.subcategoria}
-                  </span>
-                  <strong>Descripción:</strong>
+                  </span >
+                  <strong className="text-sm">Descripción:</strong>
                   <p className="text-wrap">{producto.description}</p>
                 </div>
                 <div className="w-full flex flex-col gap-2">

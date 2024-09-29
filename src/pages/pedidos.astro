@@ -1,16 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import GestionInventario from "../components/inventario/GestionInventario.jsx";
+import ListadoPedidos from "../components/pedidos/ListadoPedidos";
 const cookies = Astro.cookies;
 const authToken = cookies.get("access_token");
 const isAuthenticated = authToken !== undefined;
 if(!isAuthenticated){
   return Astro.redirect('/auth')
 }
+
 ---
 
-<Layout title="Inventario">
-  <div class="contendor-inventario">
-    <GestionInventario client:only="react" />
-  </div>
+<Layout title="Pedidos">
+  <ListadoPedidos client:only="react" />
 </Layout>

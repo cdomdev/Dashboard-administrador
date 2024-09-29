@@ -21,7 +21,7 @@ export const ToastCammon = ({
           <span onClick={() => setShowToast(false)} className="cursor-pointer">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="icon icon-tabler icon-tabler-x w-7 h-7 stroke-white"
+              className="icon icon-tabler icon-tabler-x w-7 h-7 stroke-white"
               width="44"
               height="44"
               viewBox="0 0 24 24"

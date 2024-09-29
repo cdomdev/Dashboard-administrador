@@ -2,17 +2,14 @@ import { getDataStorage } from "@/utils/getDataStorage";
 import { Form, Table } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import formateValue from "../../utils/formateValue";
-import { ModifcarEstado } from "./ModifcarEstado";
+import { ModifcarEstado } from "../pedidos/ModifcarEstado";
 import { Back } from "../icons/Back";
-import { useParams } from "react-router-dom";
 
 const DetallePedido = () => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [estado, setEstado] = useState("");
   const [user, setUser] = useState({});
-  let { id } = useParams();
-  console.log(id);
 
   useEffect(() => {
     const storedData = getDataStorage("dataOrderUser");
@@ -28,7 +25,7 @@ const DetallePedido = () => {
     if (selectedState) {
       const pedidoFiltrado = data.filter(
         (pedido) =>
-          pedido.detalles_pedido[0]?.estado_pedido.trim() === selectedState
+          pedido?.estado_pedido === selectedState
       );
 
       if (pedidoFiltrado.length > 0) {
@@ -42,12 +39,12 @@ const DetallePedido = () => {
   };
 
   return (
-    <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen">
+    <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen font-text-cust-2">
       <div className="dark:border-gray-700 mt-1">
         <section className="mt-4 bg-white min-h-screen p-2 md:p-4 gap-2 flex flex-col">
           <div className="border py-2 px-5 bg-[#e7e9ed] flex justify-between items-center ">
             <a
-              href="/Ventas"
+              href="/pedidos"
               className="flex items-center cursor-pointer p-2 rounded-md  text-white shadow-sm hover:scale-110 duration-150 bg-slate-500 hover:bg-slate-600">
               <Back />
               <p className="text-base">Volver a compras</p>
@@ -61,6 +58,7 @@ const DetallePedido = () => {
                   onChange={handleStateChange}
                   value={estado}>
                   <option value="">Seleccione un estado</option>
+                  <option value="">Todos los pedidos</option>
                   <option value="alistamiento">En alistamiento</option>
                   <option value="camino">En camino</option>
                   <option value="entregado">Entregados</option>
@@ -85,7 +83,7 @@ const DetallePedido = () => {
               <div key={order.id || index} className="p-0 md:p-2 border">
                 <div className="bg-gray-300 py-2">
                   <h2 className="text-center text-sm md:text-base font-semibold">
-                    Detalles de la compra N° {index + 1}
+                    Detalles de la compra N° {order.id}
                   </h2>
                 </div>
                 <div className="info-user">
@@ -106,11 +104,11 @@ const DetallePedido = () => {
                       <tbody>
                         <tr>
                           <td className="text-xs md:text-sm">
-                            {order.detalles_pedido[0]?.metodo_pago}
+                            {order.metodo_de_pago}
                           </td>
                           <td className="text-xs md:text-sm">
                             $:{" "}
-                            {formateValue(order.detalles_pedido[0]?.total_pago)}
+                            {formateValue(order.pago_total)}
                           </td>
                           <td className="text-xs md:text-sm">
                             {order.detalles_pedido[0]?.cantidad}
@@ -118,14 +116,14 @@ const DetallePedido = () => {
                           <td className="text-xs md:text-sm">
                             $:{" "}
                             {formateValue(
-                              order.detalles_pedido[0]?.costo_de_envio
+                              order.costo_de_envio
                             )}
                           </td>
                           <td className="text-xs md:text-sm">
                             {order.detalles_pedido[0]?.descuento}
                           </td>
                           <td className="text-xs md:text-sm">
-                            {order.detalles_pedido[0]?.status_detail ||
+                            {order.status_mercadopago ||
                               "No acreditado"}
                           </td>
                         </tr>

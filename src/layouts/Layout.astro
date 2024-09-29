@@ -5,6 +5,14 @@ interface Props {
 import { Sidebar } from "@/components/Sidebar.jsx";
 import { ViewTransitions } from "astro:transitions";
 const { title } = Astro.props;
+const cookies = Astro.cookies;
+const authToken = cookies.get("access_token");
+const isAuthenticated = authToken !== undefined;
+if(isAuthenticated){
+  Astro.redirect('/auth')
+}
+
+
 ---
 
 <!doctype html>
@@ -20,16 +28,14 @@ const { title } = Astro.props;
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <ViewTransitions />
   </head>
-  <body>
-    <Sidebar client:only="react" />
-    <section>
-      <slot />
-    </section>
+  <Sidebar client:only="react" isAuthenticated={isAuthenticated}/>
+  <section>
+    <slot />
+  </section>
   </body>
 </html>
 <script

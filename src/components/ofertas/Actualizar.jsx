@@ -38,6 +38,7 @@ const Actualizar = ({
     setUpdatedValues(updatedValues);
   };
 
+  console.log(oferta)
   const handleUpdate = async () => {
     setIsLoading(true);
     try {
@@ -87,21 +88,21 @@ const Actualizar = ({
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
-        className="modal-ofertas-update">
+        className="font-text-cust-2">
         <Modal.Header closeButton className="py-1">
           <Modal.Title className="text-lg font-bold">
             Actualizar datos de la oferta
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="py-1 px-3">
-          <p className="text-base font-semibold py-2">
+          <p className="text-base py-2">
             Ingrese los nuevos valores de la oferta
           </p>
           <Form>
             <Form.Control
               ref={nombreRef}
               type="text"
-              className=" focus:outline-none shadow-none focus:border-slate-300  rounded-md  border-gray-200"
+              className="bg-gray-50 border mb-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
               placeholder="Nombre de la oferta"
               defaultValue={oferta.nombre}
               onChange={handleInputChange}
@@ -114,7 +115,7 @@ const Actualizar = ({
               name="descuento"
               max={100}
               placeholder="Porcentaje de descuento"
-              className="mt-2 focus:outline-none shadow-none focus:border-slate-300  rounded-md  border-gray-200"
+              className="bg-gray-50 border mb-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
               defaultValue={oferta.descuento}
               onChange={handleInputChange}
             />
@@ -123,7 +124,7 @@ const Actualizar = ({
                 <Form.Control
                   ref={fechaIniRef}
                   type="date"
-                  className="focus:outline-none shadow-none focus:border-slate-300  rounded-md  border-gray-200"
+                  className="bg-gray-50 border mb-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                   defaultValue={oferta.fecha_inicio}
                   name="fechaIni"
                   onChange={handleInputChange}
@@ -136,7 +137,7 @@ const Actualizar = ({
                 <Form.Control
                   ref={fechaFinRef}
                   type="date"
-                  className="focus:outline-none shadow-none focus:border-slate-300  rounded-md  border-gray-200"
+                  className="bg-gray-50 border mb-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                   defaultValue={oferta.fecha_fin}
                   name="fechaFin"
                   onChange={handleInputChange}
@@ -151,7 +152,7 @@ const Actualizar = ({
           <div className="w-full">
             <Button
               variant="primary"
-              className="w-full my-3"
+              className="w-full my-3 py-2 text-sm uppercase"
               onClick={handleUpdate}>
               {isLoading ? (
                 <div className="spinner-container">

@@ -51,6 +51,7 @@ const Crear = ({
     e.preventDefault();
 
     const {
+      id,
       marca,
       description,
       nombre,
@@ -60,7 +61,7 @@ const Crear = ({
       imagesToSend,
     } = productState;
 
-    // formateo a valor real
+
     const precio = parseInt(valor).toFixed(2);
 
     if (
@@ -86,7 +87,6 @@ const Crear = ({
         const { uploadedFiles } = response.data;
         const imageUrls = uploadedFiles.map((file) => file.imageUrl);
 
-        // Obtener el nombre de la categoría seleccionada
         const selectedCategory = categorias.find(
           (cat) => cat.id === Number(selectedCategoria)
         );
@@ -94,7 +94,6 @@ const Crear = ({
           ? selectedCategory.nombre
           : "";
 
-        // Obtener el nombre de la subcategoría seleccionada
         const selectedSubCategory = subcategorias.find(
           (sub) => sub.id === Number(selectedSubCategoria)
         );
@@ -147,11 +146,11 @@ const Crear = ({
   return (
     <div className="p-3 bg-white rounded-sm text-black">
       <Form onSubmit={getFormValues}>
-        <Form.Label className="m-0 pl-1">Marca del producto</Form.Label>
+        <Form.Label className="m-0 pl-1 text-sm">Marca del producto</Form.Label>
         <Form.Control
           type="text"
           placeholder="Corona"
-          className="rounded-md border-slate-300 text-sm focus:outline-none shadow-none focus:border-slate-300"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
           value={productState.marca}
           onChange={(e) =>
             setProductState({ ...productState, marca: e.target.value })
@@ -160,10 +159,10 @@ const Crear = ({
           maxLength={50}
         />
 
-        <Form.Label className="m-0 pl-1">Nombre del producto</Form.Label>
+        <Form.Label className="m-0 pl-1 text-sm">Nombre del producto</Form.Label>
         <Form.Control
           type="text"
-          className="rounded-md border-slate-300 text-sm focus:outline-none shadow-none focus:border-slate-300"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
           placeholder="Concolor"
           value={productState.nombre}
           onChange={(e) =>
@@ -173,11 +172,11 @@ const Crear = ({
           maxLength={100}
         />
 
-        <Form.Label className="m-0 pl-1">Precio del producto</Form.Label>
+        <Form.Label className="m-0 pl-1 text-sm">Precio del producto</Form.Label>
         <Form.Control
           type="number"
           placeholder="120000"
-          className="rounded-md border-slate-300 text-sm focus:outline-none shadow-none focus:border-slate-300"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
           value={productState.valor}
           onChange={(e) =>
             setProductState({ ...productState, valor: e.target.value })
@@ -186,10 +185,10 @@ const Crear = ({
           minLength={1}
         />
 
-        <Form.Label className="m-0 pl-1">Referencia del producto</Form.Label>
+        <Form.Label className="m-0 pl-1 text-sm">Referencia del producto</Form.Label>
         <Form.Control
           type="text"
-          className="mb-1 rounded-md border-slate-300 text-sm focus:outline-none shadow-none focus:border-slate-300"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
           placeholder="90123232"
           value={productState.referencia}
           onChange={(e) => {
@@ -199,11 +198,11 @@ const Crear = ({
           minLength={1}
         />
 
-        <Form.Label className="m-0 pl-1">Cantidad</Form.Label>
+        <Form.Label className="m-0 pl-1 text-sm">Cantidad</Form.Label>
         <span className="grid grid-cols-2 gap-1">
           <Form.Control
             type="number"
-            className="rounded-md border-slate-300 text-sm focus:outline-none shadow-none focus:border-slate-300"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
             placeholder="1"
             value={productState.cantidad}
             onChange={(e) => {
@@ -214,9 +213,10 @@ const Crear = ({
           />
           <label
             htmlFor="file-upload"
-            className="custom-file-upload form-ref cursor-pointer flex items-center justify-center rounded-md bg-blue-600 text-white hover:bg-blue-500 duration-150">
+            className="custom-file-upload form-ref cursor-pointer flex items-center justify-center rounded-md bg-blue-600 text-white hover:bg-blue-500 duration-150"
+          >
             <Up />
-            <span className="text-sm ">Agregar imagen</span>
+            <span className="text-sm">Agregar imagen</span>
           </label>
           <input
             id="file-upload"
@@ -232,13 +232,14 @@ const Crear = ({
         </div>
 
         {/* Categoria */}
-        <Form.Label className="my-1 pl-1">
+        <Form.Label className="my-1 pl-1 text-sm">
           Relacionar a una categoría
         </Form.Label>
         <Form.Select
           onChange={handleCategoriaChange}
           value={selectedCategoria}
-          className="focus:outline-none shadow-none focus:border-slate-300">
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+        >
           <option>Seleccionar categoria</option>
           {categorias &&
             categorias.map((categoria) => (
@@ -249,11 +250,12 @@ const Crear = ({
         </Form.Select>
 
         {/* Subcategoria */}
-        <Form.Label className="my-1 pl-1">Añadir a una subcategoría</Form.Label>
+        <Form.Label className="my-1 pl-1 text-sm">Añadir a una subcategoría</Form.Label>
         <Form.Select
           onChange={handleSubcategoriaChange}
           value={selectedSubCategoria}
-          className="focus:outline-none shadow-none focus:border-slate-300">
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+        >
           <option>Relacionar a Subcategoria</option>
           {subcategorias &&
             subcategorias.map((subcategoria) => (
@@ -264,12 +266,12 @@ const Crear = ({
         </Form.Select>
 
         {/* Descripcion */}
-        <Form.Label className="my-1 pl-1">
+        <Form.Label className="my-1 pl-1 text-sm">
           Agregar descripcion de producto
         </Form.Label>
         <Form.Control
           as="textarea"
-          className="focus:outline-none shadow-none focus:border-slate-300"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
           placeholder="Descripcion... "
           value={productState.description}
           onChange={(e) =>
@@ -278,7 +280,7 @@ const Crear = ({
         />
 
         <Button
-          className="btn mt-2 w-full py-2 text-base"
+          className="btn mt-3 w-full py-2 text-base"
           variant="primary"
           type="submit">
           Agregar producto

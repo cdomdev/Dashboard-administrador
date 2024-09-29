@@ -5,7 +5,6 @@ import GuardarProductos from "./GuardarProductos";
 import { listarCat } from "../../services/categorias";
 import { listarSub } from "../../services/subcategorias";
 import { ToastCammon } from "../ToastCammon";
-import { checkSession } from "@/utils/checkSession";
 
 const NuevosProductos = () => {
   const [listado, setListado] = useState([]);
@@ -16,7 +15,6 @@ const NuevosProductos = () => {
   const [bgToast, setBgToast] = useState("");
 
   useEffect(() => {
-    const sesion = checkSession();
     const fetchData = async () => {
       try {
         const [categoriasResult, subcategoriasResult] = await Promise.all([
@@ -32,14 +30,10 @@ const NuevosProductos = () => {
     };
 
     fetchData();
-
-    if (!sesion) {
-      window.location.href = "/";
-    }
   }, []);
 
   return (
-    <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen">
+    <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen font-text-cust-2">
       <div className="dark:border-gray-700 mt-2">
         <section className="productos flex flex-col md:flex-row gap-2 md:gap-4 py-3 w-full relative">
           <ToastCammon

@@ -23,7 +23,6 @@ const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
     fechData();
   }, []);
 
-  // tomar valores de los inputs
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setOferta({
@@ -32,7 +31,6 @@ const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
     });
   };
 
-  // sleccion del id del la lista de productos
   const handleProductSelection = (e, product) => {
     const isChecked = e.target.checked;
     if (isChecked) {
@@ -45,7 +43,6 @@ const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
     }
   };
 
-  // hacer la solcitud con validaciones antes de enviar los datos
   const handleNuevaOferta = async (e) => {
     e.preventDefault();
 
@@ -118,37 +115,37 @@ const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
         <strong> (Marca - producto - cantidad).</strong>
       </p>
       <Form className="mt-2" onSubmit={handleNuevaOferta}>
-        <Form.Label className="mb-1">Nombre de la oferta</Form.Label>
+        <Form.Label className="mb-1 text-sm">Nombre de la oferta</Form.Label>
         <Form.Control
           type="text"
           placeholder="Black Friday"
-          className="border-gray-300 rounded-md focus:outline-none shadow-none focus:border-slate-300"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
           value={oferta.nombre}
           onChange={handleInputChange}
           name="nombre"
         />
-        <Form.Label className="my-1">Porcentaje de descuento</Form.Label>
+        <Form.Label className="my-1 text-sm">Porcentaje de descuento</Form.Label>
         <Form.Control
           type="number"
           min={1}
           max={100}
           placeholder="5"
-          className="border-gray-300 rounded-md focus:outline-none shadow-none focus:border-slate-300"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
           value={oferta.descuento}
           onChange={(e) => setOferta({ ...oferta, descuento: e.target.value })}
         />
         <Row className="mt-2">
           <Col>
-            <Form.Label className="my-1">Fecha inicial de la oferta</Form.Label>
+            <Form.Label className="my-1 text-sm">Fecha inicial de la oferta</Form.Label>
             <Form.Control
               type="date"
               value={oferta.fechaIni}
-              className="border-gray-300 rounded-md focus:outline-none shadow-none focus:border-slate-300"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
               name="fechaIni"
               onChange={handleInputChange}
             />
           </Col>
-          <Form.Label className="label-date my-1">
+          <Form.Label className="label-date my-1 text-sm">
             Fecha final de la oferta
           </Form.Label>
           <Col>
@@ -156,7 +153,7 @@ const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
               type="date"
               value={oferta.fechaFin}
               name="fechaFin"
-              className="border-gray-300 rounded-md focus:outline-none shadow-none focus:border-slate-300"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
               onChange={handleInputChange}
             />
           </Col>
@@ -169,7 +166,7 @@ const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
           />
         </div>
         <div className="w-full">
-          <Button className="mt-4 w-full" type="submit">
+          <Button className="mt-4 w-full text-sm uppercase py-2" type="submit">
             Crear nueva oferta
           </Button>
         </div>

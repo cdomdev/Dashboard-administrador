@@ -7,6 +7,7 @@ export const balances = async () => {
     return response;
   } catch (error) {
     console.log("Error en el listado de la data para el dashboard", error);
+    throw error
   }
 };
 
@@ -16,14 +17,15 @@ export const ventas = async () => {
     return response;
   } catch (error) {
     console.log("Error en el lisatdo de ventas", error);
+    throw error
   }
 };
-
 export const bestSaller = async () => {
   try {
     const response = await api.get(`${API_HOST}/api/see-best-sallers`);
     return response;
   } catch (error) {
     console.error("Error al listar los mas vendidos");
+    throw error
   }
 };

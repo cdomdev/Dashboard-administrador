@@ -1,0 +1,26 @@
+---
+import Layout from "../layouts/Layout.astro";
+import AuthFomr  from "../components/auth/Auth";
+const cookies = Astro.cookies;
+const authToken = cookies.get("access_token");
+const isAuthenticated = authToken !== undefined;
+
+---
+
+<Layout title="Login">
+  <main>
+    <section class="text-white font-text-cust-2 min-h-screen bg-gradient-to-r from-[rgba(191,190,167,1)] via-[rgba(200,200,200,1)] to-[rgba(195,195,195,1)] bg-[112deg] flex justify-center flex-col items-center gap-3 auth">
+      <div class="w-80 md:w-96 p-4 h-auto md:min-h-96 flex flex-col items-center rounded-lg shadow-xl bg-white">
+        <div class="my-2">
+          <h1 class="font-semibold text-lg md:text-2xl drop-shadow text-black text-center">
+            Bienvenido
+          </h1>
+          <p class="text-slate-700 text-xs md:text-sm">
+            Por favor ingrese sus credenciales
+          </p>
+        </div>
+       <AuthFomr isAuthenticated={isAuthenticated} client:only="react" />
+      </div>
+    </section>
+  </main>
+</Layout>

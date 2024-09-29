@@ -10,12 +10,6 @@ const GestionSubcategorias = () => {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [bgToast, setBgToast] = useState("");
-  useEffect(() => {
-    const sesion = checkSession();
-    if (!sesion) {
-      window.location.href = "/";
-    }
-  }, []);
 
   return (
     <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen">

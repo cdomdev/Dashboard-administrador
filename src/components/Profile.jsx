@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import { getDataStorage } from "@/utils/getDataStorage";
-import axios from "axios";
-import API_HOST from "@/config/config";
+import { logout } from "@/services/auth";
 
 export const Profile = () => {
   const [data, setData] = useState({});
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
-    const dataLocal = getDataStorage("userOnValidateScesOnline");
+    const dataLocal = getDataStorage("infoProfileUSer");
     if (dataLocal) {
       setData(dataLocal);
     } else {
@@ -19,15 +18,18 @@ export const Profile = () => {
   const toggleDropdown = () => {
     setDropdownOpen((prevState) => !prevState);
   };
+
   const clearStorege = () => {
     localStorage.clear();
     sessionStorage.clear();
   };
+
   const logOut = async () => {
     clearStorege();
-    const response = await axios.post(`${API_HOST}/api/logout`);
+    const response = await logout()
+    console.log(response)
     if (response.status === 200) {
-      window.location.href = "/";
+      window.location.href = '/auth'
     }
   };
 
@@ -64,9 +66,8 @@ export const Profile = () => {
 
       <div
         id="userDropdown"
-        className={`z-10 absolute right-3 -bottom-[170px] ${
-          dropdownOpen ? "block" : "hidden"
-        } bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}>
+        className={`z-10 absolute right-3 -bottom-36 ${dropdownOpen ? "block" : "hidden"
+          } bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}>
         <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
           <div className="font-semibold text-base uppercase">
             {data ? data.name || data.nombre : " "}
@@ -74,24 +75,23 @@ export const Profile = () => {
           <div className="font-medium truncate">{data?.email || ""}</div>
         </div>
         <ul
-          className="py-2 text-sm text-gray-700 dark:text-gray-200"
+          className="text-sm text-gray-700 dark:text-gray-200"
           aria-labelledby="avatarButton">
           <li>
             <a
-              href="/Dashboard"
-              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+              href="/"
+              className="block px-4 py-2 text-center hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
               Dashboard
             </a>
           </li>
         </ul>
-        <div className="py-1">
-          <a
-            href="#"
+        <div>
+          <button
             type="button"
             onClick={() => logOut()}
-            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+            className="block py-2 w-full px-0 rounded-b-md text-sm text-center text-gray-700  dark:hover:bg-gray-600 hover:bg-red-600 duration-150 hover:text-white dark:text-gray-200 dark:hover:text-white">
             Cerrar sesion
-          </a>
+          </button>
         </div>
       </div>
     </>

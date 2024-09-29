@@ -1,8 +1,8 @@
-import { getDataStorage } from "../utils/getDataStorage";
 import API_HOST from "./config";
 import axios from "axios";
+import Cookies from 'js-cookie'
 
-// Configuración para solicitudes de administrador - enviar credenciales
+
 axios.defaults.withCredentials = true;
 export const api = axios.create({
   baseURL: API_HOST,
@@ -11,20 +11,10 @@ export const api = axios.create({
   },
 });
 
-// Agregar un interceptor para incluir el token en cada solicitud
 api.interceptors.request.use(
   (config) => {
-    let tokenAdmin;
-    const tokenAdminRoleAdmin = localStorage.getItem("HttpOnlyAdmin");
-    const role = getDataStorage("userOnValidateScesOnline");
-    if (role.role === "admin") {
-      tokenAdmin = tokenAdminRoleAdmin;
-    } else {
-      tokenAdmin = role.accessToken;
-    }
-    if (tokenAdmin) {
-      config.headers.Authorization = `Bearer ${tokenAdmin}`;
-    }
+    const tokenSesion = Cookies.get("token_sesion");
+    config.headers.Authorization = `Bearer ${tokenSesion}`;
     return config;
   },
   (error) => {
@@ -32,7 +22,6 @@ api.interceptors.request.use(
   }
 );
 
-// Añadir un interceptor de respuesta para manejar la renovación del token
 api.interceptors.response.use(
   (response) => {
     return response;
@@ -46,7 +35,6 @@ api.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        // Intentar renovar el access token
         const refreshResponse = await axios.post(
           `${API_HOST}/refresh-token`,
           {},
@@ -55,11 +43,10 @@ api.interceptors.response.use(
 
         if (refreshResponse.status === 200) {
           const { accessToken } = refreshResponse.data;
-          localStorage.setItem("HttpOnlyAdmin", accessToken);
-
-          // Actualizar el header de Authorization del request original
+          console.log(accessToken)
+          Cookies.set("token_sesion", accessToken, { secure: true, sameSite: "Strict" });
           originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-          return axios(originalRequest);
+          return api(originalRequest);
         } else {
           console.log("No se pudo renovar el token");
         }

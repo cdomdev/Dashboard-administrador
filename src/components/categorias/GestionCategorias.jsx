@@ -1,22 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Eliminar from "./Eliminar";
 import { Crear } from "./Crear";
 import { Listar } from "./Listar";
 import { ToastCammon } from "../ToastCammon";
-import { checkSession } from "@/utils/checkSession";
+
 
 const GestionCategorias = () => {
   const [categorias, setCategorias] = useState([]);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [bgToast, setBgToast] = useState("");
-
-  useEffect(() => {
-    const sesion = checkSession();
-    if (!sesion) {
-      window.location.href = "/";
-    }
-  }, []);
 
   return (
     <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen">

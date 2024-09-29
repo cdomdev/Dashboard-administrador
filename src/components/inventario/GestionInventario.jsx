@@ -6,7 +6,7 @@ import Actualizar from "./Actualizar";
 import Eliminar from "./Eliminar";
 import { Filtros } from "./Filtros";
 import { ToastCammon } from "../ToastCammon";
-import { checkSession } from "@/utils/checkSession";
+
 
 const GestionInventario = () => {
   const [data, setData] = useState([]);
@@ -17,7 +17,6 @@ const GestionInventario = () => {
   const [bgToast, setBgToast] = useState("");
 
   useEffect(() => {
-    const sesion = checkSession();
     const fetchData = async () => {
       try {
         const result = await productos();
@@ -28,9 +27,7 @@ const GestionInventario = () => {
     };
 
     fetchData();
-    if (!sesion) {
-      window.location.href = "/";
-    }
+
   }, []);
 
   const productosFiltrados = data.filter((producto) => {
@@ -41,7 +38,7 @@ const GestionInventario = () => {
   });
 
   return (
-    <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen">
+    <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen font-text-cust-2">
       <ToastCammon
         bgToast={bgToast}
         setShowToast={setShowToast}

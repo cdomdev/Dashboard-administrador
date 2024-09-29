@@ -39,16 +39,16 @@ export const Notificaciones = () => {
       </button>
 
       <div
-        className={`z-10 right-1 -bottom-10 md:-bottom-[40px] h-auto absolute ${
+        className={`z-10 right-1 -bottom-96 max-h-96 overflow-y-auto  absolute ${
           dropdownOpen ? "block" : "hidden"
-        } bg-white divide-y divide-gray-100 rounded-lg shadow w-80 md:w-96 dark:bg-gray-700 dark:divide-gray-600 `}>
+        } bg-white divide-y divide-gray-100 rounded-lg shadow w-72 dark:bg-gray-700 dark:divide-gray-600 `}>
         {messages.notifications && messages.notifications.length > 0 ? (
           <ul className="flex flex-col">
             {messages.notifications.map((noti) => (
               <li
                 key={noti.id}
                 className="text-[10px] md:text-[11px] flex gap-1 hover:bg-gray-300 p-2 rounded-sm items-center justify-between">
-                <div className="">
+                <div className="w-full">
                   <p className="text-wrap leading-3">{noti.mensaje}</p>
                   <span className="text-gray-600 text-right">
                     {formatTimestamp(noti.createdAt)}

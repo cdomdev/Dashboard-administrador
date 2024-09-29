@@ -14,10 +14,6 @@ const GuardarProductos = ({
   const handleGuardarProducto = async () => {
     try {
       setIsLoading(true);
-      if (!listadoState || listadoState.length === 0) {
-        alert("mal");
-        return;
-      }
       const updatedList = listadoState.map((producto) => ({
         ...producto,
         displayImages: undefined,
@@ -58,7 +54,7 @@ const GuardarProductos = ({
       <div className="bottom-7 right-10 p-2  w-96 fixed">
         <Button
           variant="success"
-          className="w-full py-2 text-lg"
+          className="w-full py-2 text-base"
           onClick={handleGuardarProducto}>
           {isLoading ? (
             <div className="spinner-container">

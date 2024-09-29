@@ -1,6 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import GestionCategorias from "../components/categorias/GestionCategorias.jsx";
+const cookies = Astro.cookies;
+const authToken = cookies.get("access_token");
+const isAuthenticated = authToken !== undefined;
+
+if(!isAuthenticated){
+  return Astro.redirect('/auth')
+}
+
 ---
 
 <Layout title="Categorias">

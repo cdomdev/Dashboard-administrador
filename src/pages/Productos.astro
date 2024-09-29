@@ -1,6 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import NuevosProductos from "../components/productos/NuevosProductos.jsx";
+const cookies = Astro.cookies;
+const authToken = cookies.get("access_token");
+const isAuthenticated = authToken !== undefined;
+if(!isAuthenticated){
+  return Astro.redirect('/auth')
+}
+
 ---
 
 <Layout title="Productos">

@@ -56,9 +56,9 @@ const Eliminar = ({
         show={showModal}
         onHide={() => setShowModal(false)}
         backdrop="static"
-        className="modal-delete-inventary">
+        className="font-text-cust-2">
         <Modal.Header className="py-1 px-3 flex justify-center">
-          <Modal.Title className="text-center text-lg text-red-700">
+          <Modal.Title className="text-center text-lg  text-red-700">
             ¡Esta apunto de eliminar un producto!
           </Modal.Title>
         </Modal.Header>
@@ -68,19 +68,19 @@ const Eliminar = ({
           <span className="text-red-600 text-[12px] text-center font-semibold">
             Se eliminara la cantidad total de inventario.
           </span>
-          <p className="text-base pt-2">
+          <p className="text-sm pt-2 ">
             !Esta seguro de querer eliminar el producto
             <strong> {producto?.nombre}.</strong> En inventario tiene
             <strong> {producto?.Inventarios[0].cantidad} productos</strong>!
           </p>
         </Modal.Body>
-        <Modal.Footer className="flex flex-col border-none w-full gap-1">
-          <Button variant="danger" onClick={handleDelete} className="w-full">
+        <Modal.Footer className="flex text-sm  flex-col border-none w-full gap-1">
+          <Button variant="danger" onClick={handleDelete} className="w-full py-2 uppercase text-sm">
             Elimininar producto
           </Button>
           <Button
             variant="light"
-            className="delete w-full bg-gray-400 border-none"
+            className="delete w-full text-sm uppercase py-2  bg-gray-400 border-none"
             onClick={() => setShowModal(false)}>
             Cancelar
           </Button>
