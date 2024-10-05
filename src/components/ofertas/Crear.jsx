@@ -48,7 +48,7 @@ const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
 
     const { nombre, descuento, fechaIni, fechaFin } = oferta;
 
-    if (!nombre || !descuento || !fechaIni || !fechaFin) {
+    if (!nombre || !descuento || !fechaIni || !fechaFin || selectedProducts.length === 0) {
       setBgToast("warning");
       setShowToast(true);
       setToastMessage("Faltan datos para crear una oferta");
@@ -72,7 +72,11 @@ const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
         setShowToast(true);
         setToastMessage("Se agrego una nueva oferta");
       } else {
-        console.log("no se pudo crear la oferta");
+        setBgToast("danger");
+        setToastMessage(
+          "Hubo un error crear una nueva oferta, inténtelo de nuevo"
+        );
+        setShowToast(true);
       }
       setOferta({
         nombre: "",

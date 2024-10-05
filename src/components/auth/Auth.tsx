@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import axios from "axios";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { authAdmin } from "@/services/auth";
 import type { ValuesSesion } from "@/types/types";
-import axios from "axios";
 import { ToastCammon } from "../ToastCammon";
 
 interface FormInicioSesionProps {
@@ -23,9 +23,17 @@ const Auth: React.FC<FormInicioSesionProps> = ({ isAuthenticated }) => {
         setIsLoading(true)
         try {
             const response = await authAdmin(values)
-            if (response.status === 200) {
+            if (response && response.status === 200) {
                 window.location.href = "/";
                 localStorage.setItem('infoProfileUSer', JSON.stringify(response.data))
+            } else {
+                setBgToast('danger')
+                setIsLoading(false)
+                setShowToast(true)
+                setToastMessage(`Algo salio mal con el inicio de sesion, por favor intenalo mas tarde`)
+                setTimeout(() => {
+                    setShowToast(false)
+                }, 5000)
             }
         } catch (error) {
             if (axios.isAxiosError(error) && error.response) {
@@ -55,7 +63,16 @@ const Auth: React.FC<FormInicioSesionProps> = ({ isAuthenticated }) => {
                         setShowToast(false)
                     }, 5000)
                 }
+            } else {
+                setBgToast('danger')
+                setIsLoading(false)
+                setShowToast(true)
+                setToastMessage(`Algo salio mal con el inicio de sesion, por favor intenalo mas tarde`)
+                setTimeout(() => {
+                    setShowToast(false)
+                }, 5000)
             }
+
 
         } finally {
             setIsLoading(false)

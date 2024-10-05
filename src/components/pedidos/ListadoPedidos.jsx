@@ -47,7 +47,7 @@ const ListadoPedidos = () => {
                       <td>{index + 1}</td>
                       <td>{usuario.name || usuario.nombre}</td>
                       <td>{usuario.email}</td>
-                      <td>{usuario.roles?.rol_name || usuario.role}</td>
+                      <td >{usuario.roles?.rol_name || usuario.role}</td>
                       <td>
                         {usuario.roles?.rol_name === "user" ? (
                           <Pedidos user={usuario} ruta={"pedidos-usuario"} />

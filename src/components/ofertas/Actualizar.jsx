@@ -38,7 +38,6 @@ const Actualizar = ({
     setUpdatedValues(updatedValues);
   };
 
-  console.log(oferta)
   const handleUpdate = async () => {
     setIsLoading(true);
     try {

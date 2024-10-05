@@ -26,7 +26,7 @@ const DashboardC = () => {
 
   return (
     <>
-      <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] ">
+      <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] font-text-cust-2">
         <div className="dark:border-gray-700 mt-4 bg-white min-h-screen px-2 ">
           <section className="flex gap-4">
             <div className="flex gap-1 justify-center flex-wrap h-auto py-4 px-2 items-center w-full ">
@@ -74,7 +74,7 @@ const DashboardC = () => {
           </section>
           <section className=" grid grid-cols-1 lg:grid-cols-2 gap-3 ">
             <div className="h-auto rounded-md p-2 bg-white shadow">
-              <h2 className="text-lg md:text-2xl font-semibold pl-1 md:pl-4">
+              <h2 className="text-lg md:text-xl font-semibold pl-1 md:pl-4">
                 Productos mas vendidos
               </h2>
               <Graficas />

@@ -12,7 +12,7 @@ const GestionCategorias = () => {
   const [bgToast, setBgToast] = useState("");
 
   return (
-    <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen">
+    <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen font-text-cust-2">
       <ToastCammon
         bgToast={bgToast}
         setShowToast={setShowToast}

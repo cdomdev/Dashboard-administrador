@@ -38,6 +38,11 @@ const DetallePedido = () => {
     }
   };
 
+
+  if (!data || data.length === 0) {
+    return <h2>`Algo salio mal al listar los pedidos del usuario ${user.nombre}`</h2>
+  }
+
   return (
     <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen font-text-cust-2">
       <div className="dark:border-gray-700 mt-1">
@@ -66,6 +71,7 @@ const DetallePedido = () => {
               </Form>
             </div>
           </div>
+
           {!Array.isArray(filteredData) || filteredData === null ? (
             <span className="bg-gray-500 w-full">
               <p className="bg-gray-200 text-center py-2 font-semibold">
@@ -139,6 +145,8 @@ const DetallePedido = () => {
                           <th className="text-xs md:text-sm">Correo</th>
                           <th className="text-xs md:text-sm">Telefono</th>
                           <th className="text-xs md:text-sm">Direccion</th>
+                          <th className="text-xs md:text-sm">Ciudad</th>
+                          <th className="text-xs md:text-sm">Departemento</th>
                           <th className="text-xs md:text-sm">
                             Detalle adicionales
                           </th>
@@ -157,6 +165,12 @@ const DetallePedido = () => {
                           </td>
                           <td className="text-xs md:text-sm text-wrap">
                             {user?.direccion}
+                          </td>
+                          <td className="text-xs md:text-sm text-wrap">
+                            {user?.ciudad}
+                          </td>
+                          <td className="text-xs md:text-sm text-wrap">
+                            {user?.departamento}
                           </td>
                           <td className="text-xs md:text-sm text-wrap">
                             {user?.detalles}

@@ -16,7 +16,11 @@ const Listado = ({
     const fetchData = async () => {
       try {
         const result = await listar();
-        setOfertas(result.ofertas);
+        if (result && result.ofertas.length > 0) {
+          setOfertas(result.ofertas)
+        } else {
+          setOfertas([]);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }

@@ -8,11 +8,14 @@ export const Pedidos = ({ user, ruta }) => {
     setIsLoading(true);
     try {
       const response = await orderUser(user.id, ruta);
-      if (response.status === 200) {
+      localStorage.setItem('data', JSON.stringify(response.data))
+      if (response && response.status === 200) {
         const ordersUser = response.data.pedidos;
         window.location.href = `/detalles-pedido/${user.id}`;
         localStorage.setItem("dataOrderUser", JSON.stringify(ordersUser));
         localStorage.setItem("dataUser", JSON.stringify(user));
+      } else {
+        window.location.href = `/detalles-pedido/fail`;
       }
     } catch (e) {
       console.log("Error al listar el pedido", e);
@@ -29,24 +32,16 @@ export const Pedidos = ({ user, ruta }) => {
         </div>
       ) : (
         <span className="flex items-center gap-1">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="icon icon-tabler icon-tabler-shopping-bag-exclamation w-6 h-6"
-            width="44"
-            height="44"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="#2c3e50"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M15 21h-6.426a3 3 0 0 1 -2.965 -2.544l-1.255 -8.152a2 2 0 0 1 1.977 -2.304h11.339a2 2 0 0 1 1.977 2.304l-.258 1.678" />
-            <path d="M9 11v-5a3 3 0 0 1 6 0v5" />
-            <path d="M19 16v3" />
-            <path d="M19 22v.01" />
-          </svg>{" "}
           Ver pedidos
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clipboard-list size-6" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1" stroke="#2c3e50" fill="none" strokeLinecap="round" strokeLinejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+            <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+            <path d="M9 12l.01 0" />
+            <path d="M13 12l2 0" />
+            <path d="M9 16l.01 0" />
+            <path d="M13 16l2 0" />
+          </svg>
         </span>
       )}
     </button>

@@ -1,6 +1,8 @@
 import { notificaciones } from "@/services/notificaciones";
 import { formatTimestamp } from "@/utils/formatTimestamp";
 import { useEffect, useState } from "react";
+import { Read } from "./Read";
+import { Close } from "./icons/Close";
 
 export const Notificaciones = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -11,10 +13,13 @@ export const Notificaciones = () => {
       const data = await notificaciones();
       if (data) {
         setMessages(data);
+      } else {
+        setMessages([])
       }
     };
     fetchData();
   }, []);
+
 
   const toggleDropdown = () => {
     setDropdownOpen((prevState) => !prevState);
@@ -22,7 +27,7 @@ export const Notificaciones = () => {
 
   return (
     <>
-      <span className="rounded-full p-2 flex absolute right-[70px] bottom-9 bg-red-700 text-white w-4 h-4 text-xs font-semibold justify-center items-center">
+      <span className="rounded-full p-2 flex absolute right-[70px] bottom-9 bg-red-700 text-white w-5 h-5 text-xs font-semibold justify-center items-center">
         {messages.notifications?.length || 0}
       </span>
       <button onClick={toggleDropdown} type="button">
@@ -39,15 +44,19 @@ export const Notificaciones = () => {
       </button>
 
       <div
-        className={`z-10 right-1 -bottom-96 max-h-96 overflow-y-auto  absolute ${
-          dropdownOpen ? "block" : "hidden"
-        } bg-white divide-y divide-gray-100 rounded-lg shadow w-72 dark:bg-gray-700 dark:divide-gray-600 `}>
+        className={`z-10 right-10 -bottom-96 min-h-96 max-h-1 overflow-y-auto  absolute ${dropdownOpen ? "block" : "hidden"
+          } bg-white divide-y divide-gray-100 rounded-lg shadow w-72 dark:bg-gray-700 dark:divide-gray-600 `}>
+        <div className="flex items-center justify-end mr-3 gap-1">
+          <Read toggleDropdown={toggleDropdown} />
+          <Close toggleDropdown={toggleDropdown} />
+        </div>
         {messages.notifications && messages.notifications.length > 0 ? (
           <ul className="flex flex-col">
             {messages.notifications.map((noti) => (
               <li
                 key={noti.id}
-                className="text-[10px] md:text-[11px] flex gap-1 hover:bg-gray-300 p-2 rounded-sm items-center justify-between">
+                onClick={() => window.location.href = '/pedidos'}
+                className="text-[10px] md:text-[11px] flex gap-1 cursor-pointer hover:bg-gray-300 p-2 rounded-sm items-center justify-between">
                 <div className="w-full">
                   <p className="text-wrap leading-3">{noti.mensaje}</p>
                   <span className="text-gray-600 text-right">
