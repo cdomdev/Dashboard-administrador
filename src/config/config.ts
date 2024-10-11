@@ -1,3 +1,3 @@
-const API_HOST = import.meta.env.VITE_API_HOST || "http://localhost:3000";
+const API_HOST = import.meta.env.PUBLIC_HOST_API;
 
 export default API_HOST;
