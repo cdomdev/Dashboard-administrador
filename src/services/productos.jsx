@@ -5,7 +5,7 @@ import { api } from "@/config/axios.conf";
 export const saveImage = async (formData) => {
   try {
     const response = await axios.post(
-      "http://localhost:3000/api/upload",
+      `${API_HOST}/api/upload`,
       formData,
       {
         headers: {

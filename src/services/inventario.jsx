@@ -5,7 +5,7 @@ import { api } from "@/config/axios.conf";
 export const productos = async () => {
   try {
     const response = await axios.get(
-      "http://localhost:3000/api/inventary/list-products"
+      `${API_HOST}/list-products`
     );
     return response.data;
   } catch (error) {

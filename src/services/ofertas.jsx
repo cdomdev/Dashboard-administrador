@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const listar = async () => {
   try {
-    const response = await api.get("http://localhost:3000/api/listar/ofertas");
+    const response = await api.get(`${API_HOST}/api/listar/ofertas`);
     return response.data;
   } catch (error) {
     console.error("Error fetching products:", error);

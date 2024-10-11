@@ -1,10 +1,11 @@
 import { api } from "@/config/axios.conf";
 import axios from "axios";
+import API_HOST from "@/config/config";
 
 export const createCategory = async (nombre) => {
   try {
     const response = await api.post(
-      "http://localhost:3000/api/categories/create",
+      `${API_HOST}/api/categories/create"`,
       nombre
     );
     return response;
@@ -17,7 +18,7 @@ export const createCategory = async (nombre) => {
 export const listarCat = async () => {
   try {
     const response = await axios.get(
-      "http://localhost:3000/api/categories/list"
+      `${API_HOST}/api/categories/list`
     );
     if (response.data && response.data.categorias) {
       return response.data.categorias;
@@ -37,7 +38,7 @@ export const listarCat = async () => {
 export const deleteCategory = async (id) => {
   try {
     const response = await api.delete(
-      `http://localhost:3000/api/categories/delete/${id}`
+      `${API_HOST}/api/categories/delete/${id}`
     );
     return response;
   } catch (error) {

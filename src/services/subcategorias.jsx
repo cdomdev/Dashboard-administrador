@@ -1,10 +1,11 @@
 import axios from "axios";
 import { api } from "@/config/axios.conf";
+import API_HOST from "@/config/config";
 
 export const createSubcategory = async (nombre) => {
   try {
     const response = await api.post(
-      "http://localhost:3000/api/subcategories/create",
+      `${API_HOST}/api/subcategories/create`,
       nombre
     );
     return response;
@@ -17,7 +18,7 @@ export const createSubcategory = async (nombre) => {
 export const listarSub = async () => {
   try {
     const response = await axios.get(
-      "http://localhost:3000/api/subcategories/list"
+      `${API_HOST}/api/subcategories/list`
     );
     return response.data;
   } catch (error) {
@@ -29,7 +30,7 @@ export const listarSub = async () => {
 export const deleteSubcategory = async (id) => {
   try {
     const response = await api.delete(
-      `http://localhost:3000/api/subcategories/delete/${id}`
+      `${API_HOST}/api/subcategories/delete/${id}`
     );
     return response;
   } catch (error) {
