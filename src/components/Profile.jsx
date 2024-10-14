@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getDataStorage } from "@/utils/getDataStorage";
 import { logout } from "@/services/auth";
+import Cookies from "js-cookie";
 
 export const Profile = () => {
   const [data, setData] = useState({});
@@ -22,12 +23,12 @@ export const Profile = () => {
   const clearStorege = () => {
     localStorage.clear();
     sessionStorage.clear();
+    Cookies.remove('access_token')
   };
 
   const logOut = async () => {
     clearStorege();
     const response = await logout()
-    console.log(response)
     if (response.status === 200) {
       window.location.href = '/auth'
     }

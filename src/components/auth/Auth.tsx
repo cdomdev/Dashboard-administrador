@@ -27,8 +27,16 @@ const Auth: React.FC<FormInicioSesionProps> = ({ isAuthenticated }) => {
             if (response && response.status === 200) {
                 const { data } = response
                 const { accessToken, userSessionData } = data
-                Cookies.set("access_token", accessToken)
-                Cookies.set('user_sesion', userSessionData)
+                Cookies.set("access_token", accessToken, {
+                    expires: 1,
+                    secure: true,
+                    sameSite: "lax"
+                })
+                Cookies.set('user_sesion', userSessionData, {
+                    expires: 1,
+                    secure: true,
+                    sameSite: "lax",
+                })
                 localStorage.setItem('infoProfileUSer', JSON.stringify(userSessionData))
                 window.location.href = "/";
             } else {
