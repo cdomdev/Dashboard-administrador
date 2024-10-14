@@ -4,6 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { authAdmin } from "@/services/auth";
 import type { ValuesSesion } from "@/types/types";
 import { ToastCammon } from "../ToastCammon";
+import Cookies from 'js-cookie'
 
 interface FormInicioSesionProps {
     isAuthenticated: boolean;
@@ -24,8 +25,12 @@ const Auth: React.FC<FormInicioSesionProps> = ({ isAuthenticated }) => {
         try {
             const response = await authAdmin(values)
             if (response && response.status === 200) {
+                const { data } = response
+                const { accessToken, userSessionData } = data
+                Cookies.set("access_token", accessToken)
+                Cookies.set('user_sesion', userSessionData)
+                localStorage.setItem('infoProfileUSer', JSON.stringify(userSessionData))
                 window.location.href = "/";
-                localStorage.setItem('infoProfileUSer', JSON.stringify(response.data))
             } else {
                 setBgToast('danger')
                 setIsLoading(false)

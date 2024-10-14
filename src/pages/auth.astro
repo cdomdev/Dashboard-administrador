@@ -4,7 +4,6 @@ import AuthFomr  from "../components/auth/Auth";
 const cookies = Astro.cookies;
 const authToken = cookies.get("access_token");
 const isAuthenticated = authToken !== undefined;
-
 ---
 
 <Layout title="Login">

@@ -13,7 +13,7 @@ export const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const tokenSesion = Cookies.get("token_sesion");
+    const tokenSesion = Cookies.get("access_token");
     config.headers.Authorization = `Bearer ${tokenSesion}`;
     return config;
   },
