@@ -37,7 +37,7 @@ const Listado = ({
       <Accordion defaultActiveKey="0">
         {ofertas.length === 0 || ofertas === "No hay ofertas disponibles" ? (
           <div className="w-full bg-white py-3 px-2">
-            <p className="text-base font-semibold">
+            <p className="text-center text-base font-semibold">
               No hay ofertas disponibles
             </p>
           </div>

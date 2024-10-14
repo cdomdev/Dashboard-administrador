@@ -11,8 +11,6 @@ export const Profile = () => {
     const dataLocal = getDataStorage("infoProfileUSer");
     if (dataLocal) {
       setData(dataLocal);
-    } else {
-      return null;
     }
   }, []);
 

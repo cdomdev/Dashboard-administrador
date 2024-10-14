@@ -13,7 +13,7 @@ const Crear = ({
   setToastMessage,
 }) => {
   const [fileName, setFileName] = useState("");
-
+  const [loading, setLoading] = useState(false)
   const [selectedCategoria, setSelectedCategoria] = useState("");
   const [selectedSubCategoria, setSelectedSubCategoria] = useState("");
 
@@ -49,6 +49,7 @@ const Crear = ({
 
   const getFormValues = async (e) => {
     e.preventDefault();
+    setLoading(true)
 
     const {
       id,
@@ -76,6 +77,7 @@ const Crear = ({
       setBgToast("danger");
       setShowToast(true);
       setToastMessage("Faltan datos para el nuevo producto");
+      setLoading(false)
       return;
     }
 
@@ -83,7 +85,7 @@ const Crear = ({
     formData.append("files", imagesToSend);
     try {
       const response = await saveImage(formData);
-      if (response.status === 200 || response.status === 201) {
+      if (response.status === 200) {
         const { uploadedFiles } = response.data;
         const imageUrls = uploadedFiles.map((file) => file.imageUrl);
 
@@ -140,7 +142,14 @@ const Crear = ({
       }
     } catch (error) {
       console.log(`Hubo un error en la solicitud ${error}`);
+      setToastMessage("Hubo un error al crear el produco, intentalo mas tarde");
+      setBgToast("warning");
+      setLoading(false)
+      setShowToast(true);
+    } finally {
+      setLoading(false)
     }
+
   };
 
   return (
@@ -280,10 +289,14 @@ const Crear = ({
         />
 
         <Button
-          className="btn mt-3 w-full py-2 text-base"
+          className="btn mt-3 w-full py-2 text-sm md:text-base"
           variant="primary"
           type="submit">
-          Agregar producto
+          {
+            loading ? (
+              <p>Agregando nuevo produco...</p>
+            ) : <p>Agregar producto</p>
+          }
         </Button>
       </Form>
     </div>

@@ -39,8 +39,8 @@ const GestionCategorias = () => {
               setShowToast={setShowToast}
             />
           </div>
-          <div className="lista-categrtorias bg-white p-3 rounded-sm">
-            <h2 className="mb-2 text-lg">Lista de categorias</h2>
+          <div className=" bg-white p-3 rounded-sm">
+            <h2 className="mb-2 text-base md:text-lg">Lista de categorias</h2>
             <Listar categorias={categorias} setCategorias={setCategorias} />
           </div>
         </div>

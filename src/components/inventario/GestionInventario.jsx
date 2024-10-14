@@ -6,6 +6,7 @@ import Actualizar from "./Actualizar";
 import Eliminar from "./Eliminar";
 import { Filtros } from "./Filtros";
 import { ToastCammon } from "../ToastCammon";
+import { Database } from "../icons/Database";
 
 
 const GestionInventario = () => {
@@ -59,11 +60,12 @@ const GestionInventario = () => {
           </div>
         </div>
         <div className="flex flex-wrap md:grid md:grid-cols-cust gap-2  ">
-          {data === null && (
-            <div className="w-full bg-white p-2">
-              <p className="text-base text-center">
-                Cargando productos de inventario...
+          {data === null || data.length === 0 && (
+            <div className="w-full bg-white p-2 flex flex-col items-center">
+              <p className="text-sm md:text-base text-center">
+                Parece que no hay productos en el inventario
               </p>
+              <Database />
             </div>
           )}
           {productosFiltrados &&

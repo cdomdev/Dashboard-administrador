@@ -59,11 +59,11 @@ export const Crear = ({
   };
   return (
     <div className="bg-white p-7 rounded-sm">
-      <h2 className="text-lg mb-2">Agregar nueva {guy}</h2>
+      <h2 className="text-base md:text-lg mb-2">Agregar nueva {guy}</h2>
       <FloatingLabel
         controlId="floatingInput"
         label={`Nombre de la ${guy}`}
-        className="mb-3 rounded-md">
+        className="mb-3 rounded-md text-xs md:text-sm">
         <Form.Control
           type="text"
           placeholder="Agregar categoría"
@@ -76,7 +76,7 @@ export const Crear = ({
       <Button
         variant="primary"
         onClick={handleCategory}
-        className="w-full py-2 text-base">
+        className="w-full py-2 text-sm md:text-base">
         Agregar {guy}
       </Button>
     </div>

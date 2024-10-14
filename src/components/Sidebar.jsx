@@ -24,7 +24,7 @@ export const Sidebar = ({ isAuthenticated }) => {
   return (
     <>
       <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 font-text-cust-2">
-        <div className="px-3 py-3 lg:px-5 lg:pl-3">
+        <div className="px-4 md:px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start rtl:justify-end">
               <svg
@@ -72,7 +72,7 @@ export const Sidebar = ({ isAuthenticated }) => {
                     <ul className="space-y-2 font-medium">
                       <li>
                         <a
-                          href="/Dashboard"
+                          href="/"
                           className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                           <svg
                             className="w-7 h-7 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"

@@ -18,16 +18,18 @@ export const Listar = ({ subcategorias, setSubcategorias }) => {
   return (
     <>
       <div>
-        <Table striped bordered hover size="sm" className="table-category">
-          <tbody className="tbody-table-category">
-            {subcategorias &&
-              subcategorias.map((subcategoria) => (
-                <tr key={subcategoria.id}>
-                  <td>{subcategoria.nombre}</td>
-                </tr>
-              ))}
-          </tbody>
-        </Table>
+        {setSubcategorias & subcategorias.lenght > 0 ? (
+          <Table striped bordered hover size="sm" className="table-category">
+            <tbody className="tbody-table-category">
+              {subcategorias &&
+                subcategorias.map((subcategoria) => (
+                  <tr key={subcategoria.id}>
+                    <td className="text-sm md:text-base">{subcategoria.nombre}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </Table>
+        ) : <p className="text-sm md:text-base text-center">Parece que no hay subcategorias por eliminar</p>}
       </div>
     </>
   );

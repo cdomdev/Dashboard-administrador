@@ -38,7 +38,7 @@ export const Ventas = () => {
           <h2 className="font-semibold text-lg md:text-xl ">
             Ventas recientes
           </h2>
-          <p className="text-sm text-slate-500">
+          <p className="text-xs md:text-sm text-slate-500">
             Se realizaron {filteredVentas.length} ventas{" "}
             {filter === "este-mes"
               ? "este mes"

@@ -63,17 +63,17 @@ const Eliminar = ({
   return (
     <>
       <div className="bg-white p-3 rounded-sm">
-        <h4 className="text-lg">Eliminar {guy}</h4>
-        <p className="text-base">
+        <h4 className="text-base md:text-lg mb-1">Eliminar {guy}</h4>
+        <p className=" text-sm md:text-base">
           Antes de eliminar una categoria, asegurece que no tenga productos
           asociados.
         </p>
-        <p className="text">Selecione la {guy} a eliminar:</p>
+        <p className="text-sm md:text-base mt-1">Selecione la {guy} a eliminar:</p>
         <Form.Select className="mt-3" onChange={(e) => handleCategoryChange(e)}>
-          <option>Seleccionar {guy}</option>
+          <option className="text-xs md:text-sm">Seleccionar {guy}</option>
           {categorias &&
             categorias.map((categoria) => (
-              <option key={categoria.id} value={categoria.id}>
+              <option key={categoria.id} value={categoria.id} className="text-xs md:text-sm">
                 {categoria.nombre}
               </option>
             ))}
@@ -81,7 +81,7 @@ const Eliminar = ({
 
         <Button
           variant="danger "
-          className="mt-4 w-full py-2"
+          className="mt-4 w-full py-2 text-xs md:text-sm"
           onClick={handleCategoryDelete}>
           Eliminar {guy}
         </Button>
