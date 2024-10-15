@@ -43,8 +43,7 @@ api.interceptors.response.use(
 
         if (refreshResponse.status === 200) {
           const { accessToken } = refreshResponse.data;
-          console.log(accessToken)
-          Cookies.set("token_sesion", accessToken, { secure: true, sameSite: "Strict" });
+          Cookies.set("access_token", accessToken, { secure: true, sameSite: "lax", expires: 1 });
           originalRequest.headers.Authorization = `Bearer ${accessToken}`;
           return api(originalRequest);
         } else {

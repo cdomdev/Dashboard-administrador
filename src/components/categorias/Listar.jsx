@@ -16,30 +16,30 @@ export const Listar = ({ categorias, setCategorias }) => {
     fetchData();
   }, []);
 
-
   return (
-    <div>
+    <>
       {
-        categorias ? (
+        !categorias || categorias.length === 0 ? (
+          <p className="text-center text-sm md:text-base">No hay categorias por listar </p>
+        ) :
           <Table
             striped
             bordered
             hover
             size="sm"
             responsive
-            className="table-category">
+          >
             <tbody className="tbody-table-category">
-              {categorias & categorias.lenght === 0 ??
-                (categorias.map((categoria) => (
-                  <tr key={categoria.id}>
-                    <td className="text-sm md:text-base">{categoria.nombre}</td>
-                  </tr>
-                )))}
+              {(categorias.map((categoria) => (
+                <tr key={categoria.id}>
+                  <td className="text-sm md:text-base">{categoria.nombre}</td>
+                </tr>
+              ))
+              )
+              }
             </tbody>
           </Table>
-        ) : <p className="text-sm  lg:text-base text-center">No hay cactegorias por listar</p>
       }
-
-    </div>
+    </>
   );
 };

@@ -40,7 +40,7 @@ const GestionCategorias = () => {
             />
           </div>
           <div className=" bg-white p-3 rounded-sm">
-            <h2 className="mb-2 text-base md:text-lg">Lista de categorias</h2>
+            <h2 className="mb-2 text-base md:text-lg font-semibold">Lista de categorias</h2>
             <Listar categorias={categorias} setCategorias={setCategorias} />
           </div>
         </div>
