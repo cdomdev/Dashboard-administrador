@@ -10,8 +10,10 @@ export const Crear = ({
   setToastMessage,
 }) => {
   const [categoryName, setCategoryName] = useState("");
+  const [loading, setLoading] = useState(false)
 
   const handleCategory = async () => {
+    setLoading(true)
     try {
       if (
         !categoryName ||
@@ -19,6 +21,7 @@ export const Crear = ({
         categoryName.length === 0
       ) {
         setBgToast("danger");
+        setLoading(false)
         setShowToast(true);
         setToastMessage("Este campo solo debe contener texto");
         return;
@@ -29,6 +32,7 @@ export const Crear = ({
       if (response.status === 201) {
         setCategorias(response.data.categorias);
         setCategoryName("");
+        setLoading(false)
         setToastMessage("Nueva subcategoria agregada con exito");
         setBgToast("success");
         setShowToast(true);
@@ -39,27 +43,39 @@ export const Crear = ({
         const { status } = error.response;
         if (status === 401 || status === 403) {
           setBgToast("warning");
+          setLoading(false)
           setToastMessage("No tienes los permisos para esta operación");
           setShowToast(true);
         } else if (status === 500) {
           setBgToast("danger");
+          setLoading(false)
           setToastMessage(
             "Hubo un error crear una nueva categoria, inténtelo de nuevo"
           );
           setShowToast(true);
         } else {
           setBgToast("danger");
+          setLoading(false)
           setToastMessage(
             "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde."
           );
           setShowToast(true);
         }
+      } else {
+        setBgToast("danger");
+        setLoading(false)
+        setToastMessage(
+          "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde."
+        );
+        setShowToast(true);
       }
+    } finally {
+      setLoading(false)
     }
   };
   return (
     <div className="bg-white p-7 rounded-sm">
-      <h2 className="text-base md:text-lg mb-2">Agregar nueva {guy}</h2>
+      <h2 className="text-base md:text-lg mb-2 font-semibold">Agregar nueva {guy}</h2>
       <FloatingLabel
         controlId="floatingInput"
         label={`Nombre de la ${guy}`}
@@ -77,7 +93,7 @@ export const Crear = ({
         variant="primary"
         onClick={handleCategory}
         className="w-full py-2 text-sm md:text-base">
-        Agregar {guy}
+        {loading ? <>Creando {guy}</> : <>Agregar {guy}</>}
       </Button>
     </div>
   );

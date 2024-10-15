@@ -17,20 +17,21 @@ export const Listar = ({ subcategorias, setSubcategorias }) => {
   }, []);
   return (
     <>
-      <div>
-        {subcategorias ? (
-          <Table striped bordered hover size="sm" className="table-category">
-            <tbody className="tbody-table-category">
-              {subcategorias &&
-                subcategorias.map((subcategoria) => (
-                  <tr key={subcategoria.id}>
-                    <td className="text-sm md:text-base">{subcategoria.nombre}</td>
-                  </tr>
-                ))}
-            </tbody>
-          </Table>
-        ) : <p className="text-sm md:text-base text-center">No hay subcategorias por eliminar</p>}
-      </div>
+      {!subcategorias || subcategorias.length === 0 ? (
+        <p className="text-sm md:text-base text-center">No hay subcategorias para listar</p>
+      ) : (
+        <Table striped bordered hover size="sm" className="table-category">
+          <tbody className="tbody-table-category">
+            {subcategorias &&
+              subcategorias.map((subcategoria) => (
+                <tr key={subcategoria.id}>
+                  <td className="text-sm md:text-base">{subcategoria.nombre}</td>
+                </tr>
+              ))}
+          </tbody>
+        </Table>
+      )}
+
     </>
   );
 };

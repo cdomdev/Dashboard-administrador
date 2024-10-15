@@ -37,7 +37,7 @@ export const listarCat = async () => {
 
 export const deleteCategory = async (id) => {
   try {
-    const response = await api.post(`${API_HOST}/api/categories/delete`, { id: id });
+    const response = await api.delete(`${API_HOST}/api/categories/delete/${id}`);
     return response;
   } catch (error) {
     console.error("Error deleting category:", error);
