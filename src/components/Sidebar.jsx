@@ -9,7 +9,7 @@ import { Profile } from "./Profile.jsx";
 import { useState } from "react";
 import { Notificaciones } from "./Notificaciones.jsx";
 import { UserIcon } from "./icons/UserIcon.jsx";
-
+import LogoImg from '../../public/logo.webp'
 
 export const Sidebar = ({ isAuthenticated }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -161,12 +161,11 @@ export const Sidebar = ({ isAuthenticated }) => {
                   </div>
                 </div>
               </div>
-
               <a href="/" className="flex justify-center items-center">
-                <Logo />
+                <span className="text-2xl -mb-2 pl-2 md:mb-0 md:text-3xl font-extrabold text-[#22365c]">Suministros</span>
               </a>
             </div>
-            <div className="flex gap-3 justify-center items-center">
+            <div className="flex gap-2 md:gap-3 justify-center items-center">
               <Notificaciones />
               <Profile />
             </div>

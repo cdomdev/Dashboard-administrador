@@ -27,7 +27,7 @@ export const Notificaciones = () => {
 
   return (
     <>
-      <span className="rounded-full p-2 flex absolute right-20 bottom-9 bg-red-700 text-white w-4 h-4 text-xs font-normal justify-center items-center">
+      <span className="rounded-full p-2 flex absolute right-[72px] bottom-9 bg-red-700 text-white w-4 h-4 text-xs font-normal justify-center items-center">
         {messages.notifications?.length || 0}
       </span>
       <button onClick={toggleDropdown} type="button">
