@@ -8,6 +8,7 @@ import { Logo } from "./icons/Logo.jsx";
 import { Profile } from "./Profile.jsx";
 import { useState } from "react";
 import { Notificaciones } from "./Notificaciones.jsx";
+import { UserIcon } from "./icons/UserIcon.jsx";
 
 
 export const Sidebar = ({ isAuthenticated }) => {
@@ -143,6 +144,16 @@ export const Sidebar = ({ isAuthenticated }) => {
                           <SubIcon />
                           <span className="flex-1 ms-3 whitespace-nowrap">
                             Subcategorias
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/gestion-usuarios"
+                          className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                          <UserIcon/>
+                          <span className="flex-1 ms-3 whitespace-nowrap">
+                            Gestionar usuarios
                           </span>
                         </a>
                       </li>

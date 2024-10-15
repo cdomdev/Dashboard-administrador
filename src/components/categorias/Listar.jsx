@@ -20,7 +20,7 @@ export const Listar = ({ categorias, setCategorias }) => {
   return (
     <div>
       {
-        categorias && categorias.lenght > 0 ? (
+        categorias ? (
           <Table
             striped
             bordered
@@ -37,7 +37,7 @@ export const Listar = ({ categorias, setCategorias }) => {
                 )))}
             </tbody>
           </Table>
-        ) : <p className="text-sm  lg:text-base text-center">Parce que no hay cactegorias por listar</p>
+        ) : <p className="text-sm  lg:text-base text-center">No hay cactegorias por listar</p>
       }
 
     </div>

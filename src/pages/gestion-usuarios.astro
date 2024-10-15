@@ -1,0 +1,15 @@
+---
+import Layout from "../layouts/Layout.astro";
+const cookies = Astro.cookies;
+const authToken = cookies.get("access_token");
+const isAuthenticated = authToken !== undefined;
+if(!isAuthenticated){
+  return Astro.redirect('/auth')
+}
+---
+
+<Layout title="Inventario">
+  <div class="">
+    <p>Pagina para la gestion de los usuarios</p>
+  </div>
+</Layout>

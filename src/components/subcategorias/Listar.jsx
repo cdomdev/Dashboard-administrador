@@ -18,7 +18,7 @@ export const Listar = ({ subcategorias, setSubcategorias }) => {
   return (
     <>
       <div>
-        {setSubcategorias & subcategorias.lenght > 0 ? (
+        {subcategorias ? (
           <Table striped bordered hover size="sm" className="table-category">
             <tbody className="tbody-table-category">
               {subcategorias &&
@@ -29,7 +29,7 @@ export const Listar = ({ subcategorias, setSubcategorias }) => {
                 ))}
             </tbody>
           </Table>
-        ) : <p className="text-sm md:text-base text-center">Parece que no hay subcategorias por eliminar</p>}
+        ) : <p className="text-sm md:text-base text-center">No hay subcategorias por eliminar</p>}
       </div>
     </>
   );
