@@ -1,0 +1,19 @@
+---
+import Layout from "./Layout.astro";
+---
+
+<Layout title="Usuarios">
+    <header>
+        <ul
+            class="text-md text-black dark:text-gray-400 py-2 text-center shadow-sm bg-white mb-2 rounded-lg"
+        >
+            <li><a href="/gestion-usuarios/administradores">Administradores</a></li>
+            <li><a href="/gestion-usuarios/usuarios">Usuarios</a></li>
+        </ul>
+    </header>
+    <main>
+        <section class="p-2 sm:ml-64 mt-20 bg-[#f5f6fa] min-h-screen">
+            <slot />
+        </section>
+    </main>
+</Layout>
