@@ -37,12 +37,12 @@ const Auth: React.FC<FormInicioSesionProps> = ({ isAuthenticated }) => {
                     secure: true,
                     sameSite: "lax"
                 })
-                Cookies.set('user_sesion', userSessionData, {
+                Cookies.set('user_sesion', JSON.stringify(userSessionData), {
                     expires: 1,
                     secure: true,
                     sameSite: "lax",
                 })
-                localStorage.setItem('infoProfileUSer', userSessionData)
+                localStorage.setItem('infoProfileUSer', JSON.stringify(userSessionData))
                 window.location.href = "/";
             } else {
                 setBgToast('danger')

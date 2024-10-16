@@ -18,13 +18,10 @@ const ListUsers = () => {
         fechData()
     }, [])
 
-    const isValidURL = (url) => {
-        new URL(url) ? true : false;
-    };
 
     return (
         <div className="relative overflow-x-auto  sm:rounded-lg">
-            <Table striped>
+            <Table striped responsive hover >
                 <thead>
                     <tr>
                         <th>#</th>
@@ -55,7 +52,7 @@ const ListUsers = () => {
                                 <td className="text-sm md:text-base">{user.email}</td>
                                 <td className="text-sm md:text-base">{user.departamento || 'Sin informacion'}</td>
                                 <td className="text-sm md:text-base">{user.ciudad || 'Sin informacion'}</td>
-                                <td className="text-sm md:text-base">{user.roles.rol_name}</td>
+                                <td className="text-sm md:text-base">{user.roles.rol_name || 'Invitado'}</td>
                                 <td className="text-sm md:text-base">Activo</td>
                                 <td className="text-sm md:text-base"><DeleteUser /></td>
                             </tr>

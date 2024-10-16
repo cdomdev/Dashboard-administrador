@@ -3,6 +3,7 @@ import { Table } from "react-bootstrap";
 import { listar } from "../../services/pedidos";
 import { useEffect } from "react";
 import { Pedidos } from "./Pedidos";
+import { Database } from "../icons/Database";
 
 const ListadoPedidos = () => {
   const [pedidos, setPedidos] = useState(null);
@@ -22,32 +23,38 @@ const ListadoPedidos = () => {
   }, []);
 
   return (
-    <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen font-text-cust-2">
+    <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-dvh font-text-cust-2">
       <div className="dark:border-gray-700 mt-1">
-        <div className="w-full pt-2 bg-white p-3 min-h-screen mt-4">
-          <h2 className="text-center mt-3 mb-1 border py-2 bg-[#1976d2] text-white text-lg">
-            Listado de usuarios pedidos
+        <div className="w-full pt-2 bg-white p-3 min-h-screen mt-4 ">
+          <h2 className="text-center mt-3 mb-2 rounded-sm py-2 bg-[#99e18f] font-semibold shadow-sm text-black text-lg">
+            Listado de pedidos
           </h2>
-          {pedidos !== null ? (
-            <Table striped bordered hover size="sm" responsive>
+          {!pedidos ? (
+
+            <div className="w-full  flex flex-col items-center justify-center p-2">
+              <Database />
+              <p className="text-center text-base">No hay pedidos</p>
+            </div>
+          ) : (
+            <Table striped hover responsive>
               <thead>
                 <tr>
                   <th className="thead-table-users">N°orden</th>
                   <th className="thead-table-users">Nombre</th>
-                  <th className="thead-table-users">E-mail</th>
-                  <th className="thead-table-users">Rol del usuario</th>
-                  <th className="thead-table-users">Pedidos</th>
+                  <th className="thead-table-users">Email</th>
+                  <th className="thead-table-users">Metodo de pago</th>
+                  <th className="thead-table-users">Ver Pedidos</th>
                 </tr>
               </thead>
               <tbody>
-                {pedidos
+                {pedidos && pedidos.length > 0
                   .filter((usuario) => usuario.tienePedidos)
                   .map((usuario, index) => (
                     <tr key={usuario.id || index}>
                       <td>{index + 1}</td>
                       <td>{usuario.name || usuario.nombre}</td>
                       <td>{usuario.email}</td>
-                      <td >{usuario.roles?.rol_name || usuario.role}</td>
+                      <td >{usuario.metodo_pago}</td>
                       <td>
                         {usuario.roles?.rol_name === "user" ? (
                           <Pedidos user={usuario} ruta={"pedidos-usuario"} />
@@ -59,10 +66,6 @@ const ListadoPedidos = () => {
                   ))}
               </tbody>
             </Table>
-          ) : (
-            <div className="w-full border flex items-center justify-center p-2">
-              <p className="text-center text-base">Cargando pedidos...</p>
-            </div>
           )}
         </div>
       </div>
