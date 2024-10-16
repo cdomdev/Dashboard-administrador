@@ -1,11 +1,10 @@
-import axios from "axios";
 import API_HOST from "../config/config";
 import { api } from "@/config/axios.conf";
 
 export const productos = async () => {
   try {
-    const response = await axios.get(
-      `${API_HOST}/list-products`
+    const response = await api.get(
+      `${API_HOST}/api/inventary/list-products`
     );
     return response.data;
   } catch (error) {

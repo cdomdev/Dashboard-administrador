@@ -37,13 +37,14 @@ const GuardarProductos = ({
       }
     } catch (error) {
       if (error.response.status === 403) {
-        console.log("Sin permisos");
+        setBgToast("danger");
+        setShowToast(true);
+        setToastMessage("No tienes los permisos para esta operacion");
       } else if (error.response.status === 500) {
         setBgToast("danger");
         setShowToast(true);
         setToastMessage("Hubo un error en el servidor, intentelo de nuevo");
       }
-      console.error("Error al guardar el producto:", error.message);
     } finally {
       setIsLoading(false);
     }
@@ -56,14 +57,7 @@ const GuardarProductos = ({
           variant="success"
           className="w-full py-2 text-base"
           onClick={handleGuardarProducto}>
-          {isLoading ? (
-            <div className="spinner-container">
-              <p>Guardando productos</p>
-              <Spinner animation="border" role="status" size="sm" />
-            </div>
-          ) : (
-            <>Guardar productos en la base de datos</>
-          )}
+          {isLoading ? <>Guardando productos...</> : <>Guardar productos en la base de datos</>}
         </Button>
       </div>
     </>

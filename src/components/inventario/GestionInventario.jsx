@@ -31,6 +31,8 @@ const GestionInventario = () => {
 
   }, []);
 
+  console.log(data)
+
   const productosFiltrados = data.filter((producto) => {
     return (
       !categoriaSeleccionada ||

@@ -1,6 +1,6 @@
 export const UserIcon = () => {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 w-7 h-7 text-black transition duration-75 dark:text-gray-400  group-hover:text-gray-900 dark:group-hover:text-white" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0 w-7 h-7 text-black transition duration-75 dark:text-gray-400  group-hover:text-gray-900 dark:group-hover:text-white" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
             <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />

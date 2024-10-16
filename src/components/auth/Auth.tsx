@@ -26,9 +26,14 @@ const Auth: React.FC<FormInicioSesionProps> = ({ isAuthenticated }) => {
             const response = await authAdmin(values)
             if (response && response.status === 200) {
                 const { data } = response
-                const { accessToken, userSessionData } = data
+                const { accessToken, userSessionData, refreshToken } = data
                 Cookies.set("access_token", accessToken, {
                     expires: 1,
+                    secure: true,
+                    sameSite: "lax"
+                })
+                Cookies.set("refresh_token", refreshToken, {
+                    expires: 7,
                     secure: true,
                     sameSite: "lax"
                 })

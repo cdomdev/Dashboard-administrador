@@ -90,14 +90,14 @@ const Crear = ({
         const imageUrls = uploadedFiles.map((file) => file.imageUrl);
 
         const selectedCategory = categorias.find(
-          (cat) => cat.id === Number(selectedCategoria)
+          (cat) => cat.id === selectedCategoria
         );
         const selectedCategoryName = selectedCategory
           ? selectedCategory.nombre
           : "";
 
         const selectedSubCategory = subcategorias.find(
-          (sub) => sub.id === Number(selectedSubCategoria)
+          (sub) => sub.id === selectedSubCategoria
         );
         const selectedSubCategoryName = selectedSubCategory
           ? selectedSubCategory.nombre
@@ -141,7 +141,6 @@ const Crear = ({
         setShowToast(true);
       }
     } catch (error) {
-      console.log(`Hubo un error en la solicitud ${error}`);
       setToastMessage("Hubo un error al crear el produco, intentalo mas tarde");
       setBgToast("warning");
       setLoading(false)

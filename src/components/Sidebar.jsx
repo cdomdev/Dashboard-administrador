@@ -4,12 +4,10 @@ import { VenIcons } from "./icons/VenIcons.jsx";
 import { OferIcon } from "./icons/OferIcon.jsx";
 import { CatIcon } from "./icons/CatIcon.jsx";
 import { SubIcon } from "./icons/SubIcon.jsx";
-import { Logo } from "./icons/Logo.jsx";
 import { Profile } from "./Profile.jsx";
 import { useState } from "react";
 import { Notificaciones } from "./Notificaciones.jsx";
 import { UserIcon } from "./icons/UserIcon.jsx";
-import LogoImg from '../../public/logo.webp'
 
 export const Sidebar = ({ isAuthenticated }) => {
   const [isOpen, setIsOpen] = useState(false);
