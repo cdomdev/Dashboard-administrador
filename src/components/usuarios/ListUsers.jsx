@@ -1,6 +1,27 @@
 import { Table } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { getUserForList } from "@/services/users";
+import { DeleteUser } from "./DeleteUser";
+import { ProfileDef } from "./ProfileDef";
 
 const ListUsers = () => {
+    const [users, setUsers] = useState([])
+
+    useEffect(() => {
+        const fechData = async () => {
+            const lisUsers = await getUserForList()
+            if (users) {
+                const { users } = lisUsers
+                setUsers(users)
+            }
+        }
+        fechData()
+    }, [])
+
+    const isValidURL = (url) => {
+        new URL(url) ? true : false;
+    };
+
     return (
         <div className="relative overflow-x-auto  sm:rounded-lg">
             <Table striped>
@@ -13,26 +34,34 @@ const ListUsers = () => {
                         <th>Ciudad</th>
                         <th>Rol </th>
                         <th>Estado</th>
-                        <th>Quitar</th>
+                        <th><span className="text-red-600">Eliminar</span></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Carlos</td>
-                        <td>carlos@gmail.com</td>
-                        <td>Cundinamarca</td>
-                        <td>Bogota</td>
-                        <td>usuario</td>
-                        <td>Activo</td>
-                        <td><svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-trash-x size-8" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ff2825" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M4 7h16" />
-                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                            <path d="M10 12l4 4m0 -4l-4 4" />
-                        </svg></td>
-                    </tr>
+                    {users.map((user) => (
+                        <>
+                            <tr>
+                                <td>
+                                    {
+                                        user.picture ? (
+                                            <img src={user.picture} alt="profile-useer" className="border size-8 rounded-full" />
+                                        ) : (
+                                            <ProfileDef />
+                                        )
+                                    }
+
+                                </td>
+                                <td className="text-sm md:text-base">{user.nombre}</td>
+                                <td className="text-sm md:text-base">{user.email}</td>
+                                <td className="text-sm md:text-base">{user.departamento || 'Sin informacion'}</td>
+                                <td className="text-sm md:text-base">{user.ciudad || 'Sin informacion'}</td>
+                                <td className="text-sm md:text-base">{user.roles.rol_name}</td>
+                                <td className="text-sm md:text-base">Activo</td>
+                                <td className="text-sm md:text-base"><DeleteUser /></td>
+                            </tr>
+                        </>
+                    ))}
+
                 </tbody>
             </Table>
         </div>

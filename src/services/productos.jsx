@@ -26,8 +26,8 @@ export const saveImage = async (formData) => {
 export const saveProducts = async (updatedList) => {
   try {
     const response = await api.post(`${API_HOST}/api/save-news-products`, {
-      productos: updatedList,
-    });
+      productos: updatedList
+    }, { withCredentials: true });
 
     return response;
   } catch (error) {

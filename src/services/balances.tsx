@@ -3,7 +3,7 @@ import { api } from "@/config/axios.conf";
 
 export const balances = async () => {
   try {
-    const response = await api.get(`${API_HOST}/api/see-balance-sheets`);
+    const response = await api.get(`${API_HOST}/api/see-balance-sheets`, { withCredentials: true });
     return response;
   } catch (error) {
     console.log("Error en el listado de la data para el dashboard", error);
@@ -13,7 +13,7 @@ export const balances = async () => {
 
 export const ventas = async () => {
   try {
-    const response = await api.get(`${API_HOST}/api/sales-month`);
+    const response = await api.get(`${API_HOST}/api/sales-month`, { withCredentials: true });
     return response;
   } catch (error) {
     console.log("Error en el lisatdo de ventas", error);
@@ -22,7 +22,7 @@ export const ventas = async () => {
 };
 export const bestSaller = async () => {
   try {
-    const response = await api.get(`${API_HOST}/api/see-best-sallers`);
+    const response = await api.get(`${API_HOST}/api/see-best-sallers`, { withCredentials: true });
     return response;
   } catch (error) {
     console.error("Error al listar los mas vendidos");

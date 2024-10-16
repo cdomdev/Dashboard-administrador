@@ -31,8 +31,6 @@ const GestionInventario = () => {
 
   }, []);
 
-  console.log(data)
-
   const productosFiltrados = data.filter((producto) => {
     return (
       !categoriaSeleccionada ||
@@ -49,7 +47,7 @@ const GestionInventario = () => {
         toastMessage={toastMessage}
       />
       <div className="dark:border-gray-700 mt-2">
-        <div className="flex bg-white items-center mb-2 mt-4 px-4 justify-end">
+        <div className="flex bg-white items-center mb-2 mt-4 px-4 shadow-sm justify-end">
           <span className="mr-3 text-base font-semibold hidden md:block">
             Filtrar por:{" "}
           </span>

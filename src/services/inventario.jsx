@@ -4,7 +4,7 @@ import { api } from "@/config/axios.conf";
 export const productos = async () => {
   try {
     const response = await api.get(
-      `${API_HOST}/api/inventary/list-products`
+      `${API_HOST}/api/inventary/list-products`, { withCredentials: true }
     );
     return response.data;
   } catch (error) {
@@ -19,7 +19,7 @@ export const stockUpdate = async (updatedStock, id) => {
       `${API_HOST}/api/inventary/products/update-stock/${id}`,
       {
         newStock: updatedStock,
-      }
+      }, { withCredentials: true }
     );
     return response;
   } catch (error) {
@@ -34,7 +34,7 @@ export const updateDataProduct = async (value, id) => {
       `${API_HOST}/api/inventary/products/update/${id}`,
       {
         newProduct: value,
-      }
+      }, { withCredentials: true }
     );
     return response;
   } catch (e) {

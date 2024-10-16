@@ -1,5 +1,12 @@
 ---
 import LayoutUsers from "../../layouts/LayoutUsers.astro";
+const cookies = Astro.cookies;
+const authToken = cookies.get("access_token");
+const isAuthenticated = authToken !== undefined;
+if(!isAuthenticated){
+  return Astro.redirect('/auth')
+}
+
 ---
 
 <LayoutUsers>

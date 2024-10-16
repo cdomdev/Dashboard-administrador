@@ -22,6 +22,8 @@ export const Profile = () => {
     localStorage.clear();
     sessionStorage.clear();
     Cookies.remove('access_token')
+    Cookies.remove('refresh_token')
+    Cookies.remove('user_sesion')
   };
 
   const logOut = async () => {

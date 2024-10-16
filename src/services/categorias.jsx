@@ -6,7 +6,7 @@ export const createCategory = async (nombre) => {
   try {
     const response = await api.post(
       `${API_HOST}/api/categories/create`,
-      nombre
+      nombre, { withCredentials: tru }
     );
     return response;
   } catch (error) {
@@ -37,7 +37,7 @@ export const listarCat = async () => {
 
 export const deleteCategory = async (id) => {
   try {
-    const response = await api.delete(`${API_HOST}/api/categories/delete/${id}`);
+    const response = await api.delete(`${API_HOST}/api/categories/delete/${id}`, { withCredentials: true });
     return response;
   } catch (error) {
     console.error("Error deleting category:", error);

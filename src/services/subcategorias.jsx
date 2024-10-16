@@ -6,7 +6,7 @@ export const createSubcategory = async (nombre) => {
   try {
     const response = await api.post(
       `${API_HOST}/api/subcategories/create`,
-      nombre
+      nombre, { withCredentials: true }
     );
     return response;
   } catch (error) {
@@ -18,7 +18,7 @@ export const createSubcategory = async (nombre) => {
 export const listarSub = async () => {
   try {
     const response = await axios.get(
-      `${API_HOST}/api/subcategories/list`
+      `${API_HOST}/api/subcategories/list`, { withCredentials: true }
     );
     return response.data;
   } catch (error) {
@@ -30,7 +30,7 @@ export const listarSub = async () => {
 export const deleteSubcategory = async (id) => {
   try {
     const response = await api.delete(
-      `${API_HOST}/api/subcategories/delete/${id}`
+      `${API_HOST}/api/subcategories/delete/${id} `, { withCredentials: true }
     );
     return response;
   } catch (error) {

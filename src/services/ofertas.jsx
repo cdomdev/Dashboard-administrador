@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const listar = async () => {
   try {
-    const response = await api.get(`${API_HOST}/api/listar/ofertas`);
+    const response = await api.get(`${API_HOST}/api/listar/ofertas`, { withCredentials: true });
     return response.data;
   } catch (error) {
     console.error("Error fetching products:", error);
@@ -23,7 +23,7 @@ export const productosPopover = async () => {
 
 export const createOfert = async (data) => {
   try {
-    const response = await api.post(`${API_HOST}/api/crear/ofertas`, data);
+    const response = await api.post(`${API_HOST}/api/crear/ofertas`, data, { withCredentials: true });
     return response;
   } catch (error) {
     console.error("Error al crear la oferta", error);
@@ -35,7 +35,7 @@ export const updateOfert = async (id, values) => {
   try {
     const response = await api.put(`${API_HOST}/api/oferta/update/${id}`, {
       updatedValues: values,
-    });
+    }, { withCredentials: true });
     return response;
   } catch (error) {
     console.error("Error al actualizar la oferta", error);
@@ -45,7 +45,7 @@ export const updateOfert = async (id, values) => {
 
 export const deleteOfert = async (id) => {
   try {
-    const response = await api.delete(`${API_HOST}/api/oferta/delete/${id}`);
+    const response = await api.delete(`${API_HOST}/api/oferta/delete/${id}`, { withCredentials: true });
     return response;
   } catch (error) {
     console.error("Error al eliminar la oferta", error);

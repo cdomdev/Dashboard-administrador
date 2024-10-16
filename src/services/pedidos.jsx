@@ -5,7 +5,7 @@ import { error } from "node_modules/astro/dist/core/logger/core";
 export const listar = async () => {
   try {
     const response = await api.get(
-      "http://localhost:3000/api/listar/usuarios-con-pedidos"
+      `${API_HOST}/api/listar/usuarios-con-pedidos`
     );
     return response.data;
   } catch (error) {
@@ -32,7 +32,7 @@ export const updateState = async (id, estado) => {
 
 export const orderUser = async (id, ruta) => {
   try {
-    const response = await api.get(`${API_HOST}/api/listar/${ruta}/${id}`);
+    const response = await api.get(`${API_HOST}/api/listar/${ruta}/${id}`, { withCredentials: true });
     return response;
   } catch (e) {
     console.log(e);
