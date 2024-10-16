@@ -63,7 +63,7 @@ const GestionInventario = () => {
           {data === null || data.length === 0 && (
             <div className="w-full bg-white p-2 flex flex-col items-center">
               <p className="text-sm md:text-base text-center">
-                Parece que no hay productos en el inventario
+                No hay productos en el inventario
               </p>
               <Database />
             </div>

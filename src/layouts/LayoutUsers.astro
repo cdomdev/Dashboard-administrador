@@ -3,17 +3,39 @@ import Layout from "./Layout.astro";
 ---
 
 <Layout title="Usuarios">
-    <header>
-        <ul
-            class="text-md text-black dark:text-gray-400 py-2 text-center shadow-sm bg-white mb-2 rounded-lg"
-        >
-            <li><a href="/gestion-usuarios/administradores">Administradores</a></li>
-            <li><a href="/gestion-usuarios/usuarios">Usuarios</a></li>
-        </ul>
-    </header>
-    <main>
-        <section class="p-2 sm:ml-64 mt-20 bg-[#f5f6fa] min-h-screen">
+    <section class="p-2 sm:ml-64 mt-16 bg-[#f5f6fa] min-h-screen">
+        <header>
+            <ul
+                class="text-md mt-2 text-black dark:text-gray-400 py-2 text-center  bg-white mb-2  pl-4 flex gap-4"
+            >
+                <li>
+                    <a
+                        href="/gestion-usuarios/usuarios"
+                        class="flex items-center hover:text-blue-600 transition duration-0 hover:underline text-sm md:text-base "
+                    >
+                        Usuarios</a
+                    >
+                </li>
+                <li>
+                    <a
+                        href="/gestion-usuarios/administradores"
+                        class="flex items-center hover:text-blue-600 transition duration-0 hover:underline text-sm md:text-base "
+                    >
+                        Administradores</a
+                    >
+                </li>
+                <li>
+                    <a
+                        href="/gestion-usuarios/gestionar-roles"
+                        class="flex items-center hover:text-blue-600 transition duration-0 hover:underline text-sm md:text-base "
+                    >
+                        Administrar roles</a
+                    >
+                </li>
+            </ul>
+        </header>
+        <main>
             <slot />
-        </section>
-    </main>
+        </main>
+    </section>
 </Layout>
