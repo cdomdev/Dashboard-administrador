@@ -9,14 +9,14 @@ export const SaveImageCloud = ({ setUpload }) => {
         {
             cloudName: cloudName,
             uploadPreset: uploasPreset,
+            folder: folder,
             sources: ['local'],
             multiple: false,
-            folder: folder,
             cropping: true,
             showUploadMoreButton: false,
             resourceType: 'image',
-            clientAllowedFormats: ["jpg", "png", "webp"],
             language: 'es',
+            transformation: [{ width: 800, crop: 'limit', quality: 'auto', format: 'auto' }],
             text: {
                 es: {
                     or: "O",
@@ -27,6 +27,14 @@ export const SaveImageCloud = ({ setUpload }) => {
                         browse: "Seleccionar",
                         dd_title_single: "Arrastra tu imagen aquí",
                     },
+                    crop: {
+                        title: "Recortar",
+                        crop_btn: "Recortar",
+                        reset_btn: "Reiniciar",
+                        skip_btn: "Continuar",
+                        close_btn: "Si",
+                        close_prompt: "¿Esta seguro?, al cerrar se cancelara la carga de la imagen",
+                    }
                 },
             },
         },
@@ -40,6 +48,8 @@ export const SaveImageCloud = ({ setUpload }) => {
     const handleUploadClick = () => {
         widget.open();
     };
+
+    console.log(handleUploadClick)
 
     return (
         <button

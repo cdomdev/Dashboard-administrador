@@ -43,7 +43,6 @@ export const Sidebar = ({ isAuthenticated }) => {
                 />
               </svg>
 
-
               <div
                 className={`${isOpen ? "translate-x-0" : "-translate-x-full"
                   } fixed z-50 top-0 left-0 min-h-screen bg-white w-8/12 transform transition-transform duration-300`}>
@@ -82,7 +81,7 @@ export const Sidebar = ({ isAuthenticated }) => {
                             <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"></path>
                             <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"></path>
                           </svg>
-                          <span className="ms-3">Dashboard</span>
+                          <span className="ms-2">Dashboard</span>
                         </a>
                       </li>
                       <li>
@@ -90,7 +89,7 @@ export const Sidebar = ({ isAuthenticated }) => {
                           href="/Productos"
                           className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                           <ProIcons />
-                          <span className="flex-1 ms-3 whitespace-nowrap">
+                          <span className="flex-1 ms-2 whitespace-nowrap">
                             Productos
                           </span>
                         </a>
@@ -100,7 +99,7 @@ export const Sidebar = ({ isAuthenticated }) => {
                           href="/Inventario"
                           className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                           <InvIcon />
-                          <span className="flex-1 ms-3 whitespace-nowrap">
+                          <span className="flex-1 ms-2 whitespace-nowrap">
                             Inventario
                           </span>
                         </a>
@@ -110,7 +109,7 @@ export const Sidebar = ({ isAuthenticated }) => {
                           href="/Ventas"
                           className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                           <VenIcons />
-                          <span className="flex-1 ms-3 whitespace-nowrap">
+                          <span className="flex-1 ms-2 whitespace-nowrap">
                             Ventas
                           </span>
                         </a>
@@ -189,7 +188,7 @@ export const Sidebar = ({ isAuthenticated }) => {
                   <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"></path>
                   <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"></path>
                 </svg>
-                <span className="ms-3">Dashboard</span>
+                <span className="ms-2">Dashboard</span>
               </a>
             </li>
             <li>
@@ -197,7 +196,7 @@ export const Sidebar = ({ isAuthenticated }) => {
                 href="/Productos"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                 <ProIcons />
-                <span className="flex-1 ms-3 whitespace-nowrap">Productos</span>
+                <span className="flex-1 ms-2 whitespace-nowrap">Productos</span>
               </a>
             </li>
             <li>
@@ -205,7 +204,7 @@ export const Sidebar = ({ isAuthenticated }) => {
                 href="/Inventario"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                 <InvIcon />
-                <span className="flex-1 ms-3 whitespace-nowrap">
+                <span className="flex-1 ms-2 whitespace-nowrap">
                   Inventario
                 </span>
               </a>
@@ -215,7 +214,7 @@ export const Sidebar = ({ isAuthenticated }) => {
                 href="/pedidos"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                 <VenIcons />
-                <span className="flex-1 ms-3 whitespace-nowrap">Ventas</span>
+                <span className="flex-1 ms-2 whitespace-nowrap">Ventas</span>
               </a>
             </li>
             <li>
@@ -223,7 +222,7 @@ export const Sidebar = ({ isAuthenticated }) => {
                 href="/Ofertas"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                 <OferIcon />
-                <span className="flex-1 ms-3 whitespace-nowrap">Ofertas</span>
+                <span className="flex-1 ms-2 whitespace-nowrap">Ofertas</span>
               </a>
             </li>
             <li>
@@ -231,7 +230,7 @@ export const Sidebar = ({ isAuthenticated }) => {
                 href="/Categorias"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                 <CatIcon />
-                <span className="flex-1 ms-3 whitespace-nowrap">
+                <span className="flex-1 ms-2 whitespace-nowrap">
                   Categorias
                 </span>
               </a>
@@ -241,7 +240,7 @@ export const Sidebar = ({ isAuthenticated }) => {
                 href="/Subcategorias"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                 <SubIcon />
-                <span className="flex-1 ms-3 whitespace-nowrap">
+                <span className="flex-1 ms-2 whitespace-nowrap">
                   Subcategorias
                 </span>
               </a>
@@ -251,7 +250,7 @@ export const Sidebar = ({ isAuthenticated }) => {
                 href="/gestion-usuarios/usuarios"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                 <UserIcon />
-                <span className="flex-1 ms-3 whitespace-nowrap">
+                <span className="flex-1 ms-2 whitespace-nowrap">
                   Usuarios
                 </span>
               </a>

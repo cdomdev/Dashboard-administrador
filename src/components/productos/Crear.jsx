@@ -24,9 +24,7 @@ const Crear = ({
     displayImages: "",
     cantidad: "",
     referencia: "",
-    imagesToSend: "",
   });
-
 
   const handleCategoriaChange = (event) => {
     setSelectedCategoria(event.target.value);
@@ -40,7 +38,6 @@ const Crear = ({
     e.preventDefault();
     setLoading(true)
     const {
-      id,
       marca,
       description,
       nombre,
@@ -92,7 +89,7 @@ const Crear = ({
         valor: precio,
         cantidad: cantidad,
         referencia: referencia,
-        image: upload.info.url,
+        image: upload.info.secure_url,
         categoria_id: selectedCategoria,
         subcategoria_id: selectedSubCategoria,
         categoria: selectedCategoryName,
@@ -184,7 +181,7 @@ const Crear = ({
           maxLength={20}
           minLength={1}
         />
-
+        {/* Cantidad e imagen  */}
         <Form.Label className="m-0 pl-1 text-sm">Cantidad</Form.Label>
         <div className="grid grid-cols-2 gap-1">
           <Form.Control
