@@ -6,7 +6,7 @@ export const createCategory = async (nombre) => {
   try {
     const response = await api.post(
       `${API_HOST}/api/categories/create`,
-      nombre, { withCredentials: tru }
+      nombre, { withCredentials: true }
     );
     return response;
   } catch (error) {

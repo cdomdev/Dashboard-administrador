@@ -41,9 +41,10 @@ api.interceptors.response.use(
         );
 
         if (refreshResponse.status === 200) {
-          const { accessToken } = refreshResponse.data;
-          Cookies.set("access_token", accessToken, { secure: true, sameSite: "lax", expires: 7 });
-          originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+          const { newAccessToken } = refreshResponse.data;
+          console.log('nuvo token de sesion', newAccessToken)
+          Cookies.set("access_token", newAccessToken, { secure: true, sameSite: "lax", expires: 7 });
+          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
           return api(originalRequest);
         } else {
           console.log("No se pudo renovar el token");
