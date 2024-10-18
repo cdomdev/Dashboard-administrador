@@ -49,8 +49,6 @@ export const SaveImageCloud = ({ setUpload }) => {
         widget.open();
     };
 
-    console.log(handleUploadClick)
-
     return (
         <button
             onClick={handleUploadClick}

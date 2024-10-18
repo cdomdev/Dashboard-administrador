@@ -42,7 +42,6 @@ api.interceptors.response.use(
 
         if (refreshResponse.status === 200) {
           const { newAccessToken } = refreshResponse.data;
-          console.log('nuvo token de sesion', newAccessToken)
           Cookies.set("access_token", newAccessToken, { secure: true, sameSite: "lax", expires: 7 });
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
           return api(originalRequest);

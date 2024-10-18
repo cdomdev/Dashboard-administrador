@@ -7,7 +7,7 @@ export const notificaciones = async () => {
     const response = await api.get(`${API_HOST}/api/notifications-admin`, { withCredentials: true });
     return response.data;
   } catch (error) {
-    console.log("Error al listar las notificaciones", error);
+    console.error("Error al listar las notificaciones", error);
   }
 };
 

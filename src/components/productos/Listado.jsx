@@ -21,7 +21,7 @@ const Listado = ({
         listado.map((producto, index) => {
           return (
             <article key={producto.id || index} className="">
-              <div className="w-56 bg-white h-auto max-w-72 shadow-sm justify-center rounded-lg p-2 flex flex-col items-center  ">
+              <div className="w-[350px] bg-white h-auto shadow-sm justify-center rounded-lg p-2 flex flex-col items-center  ">
                 {producto.image && (
                   <img
                     src={producto.image}
@@ -60,7 +60,7 @@ const Listado = ({
                     {producto.subcategoria}
                   </span >
                   <strong className="text-sm">Descripción:</strong>
-                  <p className="text-wrap">{producto.description}</p>
+                  <p className="text-wrap max-h-44 overflow-y-auto">{producto.description}</p>
                 </div>
                 <div className="w-full flex flex-col gap-2">
                   <Editar

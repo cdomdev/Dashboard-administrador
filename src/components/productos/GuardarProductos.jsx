@@ -52,10 +52,10 @@ const GuardarProductos = ({
 
   return (
     <>
-      <div className="bottom-7 right-10 p-2  w-96 fixed">
+      <div className="bottom-14 right-10 p-2  w-96 fixed">
         <Button
           variant="success"
-          className="w-full py-2 text-base"
+          className="w-full py-3 text-base"
           onClick={handleGuardarProducto}>
           {isLoading ? <>Guardando productos...</> : <>Guardar productos en la base de datos</>}
         </Button>
