@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Eliminar from "./Eliminar";
 import { Crear } from "./Crear";
 import { Listar } from "./Listar";
 import { ToastCammon } from "../ToastCammon";
-import { checkSession } from "@/utils/checkSession";
 
 const GestionSubcategorias = () => {
   const [subcategorias, setSubcategorias] = useState([]);

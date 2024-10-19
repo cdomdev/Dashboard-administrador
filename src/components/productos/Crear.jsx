@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { v4 as uuidv4 } from "uuid";
 import { SaveImageCloud } from "./SaveImageCloud";
 
 const Crear = ({
@@ -82,7 +81,6 @@ const Crear = ({
         : "";
 
       const newProduct = {
-        id: uuidv4(),
         marca: marca.toUpperCase(),
         nombre: nombre,
         description: description,

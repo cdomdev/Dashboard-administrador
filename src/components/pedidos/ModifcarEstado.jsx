@@ -16,7 +16,7 @@ export const ModifcarEstado = ({ pedido }) => {
   const [toastMessage, setToastMessage] = useState("");
   const [bgToast, setBgToast] = useState("");
 
-  const handleChangeEstado = async (e) => {
+  const handleChangeEstado = async () => {
     try {
       const response = await updateState(pedido.id, estado);
 

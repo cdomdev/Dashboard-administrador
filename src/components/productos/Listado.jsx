@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Editar from "./Editar";
 import Delete from "./Delete";
 import { getDataStorage } from "../../utils/getDataStorage";
