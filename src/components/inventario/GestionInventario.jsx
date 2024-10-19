@@ -12,7 +12,6 @@ import { Database } from "../icons/Database";
 const GestionInventario = () => {
   const [data, setData] = useState([]);
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("");
-  const [precioSeleccionado, setPrecioSeleccionado] = useState("");
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [bgToast, setBgToast] = useState("");
