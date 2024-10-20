@@ -52,7 +52,7 @@ const DetallePedido = () => {
               href="/pedidos"
               className="flex items-center cursor-pointer p-2 rounded-md  text-white shadow-sm hover:scale-110 duration-150 bg-slate-500 hover:bg-slate-600">
               <Back />
-              <p className="text-base">Volver a compras</p>
+              <p className="text-base">Volver a los pedidos</p>
             </a>
             <div className="flex items-center gap-2">
               <p className="font-semibold">Filtrar por: </p>

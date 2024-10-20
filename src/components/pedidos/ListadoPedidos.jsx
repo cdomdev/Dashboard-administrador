@@ -26,7 +26,7 @@ const ListadoPedidos = () => {
     <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-dvh font-text-cust-2">
       <div className="dark:border-gray-700 mt-1">
         <div className="w-full pt-2 bg-white p-3 min-h-screen mt-4 ">
-          <h2 className="text-center mt-3 mb-2 rounded-sm py-2 bg-[#99e18f] font-semibold shadow-sm text-black text-lg">
+          <h2 className="text-center mt-3 mb-2 rounded-sm py-2 bg-[#5252d4] font-semibold shadow-sm text-[#e3e3e3] text-lg">
             Listado de pedidos
           </h2>
           {!pedidos ? (
@@ -42,28 +42,30 @@ const ListadoPedidos = () => {
                   <th className="thead-table-users">N°orden</th>
                   <th className="thead-table-users">Nombre</th>
                   <th className="thead-table-users">Email</th>
-                  <th className="thead-table-users">Metodo de pago</th>
+                  <th className="thead-table-users">Rol del usuario</th>
                   <th className="thead-table-users">Ver Pedidos</th>
                 </tr>
               </thead>
               <tbody>
-                {pedidos && pedidos.length > 0
-                  .filter((usuario) => usuario.tienePedidos)
-                  .map((usuario, index) => (
-                    <tr key={usuario.id || index}>
-                      <td>{index + 1}</td>
-                      <td>{usuario.name || usuario.nombre}</td>
-                      <td>{usuario.email}</td>
-                      <td >{usuario.metodo_pago}</td>
-                      <td>
-                        {usuario.roles?.rol_name === "user" ? (
-                          <Pedidos user={usuario} ruta={"pedidos-usuario"} />
-                        ) : (
-                          <Pedidos user={usuario} ruta={"pedidos-invitado"} />
-                        )}
-                      </td>
-                    </tr>
-                  ))}
+                {
+                  pedidos.filter((usuario) => usuario.tienePedidos)
+                    .map((usuario, index) => (
+                      <tr key={usuario.id || index}>
+                        <td>{index + 1}</td>
+                        <td>{usuario.name || usuario.nombre}</td>
+                        <td>{usuario.email}</td>
+                        <td className="capitalize" >{usuario.roles?.rol_name || usuario.role}</td>
+                        <td>
+                          {usuario.roles?.rol_name === "usuario" ? (
+                            <Pedidos user={usuario} ruta={"pedidos-usuario"} />
+                          ) : (
+                            <Pedidos user={usuario} ruta={"pedidos-invitado"} />
+                          )}
+                        </td>
+                      </tr>
+                    ))
+
+                }
               </tbody>
             </Table>
           )}

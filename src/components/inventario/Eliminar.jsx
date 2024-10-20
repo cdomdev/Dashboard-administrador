@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Exclamation } from "../icons/Exclamation";
 import { deleteDataInventary } from "../../services/inventario";
 
+
 const Eliminar = ({
   producto,
   setData,
