@@ -47,7 +47,7 @@ export const Notificaciones = () => {
         className={`z-10 right-10 -bottom-96 min-h-96 max-h-1 overflow-y-auto  absolute ${dropdownOpen ? "block" : "hidden"
           } bg-white divide-y divide-gray-100 rounded-lg shadow w-72 dark:bg-gray-700 dark:divide-gray-600 `}>
         <div className="flex items-center justify-end mr-3 gap-1">
-          <Read toggleDropdown={toggleDropdown} />
+          <Read toggleDropdown={toggleDropdown} setMessages={setMessages} />
           <Close toggleDropdown={toggleDropdown} />
         </div>
         {messages.notifications && messages.notifications.length > 0 ? (
@@ -67,7 +67,7 @@ export const Notificaciones = () => {
             ))}
           </ul>
         ) : (
-          <div className="p-2 text-center">No hay notificaciones</div>
+          <div className="p-2 text-center text-xs md:text-sm text-gray-500">No hay notificaciones sin leer</div>
         )}
       </div>
     </>

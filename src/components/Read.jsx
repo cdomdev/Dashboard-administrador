@@ -1,11 +1,11 @@
 import { marcarTodas } from "@/services/notificaciones"
 
-export const Read = ({ toggleDropdown }) => {
+export const Read = ({ toggleDropdown, setMessages }) => {
     const marcarComoLeidas = async () => {
         const response = await marcarTodas()
         if (response.status === 200) {
             toggleDropdown(false)
-            window.location.reload()
+            setMessages([])
         }
     }
 
