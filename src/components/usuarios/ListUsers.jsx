@@ -36,27 +36,26 @@ const ListUsers = () => {
                 </thead>
                 <tbody>
                     {users.map((user) => (
-                        <>
-                            <tr>
-                                <td>
-                                    {
-                                        user.picture ? (
-                                            <img src={user.picture} alt="profile-useer" className="border size-8 rounded-full" />
-                                        ) : (
-                                            <ProfileDef />
-                                        )
-                                    }
+                        <tr>
+                            <td>
+                                {
+                                    user.picture ? (
+                                        <img src={user.picture} alt="profile-useer" className="border size-8 rounded-full" />
+                                    ) : (
+                                        <ProfileDef />
+                                    )
+                                }
 
-                                </td>
-                                <td className="text-sm md:text-base">{user.nombre}</td>
-                                <td className="text-sm md:text-base">{user.email}</td>
-                                <td className="text-sm md:text-base">{user.departamento || 'Sin informacion'}</td>
-                                <td className="text-sm md:text-base">{user.ciudad || 'Sin informacion'}</td>
-                                <td className="text-sm md:text-base">{user.roles.rol_name || 'Invitado'}</td>
-                                <td className="text-sm md:text-base">Activo</td>
-                                <td className="text-sm md:text-base"><DeleteUser /></td>
-                            </tr>
-                        </>
+                            </td>
+                            <td className="text-sm md:text-base">{user.nombre}</td>
+                            <td className="text-sm md:text-base">{user.email}</td>
+                            <td className="text-sm md:text-base">{user.departamento || 'Sin informacion'}</td>
+                            <td className="text-sm md:text-base">{user.ciudad || 'Sin informacion'}</td>
+                            <td className="text-sm md:text-base">{user.roles.rol_name || 'Invitado'}</td>
+                            <td className="text-sm md:text-base">Activo</td>
+                            <td className="text-sm md:text-base"><DeleteUser /></td>
+                        </tr>
+
                     ))}
 
                 </tbody>
