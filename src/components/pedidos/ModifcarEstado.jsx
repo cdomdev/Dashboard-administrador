@@ -15,14 +15,17 @@ export const ModifcarEstado = ({ pedido }) => {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [bgToast, setBgToast] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleChangeEstado = async () => {
     try {
+      setIsLoading(true)
       const response = await updateState(pedido.id, estado);
 
       if (response.status === 200) {
         setShowToast(true);
         setBgToast("success");
+        setIsLoading(false)
         setToastMessage(
           "Estado del pedido actualizado con exito, en un momento se vera reflejado en nuevo estado"
         );
@@ -36,9 +39,11 @@ export const ModifcarEstado = ({ pedido }) => {
           setBgToast("warning");
           setToastMessage("No tienes los permisos para esta operación");
           setShowToast(true);
+          setIsLoading(false)
           setShowModal(false);
         } else if (status === 500) {
           setBgToast("danger");
+          setIsLoading(false)
           setToastMessage(
             "Hubo un error intentar actulizar el estado del pedido, inténtelo de nuevo"
           );
@@ -46,12 +51,15 @@ export const ModifcarEstado = ({ pedido }) => {
           setShowModal(false);
         } else {
           setBgToast("danger");
+          setIsLoading(false)
           setToastMessage(
             "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde."
           );
           setShowToast(true);
         }
       }
+    } finally {
+      setIsLoading(false)
     }
   };
 
@@ -88,7 +96,9 @@ export const ModifcarEstado = ({ pedido }) => {
         <option value="entregado">Entregado</option>
       </select>
       <Button onClick={handleChangeEstado} className="text-xs md:text-base">
-        Actualizar
+        {
+          isLoading ? 'Actulizando...' : "Actulizar"
+        }
       </Button>
     </div>
   );

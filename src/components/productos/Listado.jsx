@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Editar from "./Editar";
-import Delete from "./Delete";
+import { ModalDelete } from "./Delete";
 import { getDataStorage } from "../../utils/getDataStorage";
 import formateValue from "../../utils/formateValue";
 
@@ -70,13 +70,12 @@ const Listado = ({
                     setShowToast={setShowToast}
                     setToastMessage={setToastMessage}
                   />
-                  <Delete
-                    id={producto.id}
+                  <ModalDelete id={producto.id}
                     setListado={setListado}
                     setBgToast={setBgToast}
                     setShowToast={setShowToast}
                     setToastMessage={setToastMessage}
-                  />
+                    producto={producto} />
                 </div>
               </div>
             </article>

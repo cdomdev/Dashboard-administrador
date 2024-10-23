@@ -16,7 +16,6 @@ const GuardarProductos = ({
       setIsLoading(true);
       const updatedList = listadoState.map((producto) => ({
         ...producto,
-        displayImages: undefined,
         image: producto.image,
       }));
 
@@ -25,7 +24,7 @@ const GuardarProductos = ({
       if (response && response.status === 200) {
         setBgToast("success");
         setShowToast(true);
-        setToastMessage("Los productos se guardaroin con exito");
+        setToastMessage("Los productos se guardaron con exito");
         setListadoState([]);
         localStorage.removeItem("productos");
       } else {

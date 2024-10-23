@@ -7,6 +7,7 @@ import { createOfert, productosPopover } from "../../services/ofertas";
 const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
   const [listaProductos, setListaProductos] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
+  const [isLoading, setIsloading] = useState(false)
   const [oferta, setOferta] = useState({
     nombre: "",
     descuento: "",
@@ -46,6 +47,7 @@ const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
   const handleNuevaOferta = async (e) => {
     e.preventDefault();
 
+    setIsloading(true)
     const { nombre, descuento, fechaIni, fechaFin } = oferta;
 
     if (!nombre || !descuento || !fechaIni || !fechaFin || selectedProducts.length === 0) {
@@ -69,10 +71,12 @@ const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
         setSelectedProducts("");
         setOferta("");
         setBgToast("success");
+        setIsloading(false)
         setShowToast(true);
         setToastMessage("Se agrego una nueva oferta");
       } else {
         setBgToast("danger");
+        setIsloading(false)
         setToastMessage(
           "Hubo un error crear una nueva oferta, inténtelo de nuevo"
         );
@@ -90,22 +94,27 @@ const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
         const { status } = error.response;
         if (status === 401 || status === 403) {
           setBgToast("warning");
+          setIsloading(false)
           setToastMessage("No tienes los permisos para esta operación");
           setShowToast(true);
         } else if (status === 500) {
           setBgToast("danger");
+          setIsloading(false)
           setToastMessage(
             "Hubo un error crear una nueva oferta, inténtelo de nuevo"
           );
           setShowToast(true);
         } else {
           setBgToast("danger");
+          setIsloading(false)
           setToastMessage(
             "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde."
           );
           setShowToast(true);
         }
       }
+    } finally {
+      setIsloading(false)
     }
   };
 
@@ -171,7 +180,7 @@ const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
         </div>
         <div className="w-full">
           <Button className="mt-4 w-full text-sm uppercase py-2" type="submit">
-            Crear nueva oferta
+            {isLoading ? 'Creando oferta...' : 'Crear nueva oferta'}
           </Button>
         </div>
       </Form>
