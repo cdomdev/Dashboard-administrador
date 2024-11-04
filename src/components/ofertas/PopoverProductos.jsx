@@ -52,7 +52,7 @@ export const PopoverProductos = ({
                     type="checkbox"
                     className=" flex items-center gap-1"
                     id={`producto-${producto.id}`}
-                    label={` ${producto.nombre} - ${producto.Inventarios[0].cantidad} Unidades`}
+                    label={` ${producto.nombre} - ${producto.Inventarios[0]?.cantidad} Unidades`}
                     onChange={(e) => handleProductSelection(e, producto.id)}
                   />
                 </div>

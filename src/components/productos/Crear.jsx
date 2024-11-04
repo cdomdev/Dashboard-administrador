@@ -69,6 +69,7 @@ const Crear = ({
       const selectedCategory = categorias.find(
         (cat) => cat.id === selectedCategoria
       );
+
       const selectedCategoryName = selectedCategory
         ? selectedCategory.nombre
         : "";
@@ -76,6 +77,7 @@ const Crear = ({
       const selectedSubCategory = subcategorias.find(
         (sub) => sub.id === selectedSubCategoria
       );
+
       const selectedSubCategoryName = selectedSubCategory
         ? selectedSubCategory.nombre
         : "";

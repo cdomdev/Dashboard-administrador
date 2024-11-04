@@ -24,8 +24,7 @@ const DetallePedido = () => {
 
     if (selectedState) {
       const pedidoFiltrado = data.filter(
-        (pedido) =>
-          pedido?.estado_pedido === selectedState
+        (pedido) => pedido?.estado_pedido === selectedState
       );
 
       if (pedidoFiltrado.length > 0) {
@@ -38,9 +37,10 @@ const DetallePedido = () => {
     }
   };
 
-
   if (!data || data.length === 0) {
-    return <h2>`Algo salio mal al listar los pedidos del usuario ${user.nombre}`</h2>
+    return (
+      <h2>`Algo salio mal al listar los pedidos del usuario ${user.nombre}`</h2>
+    );
   }
 
   return (
@@ -50,15 +50,15 @@ const DetallePedido = () => {
           <div className="border py-2 px-5 bg-[#e7e9ed] flex justify-between items-center ">
             <a
               href="/pedidos"
-              className="flex items-center cursor-pointer p-2 rounded-md  text-white shadow-sm hover:scale-110 duration-150 bg-slate-500 hover:bg-slate-600">
+              className="flex text-xs md:text-sm items-center cursor-pointer p-2 rounded-md  text-white shadow-sm hover:scale-110 duration-150 bg-slate-500 hover:bg-slate-600">
               <Back />
-              <p className="text-base">Volver a los pedidos</p>
+              <p className=" text-[8px] md:text-base"> Volver a los pedidos</p>
             </a>
             <div className="flex items-center gap-2">
-              <p className="font-semibold">Filtrar por: </p>
+              <p className="font-semibold text-xs md:text-sm">Filtrar por: </p>
               <Form>
                 <Form.Select
-                  className="text-sm md:text-base"
+                  className="text-xs md:text-base"
                   aria-label="Default select example"
                   onChange={handleStateChange}
                   value={estado}>
@@ -113,24 +113,19 @@ const DetallePedido = () => {
                             {order.metodo_de_pago}
                           </td>
                           <td className="text-xs md:text-sm">
-                            $:{" "}
-                            {formateValue(order.pago_total)}
+                            $: {formateValue(order.pago_total)}
                           </td>
                           <td className="text-xs md:text-sm">
                             {order.detalles_pedido[0]?.cantidad}
                           </td>
                           <td className="text-xs md:text-sm">
-                            $:{" "}
-                            {formateValue(
-                              order.costo_de_envio
-                            )}
+                            $: {formateValue(order.costo_de_envio)}
                           </td>
                           <td className="text-xs md:text-sm">
                             {order.detalles_pedido[0]?.descuento}
                           </td>
                           <td className="text-xs md:text-sm">
-                            {order.status_mercadopago ||
-                              "No acreditado"}
+                            {order.status_mercadopago || "No acreditado"}
                           </td>
                         </tr>
                       </tbody>

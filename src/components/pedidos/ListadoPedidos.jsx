@@ -19,7 +19,6 @@ const ListadoPedidos = () => {
     };
 
     fetchData();
-
   }, []);
 
   return (
@@ -29,8 +28,7 @@ const ListadoPedidos = () => {
           <h2 className="text-center mt-3 mb-2 rounded-sm py-2 bg-[#5252d4] font-semibold shadow-sm text-[#e3e3e3] text-lg">
             Listado de pedidos
           </h2>
-          {!pedidos ? (
-
+          {!pedidos || pedidos.length === 0 ? (
             <div className="w-full  flex flex-col items-center justify-center p-2">
               <Database />
               <p className="text-center text-base">No hay pedidos</p>
@@ -47,25 +45,25 @@ const ListadoPedidos = () => {
                 </tr>
               </thead>
               <tbody>
-                {
-                  pedidos.filter((usuario) => usuario.tienePedidos)
-                    .map((usuario, index) => (
-                      <tr key={usuario.id || index}>
-                        <td>{index + 1}</td>
-                        <td>{usuario.name || usuario.nombre}</td>
-                        <td>{usuario.email}</td>
-                        <td className="capitalize" >{usuario.roles?.rol_name || usuario.role}</td>
-                        <td>
-                          {usuario.roles?.rol_name === "usuario" ? (
-                            <Pedidos user={usuario} ruta={"pedidos-usuario"} />
-                          ) : (
-                            <Pedidos user={usuario} ruta={"pedidos-invitado"} />
-                          )}
-                        </td>
-                      </tr>
-                    ))
-
-                }
+                {pedidos
+                  .filter((usuario) => usuario.tienePedidos)
+                  .map((usuario, index) => (
+                    <tr key={usuario.id || index}>
+                      <td>{index + 1}</td>
+                      <td>{usuario.name || usuario.nombre}</td>
+                      <td>{usuario.email}</td>
+                      <td className="capitalize">
+                        {usuario.roles?.rol_name || usuario.role}
+                      </td>
+                      <td>
+                        {usuario.roles?.rol_name === "usuario" ? (
+                          <Pedidos user={usuario} ruta={"pedidos-usuario"} />
+                        ) : (
+                          <Pedidos user={usuario} ruta={"pedidos-invitado"} />
+                        )}
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </Table>
           )}

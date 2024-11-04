@@ -1,16 +1,15 @@
 import { Table } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { getUserForList } from "@/services/users";
 import { DeleteUser } from "./DeleteUser";
 import { ProfileDef } from "./ProfileDef";
 import { Edit } from "./Edit";
-
-const ListUsers = () => {
+import { getAllsAdmin } from "@/services/users";
+const ListAdmins = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const fechData = async () => {
-      const lisUsers = await getUserForList();
+      const lisUsers = await getAllsAdmin();
       if (users) {
         const { users } = lisUsers.data;
         setUsers(users);
@@ -74,7 +73,7 @@ const ListUsers = () => {
                   </td>
                   <td className="text-xs md:text-sm">
                     <span className="flex justify-center">
-                      <DeleteUser user={user} setUsers={setUsers} />
+                      <DeleteUser user={user} />
                     </span>
                   </td>
                 </tr>
@@ -91,4 +90,4 @@ const ListUsers = () => {
   );
 };
 
-export default ListUsers;
+export default ListAdmins;

@@ -54,6 +54,7 @@ const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
       setBgToast("warning");
       setShowToast(true);
       setToastMessage("Faltan datos para crear una oferta");
+      setIsloading(false)
       return;
     }
     try {

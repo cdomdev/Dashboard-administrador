@@ -11,6 +11,7 @@ export const Crear = ({
 }) => {
   const [categoryName, setCategoryName] = useState("");
   const [isLoading, setIsloading] = useState(false)
+
   const handleCategory = async () => {
     setIsloading(true)
     try {

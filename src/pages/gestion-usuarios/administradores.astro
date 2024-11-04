@@ -1,14 +1,15 @@
 ---
 import LayoutUsers from "../../layouts/LayoutUsers.astro";
+import ListAdmins from "@/components/usuarios/ListAdmins";
 const cookies = Astro.cookies;
 const authToken = cookies.get("access_token");
 const isAuthenticated = authToken !== undefined;
-if(!isAuthenticated){
-  return Astro.redirect('/auth')
-}
 
+if (!isAuthenticated) {
+  return Astro.redirect("/auth");
+}
 ---
 
 <LayoutUsers>
-   <p>Listado de roles</p>
+  <ListAdmins client:visible />
 </LayoutUsers>

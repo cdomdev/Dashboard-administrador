@@ -3,29 +3,29 @@ import Layout from "./Layout.astro";
 ---
 
 <Layout title="Usuarios">
-    <section
-        class="p-2 sm:ml-64 mt-16 bg-[#f5f6fa] min-h-screen font-text-cust-2">
-        <header>
-            <ul
-                class="text-md mt-2 text-black dark:text-gray-400 py-2 text-center shadow-sm bg-white mb-2 pl-4 flex gap-4">
-                <li>
-                    <a
-                        href="/gestion-usuarios/usuarios"
-                        class="flex items-center py-1 px-3 bg-[#cd76d8] text-slate-50 rounded-md transition duration-100 text-sm md:text-base hover:bg-[#a044ac]">
-                        Usuarios</a
-                    >
-                </li>
-                <li>
-                    <a
-                        href="/gestion-usuarios/gestionar-roles"
-                        class="flex items-centerr py-1 px-3 bg-green-400 text-slate-50 rounded-md transition duration-100 text-sm md:text-base hover:bg-green-600">
-                        Gestion de roles</a
-                    >
-                </li>
-            </ul>
-        </header>
-        <main>
-            <slot />
-        </main>
-    </section>
+  <section
+    class="p-2 sm:ml-64 mt-16 bg-[#f5f6fa] min-h-screen font-text-cust-2">
+    <header>
+      <ul
+        class="text-md mt-2 text-black dark:text-gray-400 py-2 text-center shadow-sm bg-white mb-2 pl-4 flex gap-4">
+        <li>
+          <a
+            href="/gestion-usuarios/usuarios"
+            class="flex items-center py-1 px-3 bg-[#cd76d8] text-slate-50 rounded-md transition duration-100 text-sm md:text-base hover:bg-[#a044ac]">
+            Usuarios</a
+          >
+        </li>
+        <li>
+          <a
+            href="/gestion-usuarios/administradores"
+            class="flex items-centerr py-1 px-3 bg-green-400 text-slate-50 rounded-md transition duration-100 text-sm md:text-base hover:bg-green-600">
+            Administradores</a
+          >
+        </li>
+      </ul>
+    </header>
+    <main>
+      <slot />
+    </main>
+  </section>
 </Layout>
