@@ -20,6 +20,17 @@ const Auth: React.FC<FormInicioSesionProps> = ({ isAuthenticated }) => {
         return window.location.href = "/";
     }
 
+
+    const handleToast = (bgName: string, message: string) => {
+        setBgToast(bgName)
+        setIsLoading(false)
+        setShowToast(true)
+        setToastMessage(message)
+        setTimeout(() => {
+            setShowToast(false)
+        }, 5000)
+    }
+
     const handleSubmit = async (values: ValuesSesion) => {
         setIsLoading(true)
         try {
@@ -45,53 +56,18 @@ const Auth: React.FC<FormInicioSesionProps> = ({ isAuthenticated }) => {
                 localStorage.setItem('infoProfileUSer', JSON.stringify(userSessionData))
                 window.location.href = "/";
             } else {
-                setBgToast('danger')
-                setIsLoading(false)
-                setShowToast(true)
-                setToastMessage(`Algo salio mal con el inicio de sesion, por favor intenalo mas tarde`)
-                setTimeout(() => {
-                    setShowToast(false)
-                }, 5000)
+                handleToast('danger', 'Algo salio mal con el inicio de sesion, por favor intenalo mas tarde')
             }
         } catch (error) {
             if (axios.isAxiosError(error) && error.response) {
                 const { status } = error.response;
                 if (status === 404) {
-                    setIsLoading(false)
-                    setBgToast('warning')
-                    setShowToast(true)
-                    setToastMessage(`El email ${values.email} no esta registrado`)
-                    setTimeout(() => {
-                        setShowToast(false)
-                    }, 5000)
+                    handleToast('warning', `El email ${values.email} no esta registrado`)
                 } else if (status === 401) {
-                    setBgToast('warning')
-                    setIsLoading(false)
-                    setShowToast(true)
-                    setToastMessage(`Datos incorrectos, verifica tus datos eh intentalo de nuevo`)
-                    setTimeout(() => {
-                        setShowToast(false)
-                    }, 5000)
-                } else if (status === 500) {
-                    setBgToast('danger')
-                    setIsLoading(false)
-                    setShowToast(true)
-                    setToastMessage(`Algo salio mal con el inicio de sesion, por favor intenalo mas tarde`)
-                    setTimeout(() => {
-                        setShowToast(false)
-                    }, 5000)
+                    handleToast('warning', `Datos incorrectos, verifica tus datos eh intentalo de nuevo`)
                 }
-            } else {
-                setBgToast('danger')
-                setIsLoading(false)
-                setShowToast(true)
-                setToastMessage(`Algo salio mal con el inicio de sesion, por favor intenalo mas tarde`)
-                setTimeout(() => {
-                    setShowToast(false)
-                }, 5000)
             }
-
-
+            handleToast('danger', `Algo salio mal con el inicio de sesion, por favor intenalo mas tarde`)
         } finally {
             setIsLoading(false)
         }

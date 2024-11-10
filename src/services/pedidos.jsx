@@ -14,13 +14,13 @@ export const listar = async () => {
   }
 };
 
-
-export const updateState = async (id, estado) => {
+export const updateState = async (id, estado, user) => {
   try {
     const response = await api.post(
       `${API_HOST}/api/update/state-orders/${id}`,
       {
         estado: estado,
+        user: user,
       }
     );
     return response;
@@ -32,10 +32,12 @@ export const updateState = async (id, estado) => {
 
 export const orderUser = async (id, ruta) => {
   try {
-    const response = await api.get(`${API_HOST}/api/listar/${ruta}/${id}`, { withCredentials: true });
+    const response = await api.get(`${API_HOST}/api/listar/${ruta}/${id}`, {
+      withCredentials: true,
+    });
     return response;
   } catch (e) {
     console.log(e);
-    throw error
+    throw error;
   }
 };

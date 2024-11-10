@@ -15,43 +15,38 @@ const Eliminar = ({
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
+  const handleToast = (bgName, message) => {
+    setBgToast(bgName);
+    setShowToast(true);
+    setToastMessage(message);
+    setIsloading(false);
+    setShowModal(false);
+  };
+
   const handleDeleteOferta = async () => {
     try {
       const response = await deleteOfert(oferta.id);
       if (response.status === 200) {
         setOfertas(response.data.ofertas);
-        setShowModal(false);
-        setBgToast("success");
-        setShowToast(true);
-        setToastMessage("Oferta eliminada con exito");
-      } else {
-        setBgToast("warning");
-        setShowToast(true);
-        setToastMessage("Algo salio mal, intentalo de neuvo");
+        handleToast("success", "Oferta eliminada con exito");
       }
     } catch (error) {
       console.error("Error al intentar eliminar una oferta");
       if (error.response) {
         const { status } = error.response;
         if (status === 401 || status === 403) {
-          setBgToast("warning");
-          setToastMessage("No tienes los permisos para esta operación");
-          setShowToast(true);
-          setShowModal(false);
+          handleToast("warning", "No tienes los permisos para esta operación");
         } else if (status === 500) {
-          setBgToast("danger");
-          setToastMessage(
+          handleToast(
+            "danger",
             "Hubo un error intentar eliminar la oferta, inténtelo de nuevo"
           );
-          setShowToast(true);
-          setShowModal(false);
-        } else {
-          setBgToast("danger");
-          setToastMessage(
-            "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde."
-          );
-          setShowToast(true);
         }
+
+        handleToast(
+          "danger",
+          "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde"
+        );
       }
     }
   };
@@ -79,7 +74,10 @@ const Eliminar = ({
           </p>
         </div>
         <div className="bg-red-50 flex flex-col px-3 gap-2 mb-3">
-          <Button variant="danger" onClick={handleDeleteOferta} className=" text-sm uppercase
+          <Button
+            variant="danger"
+            onClick={handleDeleteOferta}
+            className=" text-sm uppercase
            py-2">
             Eliminar oferta
           </Button>

@@ -12,9 +12,8 @@ const DetallePedido = () => {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    const storedData = getDataStorage("dataOrderUser");
-    setData(storedData);
-    setFilteredData(storedData);
+    setData(getDataStorage("dataOrderUser"));
+    setFilteredData(getDataStorage("dataOrderUser"));
     setUser(getDataStorage(`dataUser`));
   }, []);
 
@@ -50,7 +49,7 @@ const DetallePedido = () => {
           <div className="border py-2 px-5 bg-[#e7e9ed] flex justify-between items-center ">
             <a
               href="/pedidos"
-              className="flex text-xs md:text-sm items-center cursor-pointer p-2 rounded-md  text-white shadow-sm hover:scale-110 duration-150 bg-slate-500 hover:bg-slate-600">
+              className="flex text-xs md:text-sm items-center cursor-pointer p-2 rounded-md  text-white shadow-sm duration-150 bg-slate-500 hover:bg-slate-600">
               <Back />
               <p className=" text-[8px] md:text-base"> Volver a los pedidos</p>
             </a>
@@ -109,8 +108,8 @@ const DetallePedido = () => {
                       </thead>
                       <tbody>
                         <tr>
-                          <td className="text-xs md:text-sm">
-                            {order.metodo_de_pago}
+                          <td className="text-xs md:text-sm capitalize">
+                            {order.metodo_de_pago.replaceAll("-", " ")}
                           </td>
                           <td className="text-xs md:text-sm">
                             $: {formateValue(order.pago_total)}
@@ -202,7 +201,7 @@ const DetallePedido = () => {
                   ))}
                 </div>
                 <div className="bg-gray-200 mt-2 p-2">
-                  <ModifcarEstado pedido={order} />
+                  <ModifcarEstado pedido={order} user={user} />
                 </div>
               </div>
             ))

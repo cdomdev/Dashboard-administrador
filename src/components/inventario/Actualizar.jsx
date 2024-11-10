@@ -1,4 +1,4 @@
-import { Button, Modal, Form, Spinner } from "react-bootstrap";
+import { Button, Modal, Form } from "react-bootstrap";
 import { useState, useEffect, useRef } from "react";
 import { listarCat } from "../../services/categorias";
 import { listarSub } from "../../services/subcategorias";
@@ -15,7 +15,6 @@ const Actualizar = ({
   const [categorias, setCategorias] = useState([]);
   const [subcategorias, setSubcategorias] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
   const [selectedCategoria, setSelectedCategoria] = useState(
     producto.categoria_id || ""
   );
@@ -57,10 +56,17 @@ const Actualizar = ({
     setSelectedSubCategoria(event.target.value);
   };
 
+  const handleToast = (bgName, message) => {
+    setBgToast(bgName);
+    setShowToast(true);
+    setToastMessage(message);
+    setIsLoading(false);
+    setShowModal(false);
+  };
+
   const handleInputChange = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    // Obtener los valores actuales de los campos o utilizar los valores por defecto del producto
     const updatedNombre = nombreRef.current.value || producto.nombre;
     const updatedMarca = tituloRef.current.value || producto.marca;
     const updatedValor = parseFloat(valorRef.current.value) || producto.valor;
@@ -73,7 +79,6 @@ const Actualizar = ({
     const updatedSubcategoria =
       selectedSubCategoria || producto.subcategoria_id;
 
-    //  nuevo objeto con la informacion el producto
     const productosActualizado = {
       nombre: updatedNombre,
       marca: updatedMarca,
@@ -90,18 +95,13 @@ const Actualizar = ({
         producto.id
       );
       if (response && response.status === 200) {
-        setShowModal(false);
         setData(response.data.productosUpdate);
-        setBgToast("success");
-        setToastMessage("Producto actualizado con exito");
-        setShowToast(true);
+        handleToast("success", "Producto actualizado con exito");
       } else if (response.status === 404) {
-        setBgToast("warning");
-        setToastMessage(
+        handleToast(
+          "warning",
           "Algo salio mal al intentar actulizar el producto, intentalo de nuevo"
         );
-        setShowToast(true);
-        setShowModal(false);
       }
     } catch (error) {
       console.error(
@@ -111,18 +111,17 @@ const Actualizar = ({
 
       const status = error.response.status || error.status;
       if (status === 401 || status === 403) {
-        setBgToast("warning");
-        setToastMessage("No tienes los permisos para esta operación");
-        setShowToast(true);
-        setShowModal(false);
+        handleToast("warning", "No tienes los permisos para esta operación");
       } else if (status === 500) {
-        setBgToast("danger");
-        setToastMessage(
+        handleToast(
+          "danger",
           "Hubo un error al actualizar los datos del producto, inténtelo de nuevo"
         );
-        setShowToast(true);
-        setShowModal(false);
       }
+      handleToast(
+        "danger",
+        "Hubo un error al actualizar los datos del producto, inténtelo de nuevo"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -136,7 +135,10 @@ const Actualizar = ({
         onClick={() => setShowModal(true)}>
         Actualizar producto
       </Button>
-      <Modal show={showModal} onHide={() => setShowModal(false)} className="font-text-cust-2">
+      <Modal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        className="font-text-cust-2">
         <Modal.Header closeButton className="py-1 px-3">
           <Modal.Title className="text-lg font-semibold">
             Actulizar informacion del producto
@@ -225,13 +227,7 @@ const Actualizar = ({
             />
             <span className="w-full ">
               <Button onClick={handleInputChange} className="w-full my-3">
-                {isLoading ? (
-                  <div className="spinner-container">
-                    <Spinner animation="border" role="status" size="sm" />
-                  </div>
-                ) : (
-                  <p className="text-lg">Actualizar producto</p>
-                )}
+                {isLoading ? "Actulizando..." : "Actualizar"}
               </Button>
             </span>
           </Form>

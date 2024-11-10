@@ -36,7 +36,7 @@ api.interceptors.response.use(
 
       try {
         const refreshResponse = await axios.post(
-          `${API_HOST}/refresh-token`,
+          `${API_HOST}/api/refresh-token-admin`,
           { withCredentials: true }
         );
 

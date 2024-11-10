@@ -10,10 +10,10 @@ const Crear = ({
   setShowToast,
   setToastMessage,
 }) => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [selectedCategoria, setSelectedCategoria] = useState("");
   const [selectedSubCategoria, setSelectedSubCategoria] = useState("");
-  const [upload, setUpload] = useState('')
+  const [upload, setUpload] = useState("");
 
   const [productState, setProductState] = useState({
     marca: "",
@@ -25,6 +25,13 @@ const Crear = ({
     referencia: "",
   });
 
+  const handleToast = (bgName, message) => {
+    setBgToast(bgName);
+    setShowToast(true);
+    setToastMessage(message);
+    setLoading(false);
+  };
+
   const handleCategoriaChange = (event) => {
     setSelectedCategoria(event.target.value);
   };
@@ -35,16 +42,9 @@ const Crear = ({
 
   const getFormValues = async (e) => {
     e.preventDefault();
-    setLoading(true)
-    const {
-      marca,
-      description,
-      nombre,
-      valor,
-      cantidad,
-      referencia,
-    } = productState;
-
+    setLoading(true);
+    const { marca, description, nombre, valor, cantidad, referencia } =
+      productState;
 
     const precio = parseInt(valor).toFixed(2);
 
@@ -56,16 +56,11 @@ const Crear = ({
       !referencia ||
       !nombre
     ) {
-      setBgToast("danger");
-      setShowToast(true);
-      setToastMessage("Faltan datos para el nuevo producto");
-      setLoading(false)
+      handleToast("danger", "Faltan datos para el nuevo producto");
       return;
     }
 
-
     try {
-
       const selectedCategory = categorias.find(
         (cat) => cat.id === selectedCategoria
       );
@@ -112,19 +107,17 @@ const Crear = ({
         cantidad: "",
         referencia: "",
       });
-      setUpload('')
-      setToastMessage("Producto agregado exitosamente");
-      setBgToast("success");
-      setShowToast(true);
-    } catch (error) {
-      setToastMessage("Hubo un error al crear el produco, intentalo mas tarde");
-      setBgToast("warning");
-      setLoading(false)
-      setShowToast(true);
-    } finally {
-      setLoading(false)
-    }
 
+      setUpload("");
+      handleToast("success", "Producto agregado exitosamente");
+    } catch (error) {
+      handleToast(
+        "warning",
+        "Hubo un error al crear el produco, intentalo mas tarde"
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -142,7 +135,9 @@ const Crear = ({
           maxLength={50}
         />
 
-        <Form.Label className="m-0 pl-1 text-sm">Nombre del producto</Form.Label>
+        <Form.Label className="m-0 pl-1 text-sm">
+          Nombre del producto
+        </Form.Label>
         <Form.Control
           type="text"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
@@ -154,7 +149,9 @@ const Crear = ({
           maxLength={100}
         />
 
-        <Form.Label className="m-0 pl-1 text-sm">Precio del producto</Form.Label>
+        <Form.Label className="m-0 pl-1 text-sm">
+          Precio del producto
+        </Form.Label>
         <Form.Control
           type="number"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
@@ -166,7 +163,9 @@ const Crear = ({
           minLength={1}
         />
 
-        <Form.Label className="m-0 pl-1 text-sm">Referencia del producto</Form.Label>
+        <Form.Label className="m-0 pl-1 text-sm">
+          Referencia del producto
+        </Form.Label>
         <Form.Control
           type="text"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
@@ -193,7 +192,9 @@ const Crear = ({
           <SaveImageCloud setUpload={setUpload} />
         </div>
         <div>
-          <span className="text-[#213C65]">{upload?.info?.display_name || ''}</span>
+          <span className="text-[#213C65]">
+            {upload?.info?.display_name || ""}
+          </span>
         </div>
 
         {/* Categoria */}
@@ -203,8 +204,7 @@ const Crear = ({
         <Form.Select
           onChange={handleCategoriaChange}
           value={selectedCategoria}
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-        >
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
           <option>Seleccionar categoria</option>
           {categorias &&
             categorias.map((categoria) => (
@@ -215,12 +215,13 @@ const Crear = ({
         </Form.Select>
 
         {/* Subcategoria */}
-        <Form.Label className="my-2 pl-1 text-sm">Relacionar a Subcategoria</Form.Label>
+        <Form.Label className="my-2 pl-1 text-sm">
+          Relacionar a Subcategoria
+        </Form.Label>
         <Form.Select
           onChange={handleSubcategoriaChange}
           value={selectedSubCategoria}
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-        >
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
           <option>Seleccionar subcategoria</option>
           {subcategorias &&
             subcategorias.map((subcategoria) => (
@@ -248,11 +249,11 @@ const Crear = ({
           className="btn mt-3 w-full py-2 text-sm md:text-base"
           variant="primary"
           type="submit">
-          {
-            loading ? (
-              <p>Agregando nuevo produco...</p>
-            ) : <p>Agregar producto</p>
-          }
+          {loading ? (
+            <p>Agregando nuevo produco...</p>
+          ) : (
+            <p>Agregar producto</p>
+          )}
         </Button>
       </Form>
     </div>

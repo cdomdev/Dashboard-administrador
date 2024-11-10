@@ -12,6 +12,15 @@ const Editar = ({
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [newStock, setNewStock] = useState(currentStock);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleToast = (bgName, message) => {
+    setBgToast(bgName);
+    setShowToast(true);
+    setToastMessage(message);
+    setIsLoading(false);
+    setShowModal(false);
+  };
 
   const handleSaveChanges = async () => {
     if (!isNaN(newStock) && newStock.trim() !== "") {
@@ -19,17 +28,15 @@ const Editar = ({
         const updatedStock = parseInt(newStock);
         const response = await stockUpdate(updatedStock, producto.id);
         if (response.status === 200) {
-          setShowModal(false);
           setProductos(response.data.inventaryUpdate);
-          setBgToast("success");
-          setToastMessage("Cantidad en stock modificada con exito");
-          setShowToast(true);
+          handleToast("success", "Cantidad en stock modificada con exito");
         } else if (response.status === 404) {
-          setBgToast("warning");
-          setToastMessage(
+          handleToast(
+            "danger",
             "Algo salio mal al intentar modificar cantidad del producto, intentalo de nuevo"
           );
         }
+        handleToast("danger", "Hubo un error inesparado, intantalo mas tarde");
       } catch (error) {
         console.error(
           "Error al actualizar la información del producto en inventario:",
@@ -38,26 +45,22 @@ const Editar = ({
 
         const status = error.response.status || error.status;
         if (status === 401 || status === 403) {
-          setBgToast("warning");
-          setToastMessage("No tienes los permisos para esta operación");
-          setShowToast(true);
-          setShowModal(false);
+          handleToast("warning", "No tienes los permisos para esta operación");
         } else if (status === 500) {
-          setBgToast("danger");
-          setToastMessage(
+          handleToast(
+            "danger",
             "Hubo un error al actualizar la cantidad de del producto, inténtelo de nuevo"
           );
-          setShowToast(true);
-          setShowModal(false);
         }
+      } finally {
+        setIsLoading(false);
       }
-    } else {
-      setBgToast("danger");
-      setToastMessage(
-        "Hubo un error al modificar el stock del producto, intentelo de nuevo"
-      );
-      setShowToast(true);
     }
+
+    handleToast(
+      "danger",
+      "Hubo un error al modificar el stock del producto, intentelo de nuevo"
+    );
   };
 
   return (
@@ -84,7 +87,9 @@ const Editar = ({
             producto seleccionado.
           </p>
           <br />
-          <p className="font-semibold pl-1 mb-2 text-sm">Ingrese la nueva cantidad:</p>
+          <p className="font-semibold pl-1 mb-2 text-sm">
+            Ingrese la nueva cantidad:
+          </p>
           <Form.Control
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
             type="number"
@@ -97,7 +102,7 @@ const Editar = ({
             variant="primary"
             className="w-full m-0 uppercase text-sm py-2"
             onClick={handleSaveChanges}>
-            Guardar cambios
+            {isLoading ? "Guardando" : "Guadar Cambios"}
           </Button>
           <Button
             variant="secondary"

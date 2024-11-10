@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Exclamation } from "../icons/Exclamation";
 import { deleteDataInventary } from "../../services/inventario";
 
-
 const Eliminar = ({
   producto,
   setData,
@@ -12,36 +11,38 @@ const Eliminar = ({
   setToastMessage,
 }) => {
   const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleToast = (bgName, message) => {
+    setBgToast(bgName);
+    setShowToast(true);
+    setToastMessage(message);
+    setIsLoading(false);
+    setShowModal(false);
+  };
+
   const handleDelete = async () => {
+    setIsLoading(true);
     try {
       const response = await deleteDataInventary(producto.id);
       if (response && response.status === 200) {
         setData(response.data.daleteUpdate);
-        setShowModal(false);
-        setBgToast("success");
-        setToastMessage("Producto eliminado con exito");
-        setShowToast(true);
+        handleToast("success", "Producto eliminado con exito");
       }
     } catch (error) {
-      console.error(
-        "Error al intentar eliminar el producto de inventario:",
-        error
-      );
-
       const status = error.response.status || error.status;
       if (status === 401 || status === 403) {
-        setBgToast("warning");
-        setToastMessage("No tienes los permisos para esta operación");
-        setShowToast(true);
-        setShowModal(false);
+        handleToast("warning", "No tienes los permisos para esta operación");
       } else if (status === 500) {
-        setBgToast("danger");
-        setToastMessage(
+        handleToast(
+          "warning",
           "Hubo un error al intentar eliminar el producto, inténtelo de nuevo"
         );
-        setShowToast(true);
-        setShowModal(false);
       }
+      handleToast(
+        "warning",
+        "Hubo un error inesperado al intentar eliminar un producto, intentalo mas tarde"
+      );
     }
   };
 
@@ -76,8 +77,11 @@ const Eliminar = ({
           </p>
         </Modal.Body>
         <Modal.Footer className="flex text-sm  flex-col border-none w-full gap-1">
-          <Button variant="danger" onClick={handleDelete} className="w-full py-2 uppercase text-sm">
-            Elimininar producto
+          <Button
+            variant="danger"
+            onClick={handleDelete}
+            className="w-full py-2 uppercase text-sm">
+            {isLoading ? "Eliminado..." : "Eliminar producto"}
           </Button>
           <Button
             variant="light"

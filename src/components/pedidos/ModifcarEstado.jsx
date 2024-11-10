@@ -10,63 +10,53 @@ const states = {
   entregado: "entregado",
 };
 
-export const ModifcarEstado = ({ pedido }) => {
+export const ModifcarEstado = ({ pedido, user }) => {
   const [estado, setEstado] = useState(pedido.estado);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [bgToast, setBgToast] = useState("");
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleToast = (bgName, message) => {
+    setShowToast(true);
+    setBgToast("success");
+    setIsLoading(false);
+    setToastMessage();
+  };
 
   const handleChangeEstado = async () => {
     try {
-      setIsLoading(true)
-      const response = await updateState(pedido.id, estado);
-
+      setIsLoading(true);
+      const response = await updateState(pedido.id, estado, user);
       if (response.status === 200) {
-        setShowToast(true);
-        setBgToast("success");
-        setIsLoading(false)
-        setToastMessage(
-          "Estado del pedido actualizado con exito, en un momento se vera reflejado en nuevo estado"
-        );
         setEstado(response.data.estado);
+        handleToast(
+          "success",
+          "Estado del pedido actualizado con exito, en un momento se vera reflejado el nuevo estado"
+        );
       }
     } catch (error) {
-      console.log("Error en la actulizacion del estado", error);
       if (error.response) {
         const { status } = error.response;
         if (status === 401 || status === 403) {
-          setBgToast("warning");
-          setToastMessage("No tienes los permisos para esta operación");
-          setShowToast(true);
-          setIsLoading(false)
-          setShowModal(false);
+          handleToast("warnign", "No tienes los permisos para esta operacion");
         } else if (status === 500) {
-          setBgToast("danger");
-          setIsLoading(false)
-          setToastMessage(
+          handleToast(
+            "danger",
             "Hubo un error intentar actulizar el estado del pedido, inténtelo de nuevo"
           );
-          setShowToast(true);
-          setShowModal(false);
-        } else {
-          setBgToast("danger");
-          setIsLoading(false)
-          setToastMessage(
-            "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde."
-          );
-          setShowToast(true);
         }
       }
+      handleToast(
+        "danger",
+        "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde"
+      );
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
-  const estadoPedido = pedido.estado_pedido
-    ? pedido.estado_pedido
-    : "Pedido sin estado";
-
+  const estadoPedido = pedido ? pedido.estado_pedido : "Pedido sin estado";
   const estadoClase = states[estadoPedido] || "";
 
   return (
@@ -96,9 +86,7 @@ export const ModifcarEstado = ({ pedido }) => {
         <option value="entregado">Entregado</option>
       </select>
       <Button onClick={handleChangeEstado} className="text-xs md:text-base">
-        {
-          isLoading ? 'Actulizando...' : "Actulizar"
-        }
+        {isLoading ? "Actulizando..." : "Actulizar"}
       </Button>
     </div>
   );

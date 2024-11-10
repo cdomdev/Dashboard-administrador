@@ -16,6 +16,14 @@ const Actualizar = ({
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
+  const handleToast = (bgName, message) => {
+    setBgToast(bgName);
+    setShowToast(true);
+    setToastMessage(message);
+    setIsLoading(false);
+    setShowModal(false);
+  };
+
   const nombreRef = useRef(null);
   const descuentoRef = useRef(null);
   const fechaIniRef = useRef(null);
@@ -44,35 +52,26 @@ const Actualizar = ({
       const response = await updateOfert(oferta.id, updatedValues);
       if (response.status === 200) {
         setOfertas(response.data.ofertas);
-        setShowModal(false);
-        setBgToast("success");
-        setToastMessage("Oferta actualizada con exito");
-        setShowToast(true);
+        handleToast("success", "Oferta actualizada con exito");
       }
     } catch (error) {
       console.log("Error al intentar actulizar un oferta", error);
       if (error.response) {
         const { status } = error.response;
         if (status === 401 || status === 403) {
-          setBgToast("warning");
-          setToastMessage("No tienes los permisos para esta operación");
-          setShowToast(true);
-          setShowModal(false);
+          handleToast("warning", "No tienes los permisos para esta operación");
         } else if (status === 500) {
-          setBgToast("danger");
-          setToastMessage(
+          handleToast(
+            "danger",
             "Hubo un error intentar actulizar la oferta, inténtelo de nuevo"
           );
-          setShowToast(true);
-          setShowModal(false);
-        } else {
-          setBgToast("danger");
-          setToastMessage(
-            "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde."
-          );
-          setShowToast(true);
         }
       }
+
+      handleToast(
+        "danger",
+        "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -153,13 +152,7 @@ const Actualizar = ({
               variant="primary"
               className="w-full my-3 py-2 text-sm uppercase"
               onClick={handleUpdate}>
-              {isLoading ? (
-                <div className="spinner-container">
-                  <Spinner animation="border" role="status" size="sm" />
-                </div>
-              ) : (
-                <> Actualizar oferta</>
-              )}
+              {isLoading ? "Actulizando..." : "Actualizar oferta"}
             </Button>
           </div>
         </Modal.Body>

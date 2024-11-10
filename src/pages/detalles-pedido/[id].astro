@@ -1,9 +1,9 @@
 ---
-const {id} = Astro.params
-import Layout from '../../layouts/Layout.astro'
-import DetallePedido from '@/components/detalles/DetallePedido'
+const { id } = Astro.params;
+import Layout from "../../layouts/Layout.astro";
+import DetallePedido from "@/components/pedidos/DetallePedido";
 ---
+
 <Layout title=`Detalles del pedido ${id}`>
-    <DetallePedido client:only="react" />
+  <DetallePedido client:only="react" />
 </Layout>
-  

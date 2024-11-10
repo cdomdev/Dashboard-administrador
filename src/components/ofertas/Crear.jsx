@@ -7,7 +7,7 @@ import { createOfert, productosPopover } from "../../services/ofertas";
 const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
   const [listaProductos, setListaProductos] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
-  const [isLoading, setIsloading] = useState(false)
+  const [isLoading, setIsloading] = useState(false);
   const [oferta, setOferta] = useState({
     nombre: "",
     descuento: "",
@@ -44,17 +44,26 @@ const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
     }
   };
 
+  const handleToast = (bgName, message) => {
+    setBgToast(bgName);
+    setShowToast(true);
+    setToastMessage(message);
+    setIsloading(false);
+  };
+
   const handleNuevaOferta = async (e) => {
     e.preventDefault();
-
-    setIsloading(true)
+    setIsloading(true);
     const { nombre, descuento, fechaIni, fechaFin } = oferta;
 
-    if (!nombre || !descuento || !fechaIni || !fechaFin || selectedProducts.length === 0) {
-      setBgToast("warning");
-      setShowToast(true);
-      setToastMessage("Faltan datos para crear una oferta");
-      setIsloading(false)
+    if (
+      !nombre ||
+      !descuento ||
+      !fechaIni ||
+      !fechaFin ||
+      selectedProducts.length === 0
+    ) {
+      handleToast("warning", "Faltan datos para crear una oferta");
       return;
     }
     try {
@@ -71,18 +80,9 @@ const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
         setOfertas(ofertResponse.data.ofertas);
         setSelectedProducts("");
         setOferta("");
-        setBgToast("success");
-        setIsloading(false)
-        setShowToast(true);
-        setToastMessage("Se agrego una nueva oferta");
-      } else {
-        setBgToast("danger");
-        setIsloading(false)
-        setToastMessage(
-          "Hubo un error crear una nueva oferta, inténtelo de nuevo"
-        );
-        setShowToast(true);
+        handleToast("success", "Se agrego una nueva oferta");
       }
+
       setOferta({
         nombre: "",
         descuento: "",
@@ -95,27 +95,22 @@ const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
         const { status } = error.response;
         if (status === 401 || status === 403) {
           setBgToast("warning");
-          setIsloading(false)
+          setIsloading(false);
           setToastMessage("No tienes los permisos para esta operación");
           setShowToast(true);
         } else if (status === 500) {
-          setBgToast("danger");
-          setIsloading(false)
-          setToastMessage(
+          handleToast(
+            "danger",
             "Hubo un error crear una nueva oferta, inténtelo de nuevo"
           );
-          setShowToast(true);
-        } else {
-          setBgToast("danger");
-          setIsloading(false)
-          setToastMessage(
-            "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde."
-          );
-          setShowToast(true);
         }
+        handleToast(
+          "danger",
+          "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde"
+        );
       }
     } finally {
-      setIsloading(false)
+      setIsloading(false);
     }
   };
 
@@ -138,7 +133,9 @@ const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
           onChange={handleInputChange}
           name="nombre"
         />
-        <Form.Label className="my-1 text-sm">Porcentaje de descuento</Form.Label>
+        <Form.Label className="my-1 text-sm">
+          Porcentaje de descuento
+        </Form.Label>
         <Form.Control
           type="number"
           min={1}
@@ -150,7 +147,9 @@ const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
         />
         <Row className="mt-2">
           <Col>
-            <Form.Label className="my-1 text-sm">Fecha inicial de la oferta</Form.Label>
+            <Form.Label className="my-1 text-sm">
+              Fecha inicial de la oferta
+            </Form.Label>
             <Form.Control
               type="date"
               value={oferta.fechaIni}
@@ -181,7 +180,7 @@ const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
         </div>
         <div className="w-full">
           <Button className="mt-4 w-full text-sm uppercase py-2" type="submit">
-            {isLoading ? 'Creando oferta...' : 'Crear nueva oferta'}
+            {isLoading ? "Creando oferta..." : "Crear nueva oferta"}
           </Button>
         </div>
       </Form>

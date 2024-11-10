@@ -15,6 +15,14 @@ export const Edit = ({ user, setUsers }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const handleToast = (bgName, message) => {
+    setBgToast(bgName);
+    setToastMessage(message);
+    setShow(false);
+    setIsloading(false);
+    setShowToast(true);
+  };
+
   const handleStateChange = async () => {
     setIsloading(true);
     try {
@@ -22,38 +30,25 @@ export const Edit = ({ user, setUsers }) => {
       if (response.status === 200) {
         const { users } = response.data;
         setUsers(users);
-        setBgToast("success");
-        setShow(false);
-        setIsloading(false);
-        setShowToast(true);
-        setToastMessage("Estado del usuario actulizado con exito");
+        handleToast("success", "Estado del usuario actulizado con exito");
       }
     } catch (error) {
       if (error.response) {
         const { status } = error.response;
         if (status === 401 || status === 403) {
-          setBgToast("warning");
-          setIsloading(false);
-          setToastMessage("No tienes los permisos para esta operación");
-          setShowToast(true);
+          handleToast("warning", "No tienes los permisos para esta operación");
         } else if (status === 404) {
-          setBgToast("warning");
-          setIsloading(false);
-          setShow(false);
-          setToastMessage(
+          handleToast(
+            "danger",
             "El usuario ya cuenta con el estado que esta intentado actualizar, intente con uno diferente"
           );
-          setShowToast(true);
         }
-      } else {
-        setBgToast("danger");
-        setIsloading(false);
-        setShow(false);
-        setToastMessage(
-          "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde."
-        );
-        setShowToast(true);
       }
+
+      handleToast(
+        "danger",
+        "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde"
+      );
     } finally {
       setIsloading(false);
     }

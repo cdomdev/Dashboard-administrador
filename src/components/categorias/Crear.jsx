@@ -10,20 +10,24 @@ export const Crear = ({
   setToastMessage,
 }) => {
   const [categoryName, setCategoryName] = useState("");
-  const [isLoading, setIsloading] = useState(false)
+  const [isLoading, setIsloading] = useState(false);
+
+  const handleToast = (bgName, message) => {
+    setBgToast(bgName);
+    setShowToast(true);
+    setIsloading(false);
+    setToastMessage(message);
+  };
 
   const handleCategory = async () => {
-    setIsloading(true)
+    setIsloading(true);
     try {
       if (
         !categoryName ||
         typeof categoryName !== "string" ||
         categoryName.length === 0
       ) {
-        setBgToast("danger");
-        setShowToast(true);
-        setIsloading(false)
-        setToastMessage("Este campo solo debe contener texto");
+        handleToast("danger", "El campo de crear solo debe contener texto");
         return;
       }
 
@@ -31,43 +35,33 @@ export const Crear = ({
       const response = await createCategory(data);
       if (response.status === 201) {
         setCategorias(response.data.categorias);
-        setCategoryName("");
-        setBgToast("success");
-        setIsloading(false)
-        setShowToast(true);
-        setToastMessage("Nueva categoria agregada con exito");
+        handleToast("success", "Nueva categoria agregada con exito");
       }
     } catch (error) {
       if (error.response) {
         const { status } = error.response;
         if (status === 401 || status === 403) {
-          setBgToast("warning");
-          setIsloading(false)
-          setToastMessage("No tienes los permisos para esta operación");
-          setShowToast(true);
+          handleToast("warning", "No tienes los permisos para esta operación");
         } else if (status === 500) {
-          setBgToast("danger");
-          setIsloading(false)
-          setToastMessage(
+          handleToast(
+            "danger",
             "Hubo un error al crear una nueva categoria, inténtelo de nuevo"
           );
-          setShowToast(true);
         }
-      } else {
-        setBgToast("danger");
-        setIsloading(false)
-        setToastMessage(
-          "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde."
-        );
-        setShowToast(true);
       }
+      handleToast(
+        "danger",
+        "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde"
+      );
     } finally {
-      setIsloading(false)
+      setIsloading(false);
     }
   };
   return (
     <div className="bg-white p-7 rounded-sm">
-      <h2 className="text-base md:text-lg mb-2 font-semibold">Agregar nueva {guy}</h2>
+      <h2 className="text-base md:text-lg mb-2 font-semibold">
+        Agregar nueva {guy}
+      </h2>
       <FloatingLabel
         controlId="floatingInput"
         label={`Nombre de la ${guy}`}
@@ -85,9 +79,7 @@ export const Crear = ({
         variant="primary"
         onClick={handleCategory}
         className="w-full py-2 text-xs md:text-base">
-        {isLoading ? (
-          <> Creando {guy}</>
-        ) : <>Agregar {guy}</>}
+        {isLoading ? <> Creando {guy}</> : <>Agregar {guy}</>}
       </Button>
     </div>
   );

@@ -1,14 +1,14 @@
----
+<!-- ---
 import Layout from "../layouts/Layout.astro";
-import DetallePedido from "../components/detalles/DetallePedido";
+import DetallePedido from "../components/pedidos/DetallePedido";
 const cookies = Astro.cookies;
 const authToken = cookies.get("access_token");
 const isAuthenticated = authToken !== undefined;
-if(!isAuthenticated){
-  return Astro.redirect('/auth')
+if (!isAuthenticated) {
+  return Astro.redirect("/auth");
 }
 ---
 
 <Layout title="Detalles">
   <DetallePedido client:only="react" />
-</Layout>
+</Layout> -->
