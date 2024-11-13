@@ -6,7 +6,7 @@
 
 </a>
 
-Este es un proyecto es desarrollado con Astro y react, permite a uno o varios administradores gestionar su sitema, teniedo la posiblidad de visualizar y adminstrar partes del mismo sistema.
+Este es un proyecto es desarrollado con Astro y react, permite a uno o varios administradores gestionar su sitema, teniendo la posiblidad de crear - editar o elimar productos u ofertas del sistema.
 
 ## Índice
 
@@ -26,6 +26,7 @@ Este es un proyecto es desarrollado con Astro y react, permite a uno o varios ad
 - _Adminstracion de ventas_: Permite visulizar el listado de compras realizadas, ademas de gestionar los estados de las mismas, en alistamiento - en camino - entregado.
 - _Gestion de categrias / subcategorias_: Permite gestionar categorias y subcategorias para los productos: Agregar - eliminar y listar.
 - _Gestion de ofertas_: Permite al administrador crear - editar y elimar ofertas para los usuarios.
+- _Gestion de usuarios_: Permite al administrador visualizar la cantidad de usuarios regsitrados en el sistema, adema de la posibilidad de bloquear o elimar a los mismos.
 - _Interfaz amigable_: Desarrollada con Astro y Tailwind CSS para una experiencia de usuario óptima en dispositivos móviles y de escritorio.
 
 ## Tecnologías
