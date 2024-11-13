@@ -21,11 +21,11 @@ Este es un proyecto es desarrollado con Astro y react, permite a uno o varios ad
 ## Características
 
 - _Analitica de productos mas vendidos_: Grafica que permite visulizar los productos mas vendidos.
-- _Gestion de productos_: Seccion para el manejo de producto, agregar - editar - elimniar y guardar.
-- _Administracion de inventario_: Permite al administrador gestionar el invenatario, eliminar - actulizar - editar propductos del invenatrio.
-- _Adminstracion de ventas_: Permite visulizar el listado de compras realizadas, ademas de gestionar los estados de las mismas, en alistamiento - en camino - entregado.
+- _Gestion de productos_: Seccion para el manejo de producto,: agregar - editar - elimniar y guardar.
+- _Administracion de inventario_: Permite al administrador gestionar el invenatario: eliminar - actulizar - editar propductos del invenatrio.
+- _Adminstracion de ventas_: Permite visulizar el listado de compras realizadas, ademas de gestionar los estados de las mismas:  en alistamiento - en camino - entregado.
 - _Gestion de categrias / subcategorias_: Permite gestionar categorias y subcategorias para los productos: Agregar - eliminar y listar.
-- _Gestion de ofertas_: Permite al administrador crear - editar y elimar ofertas para los usuarios.
+- _Gestion de ofertas_: Permite al administrador:  crear - editar y elimar ofertas para los usuarios.
 - _Gestion de usuarios_: Permite al administrador visualizar la cantidad de usuarios regsitrados en el sistema, adema de la posibilidad de bloquear o elimar a los mismos.
 - _Interfaz amigable_: Desarrollada con Astro y Tailwind CSS para una experiencia de usuario óptima en dispositivos móviles y de escritorio.
 
