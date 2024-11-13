@@ -1,4 +1,4 @@
-# Proyecto de Tienda Web - Suministros
+# Panel de administracion para Tienda Web - Suministros
 
 <a href="https://dashboard-administrador.vercel.app/auth">
 
