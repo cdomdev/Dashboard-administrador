@@ -55,8 +55,6 @@ const Auth: React.FC<FormInicioSesionProps> = ({ isAuthenticated }) => {
                 })
                 localStorage.setItem('infoProfileUSer', JSON.stringify(userSessionData))
                 window.location.href = "/";
-            } else {
-                handleToast('danger', 'Algo salio mal con el inicio de sesion, por favor intenalo mas tarde')
             }
         } catch (error) {
             if (axios.isAxiosError(error) && error.response) {

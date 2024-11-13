@@ -58,7 +58,7 @@ export const Edit = ({ user, setUsers }) => {
     <>
       <Button
         onClick={handleShow}
-        className="bg-transparent border-none text-black flex items- text-xs md:text-sm gap-1">
+        className="bg-transparent border-none text-black flex items- text-xs md:text-sm gap-1 capitalize">
         {user.estado ? user.estado : "Activo"}
         <EditIcon />
       </Button>
