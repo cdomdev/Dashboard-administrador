@@ -44,10 +44,11 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente:
 
 ## Instalación
 
-1. Bifucar o Clonar el repositorio\*:
+1. Bifucar o Clonar el repositorio:
 
-- bash: git clone https://github.com/cdomdev/Dashboard-administrador
-
+```text
+git clone https://github.com/cdomdev/Dashboard-administrador
+```
 2. Instalar las dependencias:
 
 Usamos npm para instalar y administrar las dependencias.
@@ -58,8 +59,9 @@ Usamos npm para instalar y administrar las dependencias.
 
 # Instalacion con npm:
 
-- npm install
-
+```text
+npm install
+```
 ## Configuracion
 
 1. _Configurar el entorno_:
