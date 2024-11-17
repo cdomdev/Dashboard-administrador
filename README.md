@@ -32,7 +32,7 @@ Este es un proyecto es desarrollado con Astro y react, permite a uno o varios ad
 ## Tecnologías
 
 - _Frontend_: [Astro](https://astro.build/) con componentes React y Tailwind CSS.
-- _gestor de imagenes_: [cloudinary](https://cloudinary.com/) para la guaradar imagenes
+- _gestor de imagenes_: [cloudinary](https://cloudinary.com/) para la guardar imagenes
 
 ## Requisitos Previos
 
