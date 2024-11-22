@@ -17,7 +17,7 @@ export const Sidebar = ({ isAuthenticated }) => {
   };
 
   if (!isAuthenticated) {
-    return null
+    return null;
   }
 
   return (
@@ -44,8 +44,9 @@ export const Sidebar = ({ isAuthenticated }) => {
               </svg>
 
               <div
-                className={`${isOpen ? "translate-x-0" : "-translate-x-full"
-                  } fixed z-50 top-0 left-0 min-h-screen bg-white w-8/12 transform transition-transform duration-300`}>
+                className={`${
+                  isOpen ? "translate-x-0" : "-translate-x-full"
+                } fixed z-50 top-0 left-0 min-h-screen bg-white w-8/12 transform transition-transform duration-300`}>
                 <div className="p-4">
                   <div className="flex justify-end">
                     <svg
@@ -159,7 +160,9 @@ export const Sidebar = ({ isAuthenticated }) => {
                 </div>
               </div>
               <a href="/" className="flex justify-center items-center">
-                <span className="text-2xl -mb-2 pl-2 md:mb-0 md:text-3xl font-extrabold text-[#22365c]">Suministros</span>
+                <span className="text-2xl -mb-2 pl-2 md:mb-0 md:text-3xl font-extrabold text-[#22365c]">
+                  Suministros
+                </span>
               </a>
             </div>
             <div className="flex gap-2 md:gap-3 justify-center items-center">
@@ -250,9 +253,7 @@ export const Sidebar = ({ isAuthenticated }) => {
                 href="/gestion-usuarios/usuarios"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                 <UserIcon />
-                <span className="flex-1 ms-2 whitespace-nowrap">
-                  Usuarios
-                </span>
+                <span className="flex-1 ms-2 whitespace-nowrap">Usuarios</span>
               </a>
             </li>
           </ul>

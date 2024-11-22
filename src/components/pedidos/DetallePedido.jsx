@@ -36,16 +36,21 @@ const DetallePedido = () => {
     }
   };
 
+  console.log(user);
   if (!data || data.length === 0) {
     return (
-      <h2>`Algo salio mal al listar los pedidos del usuario ${user.nombre}`</h2>
+      <div className="dark:border-gray-700 pt-32 flex justify-center font-text-cust-2">
+        <h2>
+          {`Algo salio mal al listar los pedidos del usuario ${user.nombre}`}
+        </h2>
+      </div>
     );
   }
 
   return (
     <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen font-text-cust-2">
       <div className="dark:border-gray-700 mt-1">
-        <section className="mt-4 bg-white min-h-screen p-2 md:p-4 gap-2 flex flex-col">
+        <section className="mt-4 bg-white  p-2 md:p-4 gap-2 flex flex-col">
           <div className="border py-2 px-5 bg-[#e7e9ed] flex justify-between items-center ">
             <a
               href="/pedidos"
@@ -88,7 +93,7 @@ const DetallePedido = () => {
               <div key={order.id || index} className="p-0 md:p-2 border">
                 <div className="bg-gray-300 py-2">
                   <h2 className="text-center text-sm md:text-base font-semibold">
-                    Detalles de la compra N° {order.id}
+                    Detalles de la compra N° {order.id.replaceAll("-", "")}
                   </h2>
                 </div>
                 <div className="info-user">
