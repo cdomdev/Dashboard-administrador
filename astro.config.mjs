@@ -5,7 +5,7 @@ import react from "@astrojs/react";
 import vercel from "@astrojs/vercel/serverless";
 
 
-// https://astro.build/config
+// https://astro.build/confi
 export default defineConfig({
   integrations: [tailwind(), react()],
   output: "server",
