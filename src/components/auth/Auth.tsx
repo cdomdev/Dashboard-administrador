@@ -59,13 +59,13 @@ const Auth: React.FC<FormInicioSesionProps> = ({ isAuthenticated }) => {
         } catch (error) {
             if (axios.isAxiosError(error) && error.response) {
                 const { status } = error.response;
-                if (status === 404) {
-                    handleToast('warning', `El email ${values.email} no esta registrado`)
-                } else if (status === 401) {
-                    handleToast('warning', `Datos incorrectos, verifica tus datos eh intentalo de nuevo`)
+                console.log(error)
+                if (status === 404 || status === 401) {
+                    handleToast('danger', `${error.response.data.message}`)
+                } else {
+                    handleToast('danger', `Algo salio mal con el inicio de sesion, por favor intenalo mas tarde`)
                 }
             }
-            handleToast('danger', `Algo salio mal con el inicio de sesion, por favor intenalo mas tarde`)
         } finally {
             setIsLoading(false)
         }

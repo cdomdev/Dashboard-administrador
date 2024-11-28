@@ -4,6 +4,7 @@ import { listar } from "../../services/pedidos";
 import { useEffect } from "react";
 import { Pedidos } from "./Pedidos";
 import { Database } from "../icons/Database";
+import { ModalMessage } from "./ModalMessage";
 
 const ListadoPedidos = () => {
   const [pedidos, setPedidos] = useState(null);
@@ -37,11 +38,12 @@ const ListadoPedidos = () => {
             <Table striped hover responsive>
               <thead>
                 <tr>
-                  <th className="thead-table-users">N°orden</th>
+                  <th className="thead-table-users">Ref de orden</th>
                   <th className="thead-table-users">Nombre</th>
                   <th className="thead-table-users">Email</th>
                   <th className="thead-table-users">Rol del usuario</th>
                   <th className="thead-table-users">Ver Pedidos</th>
+                  <th className="thead-table-users">Mensaje</th>
                 </tr>
               </thead>
               <tbody>
@@ -49,7 +51,7 @@ const ListadoPedidos = () => {
                   .filter((usuario) => usuario.tienePedidos)
                   .map((usuario, index) => (
                     <tr key={usuario.id || index}>
-                      <td>{index + 1}</td>
+                      <td>{usuario.id.slice(-12)}</td>
                       <td>{usuario.name || usuario.nombre}</td>
                       <td>{usuario.email}</td>
                       <td className="capitalize">
@@ -61,6 +63,9 @@ const ListadoPedidos = () => {
                         ) : (
                           <Pedidos user={usuario} ruta={"pedidos-invitado"} />
                         )}
+                      </td>
+                      <td>
+                        <ModalMessage usuario={usuario} />
                       </td>
                     </tr>
                   ))}
