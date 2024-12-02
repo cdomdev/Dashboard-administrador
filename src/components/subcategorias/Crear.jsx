@@ -15,7 +15,7 @@ export const Crear = ({
   const handleToast = (bgName, message) => {
     setBgToast(bgName);
     setShowToast(true);
-    setIsloading(false);
+    setLoading(false);
     setToastMessage(message);
   };
 
@@ -35,6 +35,7 @@ export const Crear = ({
       if (response.status === 201) {
         setCategorias(response.data.categorias);
         handleToast("success", "Nueva subcategoria agregada con exito");
+        setCategoryName('')
       }
     } catch (error) {
       console.error("Error en la crecion de la categoria", error);

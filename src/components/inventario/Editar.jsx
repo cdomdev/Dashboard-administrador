@@ -16,51 +16,37 @@ const Editar = ({
 
   const handleToast = (bgName, message) => {
     setBgToast(bgName);
-    setShowToast(true);
     setToastMessage(message);
+    setShowToast(true);
     setIsLoading(false);
     setShowModal(false);
   };
 
   const handleSaveChanges = async () => {
-    if (!isNaN(newStock) && newStock.trim() !== "") {
-      try {
-        const updatedStock = parseInt(newStock);
-        const response = await stockUpdate(updatedStock, producto.id);
-        if (response.status === 200) {
-          setProductos(response.data.inventaryUpdate);
-          handleToast("success", "Cantidad en stock modificada con exito");
-        } else if (response.status === 404) {
-          handleToast(
-            "danger",
-            "Algo salio mal al intentar modificar cantidad del producto, intentalo de nuevo"
-          );
-        }
-        handleToast("danger", "Hubo un error inesparado, intantalo mas tarde");
-      } catch (error) {
-        console.error(
-          "Error al actualizar la información del producto en inventario:",
-          error
-        );
-
-        const status = error.response.status || error.status;
-        if (status === 401 || status === 403) {
-          handleToast("warning", "No tienes los permisos para esta operación");
-        } else if (status === 500) {
-          handleToast(
-            "danger",
-            "Hubo un error al actualizar la cantidad de del producto, inténtelo de nuevo"
-          );
-        }
-      } finally {
-        setIsLoading(false);
+    try {
+      const updatedStock = parseInt(newStock);
+      const response = await stockUpdate(updatedStock, producto.id);
+      if (response && response.status === 200) {
+        setProductos(response.data.inventaryUpdate);
+        handleToast("success", "Cantidad en stock modificada con exito");
       }
+    } catch (error) {
+      console.error(
+        "Error al actualizar la información del producto en inventario:",
+        error
+      );
+      const status = error.response.status || error.status;
+      if (status === 401 || status === 403) {
+        handleToast("warning", "No tienes los permisos para esta operación");
+      } else if (status === 500) {
+        handleToast(
+          "danger",
+          "Hubo un error al actualizar la cantidad de del producto, inténtelo de nuevo"
+        );
+      }
+    } finally {
+      setIsLoading(false);
     }
-
-    handleToast(
-      "danger",
-      "Hubo un error al modificar el stock del producto, intentelo de nuevo"
-    );
   };
 
   return (

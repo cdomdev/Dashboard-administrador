@@ -107,7 +107,6 @@ const Crear = ({
         cantidad: "",
         referencia: "",
       });
-
       setUpload("");
       handleToast("success", "Producto agregado exitosamente");
     } catch (error) {
@@ -121,7 +120,7 @@ const Crear = ({
   };
 
   return (
-    <div className="p-3 bg-white rounded-sm text-black">
+    <div className="p-3 bg-white rounded-sm text-black font-text-cust-2">
       <Form onSubmit={getFormValues}>
         <Form.Label className="m-0 pl-1 text-sm">Marca del producto</Form.Label>
         <Form.Control
@@ -134,7 +133,6 @@ const Crear = ({
           minLength={1}
           maxLength={50}
         />
-
         <Form.Label className="m-0 pl-1 text-sm">
           Nombre del producto
         </Form.Label>

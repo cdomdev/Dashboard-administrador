@@ -5,7 +5,7 @@ const uploasPreset = import.meta.env.PUBLIC_UPLOAD_PRESET
 const folder = import.meta.env.PUBLIC_FOLDER
 
 export const SaveImageCloud = ({ setUpload }) => {
-    const widget = window.cloudinary.createUploadWidget(
+    const widget = window?.cloudinary?.createUploadWidget(
         {
             cloudName: cloudName,
             uploadPreset: uploasPreset,
