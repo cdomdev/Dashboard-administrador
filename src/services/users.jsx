@@ -41,12 +41,3 @@ export const deleteUser = async (id) => {
     throw error;
   }
 };
-
-export const deleteInvited = async (id) => {
-  try {
-    const response = await api.delete(`${API_HOST}/api/delete-invited/${id}`);
-    return response;
-  } catch (error) {
-    throw error;
-  }
-};

@@ -35,20 +35,16 @@ export const Edit = ({ user, setUsers }) => {
     } catch (error) {
       if (error.response) {
         const { status } = error.response;
+        console.log(status);
         if (status === 401 || status === 403) {
           handleToast("warning", "No tienes los permisos para esta operación");
-        } else if (status === 404) {
+        } else {
           handleToast(
             "danger",
-            "El usuario ya cuenta con el estado que esta intentado actualizar, intente con uno diferente"
+            "HUbo un error al proceder con la solicitud, por favorm intentalo mas tarde"
           );
         }
       }
-
-      handleToast(
-        "danger",
-        "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde"
-      );
     } finally {
       setIsloading(false);
     }
@@ -58,7 +54,8 @@ export const Edit = ({ user, setUsers }) => {
     <>
       <Button
         onClick={handleShow}
-        className="bg-transparent border-none text-black flex items- text-xs md:text-sm gap-1 capitalize">
+        className="bg-transparent border-none text-black flex items- text-xs md:text-sm gap-1 capitalize"
+      >
         {user.estado ? user.estado : "Activo"}
         <EditIcon />
       </Button>
@@ -86,7 +83,8 @@ export const Edit = ({ user, setUsers }) => {
                 <p>Seleccionar el nuvo estado para el usuario</p>
                 <form
                   action="submit"
-                  onChange={(e) => setSelectedState(e.target.value)}>
+                  onChange={(e) => setSelectedState(e.target.value)}
+                >
                   <select className="rounded-md pl-4 py-1 border-slate-200 ring-0 hover:ring-blue-500 focus:ring-blue-200 focus:border-blue-200">
                     <option>Seleccione un nuevo estado</option>
                     <option id="activo">Activo</option>
@@ -109,7 +107,12 @@ export const Edit = ({ user, setUsers }) => {
                 {isLoading ? "Actualizando..." : "Actulizar estado "}
               </Button>
             ) : (
-              <Button onClick={handleClose}>No disponible</Button>
+              <Button
+                onClick={handleClose}
+                className={`${user.roles?.rol_name !== "usuario" ? "hidden" : "block"} `}
+              >
+                No disponible
+              </Button>
             )}
             <Button variant="secondary" onClick={handleClose}>
               Cancelar

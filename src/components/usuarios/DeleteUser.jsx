@@ -2,7 +2,7 @@ import { Modal, Button } from "react-bootstrap";
 import { ToastCammon } from "../ToastCammon";
 import { useState } from "react";
 import { DeleteIcon } from "../icons/DeleteIcon";
-import { deleteInvited, deleteUser } from "@/services/users";
+import { deleteUser } from "@/services/users";
 
 export const DeleteUser = ({ user, setUsers }) => {
   const [show, setShow] = useState(false);
@@ -14,17 +14,26 @@ export const DeleteUser = ({ user, setUsers }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const handleToast = (bgName, message) => {
+    setBgToast(bgName);
+    setToastMessage(message);
+    setShow(false);
+    setIsloading(false);
+    setShowToast(true);
+  };
+
   const handleDeleteError = (error) => {
     const status = error.response?.status;
-    setBgToast("warning");
+    setBgToast();
     setIsloading(false);
     setShow(false);
     setShowToast(true);
 
     if (status === 401 || status === 403) {
-      setToastMessage("No tienes los permisos para esta operación");
+      setToastMessage("warning", "No tienes los permisos para esta operación");
     } else if (status === 404) {
       setToastMessage(
+        "danger",
         "hubo un error al intentar elimiar le usuario, intentaleo de mas tarde"
       );
     } else {
@@ -38,26 +47,13 @@ export const DeleteUser = ({ user, setUsers }) => {
   const handleDeleteUser = async () => {
     setIsloading(true);
     try {
-      if (user?.roles?.rol_name === "usuario") {
-        const response = await deleteUser(user.id);
-        if (response.status === 200) {
-          setBgToast("success");
-          setShow(false);
-          setIsloading(false);
-          setShowToast(true);
-          setToastMessage("Estado del usuario actualizado con éxito");
-          setUsers(response.data.users);
-        }
-      } else {
-        const response = await deleteInvited(user.id);
-        if (response.status === 200) {
-          setBgToast("success");
-          setShow(false);
-          setIsloading(false);
-          setShowToast(true);
-          setToastMessage("Estado del usuario actualizado con éxito");
-          setUsers(response.data.users);
-        }
+      const response = await deleteUser(user.id);
+      if (response.status === 200) {
+        setShow(false);
+        setIsloading(false);
+        setUsers(response.data.users);
+        handleToast("success", "Usuario eliminado con éxito")
+       
       }
     } catch (error) {
       handleDeleteError(error);
@@ -78,9 +74,10 @@ export const DeleteUser = ({ user, setUsers }) => {
         <DeleteIcon />
       </button>
       <Modal show={show} onHide={handleClose} className="font-text-cust-2">
-        <Modal.Header closeButton className="py-1">
-          <Modal.Title className="text-lg font-semibold text-red-600">
-            ¡Seguro que desea eliminar al usuario {user.nombre}!
+        <Modal.Header closeButton className="py-2">
+          <Modal.Title className="text-base font-semibold flex items-center gap-2 text-red-600">
+            ¡Seguro que desea eliminar al usuario{" "}
+            <p className="text-black">{user.nombre} </p>!
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="border-b-0">
