@@ -4,9 +4,13 @@ import { getUserForList } from "@/services/users";
 import { DeleteUser } from "./DeleteUser";
 import { ProfileDef } from "./ProfileDef";
 import { Edit } from "./Edit";
+import { ToastCammon } from "../ToastCammon";
 
 const ListUsers = () => {
   const [users, setUsers] = useState([]);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [bgToast, setBgToast] = useState("");
 
   useEffect(() => {
     const fechData = async () => {
@@ -19,11 +23,18 @@ const ListUsers = () => {
     fechData();
   }, []);
 
+
   return (
     <>
       {users && users.length > 0 ? (
-        <div className="relative overflow-x-auto  sm:rounded-lg">
-          <Table striped responsive hover>
+        <div className="relative overflow-x-auto sm:rounded-lg ">
+          <ToastCammon
+            bgToast={bgToast}
+            setShowToast={setShowToast}
+            toastMessage={toastMessage}
+            showToast={showToast}
+          />
+          <Table striped responsive hover className="shadow-sm">
             <thead>
               <tr>
                 <th>#</th>
@@ -69,12 +80,24 @@ const ListUsers = () => {
                   </td>
                   <td className="text-sm md:text-sm">
                     <span>
-                      <Edit user={user} setUsers={setUsers} />{" "}
+                      <Edit
+                        user={user}
+                        setUsers={setUsers}
+                        setBgToast={setBgToast}
+                        setShowToast={setShowToast}
+                        setToastMessage={setToastMessage}
+                      />{" "}
                     </span>{" "}
                   </td>
                   <td className="text-xs md:text-sm">
                     <span className="flex justify-center">
-                      <DeleteUser user={user} setUsers={setUsers} />
+                      <DeleteUser
+                        user={user}
+                        setUsers={setUsers}
+                        setBgToast={setBgToast}
+                        setShowToast={setShowToast}
+                        setToastMessage={setToastMessage}
+                      />
                     </span>
                   </td>
                 </tr>

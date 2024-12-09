@@ -63,39 +63,39 @@ const Eliminar = ({
   };
 
   return (
-    <>
-      <div className="bg-white p-3 rounded-sm">
-        <h4 className="text-base md:text-lg mb-1 font-semibold">
-          Eliminar {guy}
-        </h4>
-        <p className=" text-sm md:text-base">
-          Antes de eliminar una categoria, asegurece que no tenga productos
-          asociados.
-        </p>
-        <p className="text-sm md:text-base mt-1">
-          Selecione la {guy} a eliminar:
-        </p>
-        <Form.Select className="mt-3" onChange={(e) => handleCategoryChange(e)}>
-          <option className="text-xs md:text-sm">Seleccionar {guy}</option>
-          {categorias &&
-            categorias.map((categoria) => (
-              <option
-                key={categoria.id}
-                value={categoria.id}
-                className="text-xs md:text-sm">
-                {categoria.nombre}
-              </option>
-            ))}
-        </Form.Select>
+    <div className="bg-white p-3 rounded-sm shadow-sm">
+      <h4 className="text-base md:text-lg mb-1 font-semibold">
+        Eliminar {guy}
+      </h4>
+      <p className=" text-sm md:text-base">
+        Antes de eliminar una categoria, asegurece que no tenga productos
+        asociados.
+      </p>
+      <p className="text-sm md:text-base mt-1">
+        Selecione la {guy} a eliminar:
+      </p>
+      <Form.Select className="mt-3" onChange={(e) => handleCategoryChange(e)}>
+        <option className="text-xs md:text-sm">Seleccionar {guy}</option>
+        {categorias &&
+          categorias.map((categoria) => (
+            <option
+              key={categoria.id}
+              value={categoria.id}
+              className="text-xs md:text-sm"
+            >
+              {categoria.nombre}
+            </option>
+          ))}
+      </Form.Select>
 
-        <Button
-          variant="danger "
-          className="mt-4 w-full py-2 text-xs md:text-base"
-          onClick={handleCategoryDelete}>
-          {isLoading ? <>Elimininado {guy}</> : <> Eliminar {guy}</>}
-        </Button>
-      </div>
-    </>
+      <Button
+        variant="danger "
+        className="mt-4 w-full py-2 text-xs md:text-base"
+        onClick={handleCategoryDelete}
+      >
+        {isLoading ? <>Elimininado {guy}</> : <> Eliminar {guy}</>}
+      </Button>
+    </div>
   );
 };
 

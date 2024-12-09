@@ -65,7 +65,7 @@ const Eliminar = ({
 
   return (
     <>
-      <div className="bg-white p-3 rounded-sm">
+      <div className="bg-white p-3 rounded-sm shadow-sm">
         <h4 className="text-base md:text-lg mb-1 font-semibold">
           Eliminar {guy}
         </h4>

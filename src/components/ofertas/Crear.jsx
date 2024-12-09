@@ -115,7 +115,7 @@ const Crear = ({ setOfertas, setBgToast, setShowToast, setToastMessage }) => {
   };
 
   return (
-    <div className=" bg-white p-3  rounded-sm ">
+    <div className=" bg-white p-3  rounded-sm shadow-sm">
       <h4 className="text-base md:text-lg text-center font-semibold">
         Crear una nueva oferta
       </h4>

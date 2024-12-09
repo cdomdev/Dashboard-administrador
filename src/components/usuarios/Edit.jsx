@@ -2,46 +2,52 @@ import { modifedStateUser } from "@/services/users";
 import { EditIcon } from "../icons/Edit";
 import { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { ToastCammon } from "../ToastCammon";
 
-export const Edit = ({ user, setUsers }) => {
+export const Edit = ({
+  user,
+  setUsers,
+  setShowToast,
+  setToastMessage,
+  setBgToast,
+}) => {
   const [show, setShow] = useState(false);
   const [selectedState, setSelectedState] = useState("");
   const [isLoading, setIsloading] = useState(false);
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
-  const [bgToast, setBgToast] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleToast = (bgName, message) => {
-    setBgToast(bgName);
-    setToastMessage(message);
-    setShow(false);
     setIsloading(false);
+    setShow(false);
     setShowToast(true);
+    setToastMessage(message);
+    setBgToast(bgName);
   };
 
   const handleStateChange = async () => {
     setIsloading(true);
     try {
       const response = await modifedStateUser(user.id, selectedState);
-      if (response.status === 200) {
-        const { users } = response.data;
+      const { users } = response.data;
+      if (response && response.status === 200) {
         setUsers(users);
-        handleToast("success", "Estado del usuario actulizado con exito");
+        handleToast('success', "Estado del usuario actulizado con exito");
       }
     } catch (error) {
       if (error.response) {
         const { status } = error.response;
-        console.log(status);
         if (status === 401 || status === 403) {
           handleToast("warning", "No tienes los permisos para esta operación");
+        } else if (status === 404) {
+          handleToast(
+            "warning",
+            "El usuario ya cuenta con el estado que esta intentado definir"
+          );
         } else {
           handleToast(
             "danger",
-            "HUbo un error al proceder con la solicitud, por favorm intentalo mas tarde"
+            "Hubo un error en la solicitud, por favor, intentalo mas tarde"
           );
         }
       }
@@ -59,12 +65,6 @@ export const Edit = ({ user, setUsers }) => {
         {user.estado ? user.estado : "Activo"}
         <EditIcon />
       </Button>
-      <ToastCammon
-        bgToast={bgToast}
-        setShowToast={setShowToast}
-        toastMessage={toastMessage}
-        showToast={showToast}
-      />
       <Modal show={show} onHide={handleClose} className="font-text-cust-2">
         <Modal.Header closeButton className="py-1">
           <Modal.Title className="text-lg font-semibold">

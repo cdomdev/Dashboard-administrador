@@ -17,6 +17,7 @@ export const Listar = ({ subcategorias, setSubcategorias }) => {
   }, []);
   return (
     <>
+     <h2 className="mb-2 text-base md:text-lg font-semibold">Lista de subcategorias</h2>
       {!subcategorias || subcategorias.length === 0 ? (
         <p className="text-sm md:text-base text-center">No hay subcategorias para listar</p>
       ) : (

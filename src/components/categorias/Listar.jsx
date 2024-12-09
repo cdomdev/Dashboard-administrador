@@ -18,6 +18,7 @@ export const Listar = ({ categorias, setCategorias }) => {
 
   return (
     <>
+    <h2 className="mb-2 text-base md:text-lg font-semibold">Lista de categorias</h2>
       {
         !categorias || categorias.length === 0 ? (
           <p className="text-center text-sm md:text-base">No hay categorias por listar </p>

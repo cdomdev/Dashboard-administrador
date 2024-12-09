@@ -31,10 +31,10 @@ const Listado = ({
 
   return (
     <div className="section-listado-ofertas">
-      <h4 className="text-lg font-semibold mb-2 bg-white px-2 py-1">
+      <h4 className="text-lg font-semibold mb-2 bg-white px-2 py-1 shadow-sm rounded-sm">
         Ofertas vigentes
       </h4>
-      <Accordion defaultActiveKey="0">
+      <Accordion defaultActiveKey="0" >
         {ofertas.length === 0 || ofertas === "No hay ofertas disponibles" ? (
           <div className="w-full bg-white py-3 px-2">
             <p className="text-center text-base font-semibold">
@@ -43,7 +43,7 @@ const Listado = ({
           </div>
         ) : (
           ofertas.map((oferta, index) => (
-            <Accordion.Item key={oferta.id} eventKey={index}>
+            <Accordion.Item key={oferta.id} eventKey={index} className="border-none shadow-sm">
               <Accordion.Header>
                 <strong className="uppercase font-bold">{oferta.nombre}</strong>
               </Accordion.Header>
@@ -62,7 +62,7 @@ const Listado = ({
                     </p>
                   </div>
                   <div>
-                    <h5 className="text-producto-oferta bg-slate-300 py-2 text-center text-base font-semibold">
+                    <h5 className="text-producto-oferta bg-slate-300 p-2  text-center text-base font-semibold">
                       Productos relacionados a la oferta
                     </h5>
                     <ul className="mt-2 list-disc px-3">

@@ -4,41 +4,39 @@ import { useState } from "react";
 import { DeleteIcon } from "../icons/DeleteIcon";
 import { deleteUser } from "@/services/users";
 
-export const DeleteUser = ({ user, setUsers }) => {
+export const DeleteUser = ({
+  user,
+  setUsers,
+  setShowToast,
+  setToastMessage,
+  setBgToast,
+}) => {
   const [show, setShow] = useState(false);
   const [isLoading, setIsloading] = useState(false);
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
-  const [bgToast, setBgToast] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleToast = (bgName, message) => {
-    setBgToast(bgName);
-    setToastMessage(message);
-    setShow(false);
     setIsloading(false);
+    setShow(false);
     setShowToast(true);
+    setToastMessage(message);
+    setBgToast(bgName);
   };
 
   const handleDeleteError = (error) => {
     const status = error.response?.status;
-    setBgToast();
-    setIsloading(false);
-    setShow(false);
-    setShowToast(true);
-
     if (status === 401 || status === 403) {
-      setToastMessage("warning", "No tienes los permisos para esta operación");
+      handleToast("warning", "No tienes los permisos para esta operación");
     } else if (status === 404) {
-      setToastMessage(
+      handleToast(
         "danger",
         "hubo un error al intentar elimiar le usuario, intentaleo de mas tarde"
       );
     } else {
-      setBgToast("danger");
-      setToastMessage(
+      handleToast(
+        "danger",
         "Ocurrió un error inesperado. Por favor, intenta de nuevo más tarde."
       );
     }
@@ -48,12 +46,10 @@ export const DeleteUser = ({ user, setUsers }) => {
     setIsloading(true);
     try {
       const response = await deleteUser(user.id);
-      if (response.status === 200) {
-        setShow(false);
-        setIsloading(false);
-        setUsers(response.data.users);
-        handleToast("success", "Usuario eliminado con éxito")
-       
+      const { users } = response.data;
+      if (response && response.status === 200) {
+        handleToast("success", "Usuario eliminado con exito");
+        setUsers(users);
       }
     } catch (error) {
       handleDeleteError(error);
@@ -64,15 +60,10 @@ export const DeleteUser = ({ user, setUsers }) => {
 
   return (
     <>
-      <ToastCammon
-        bgToast={bgToast}
-        setShowToast={setShowToast}
-        toastMessage={toastMessage}
-        showToast={showToast}
-      />
       <button onClick={handleShow}>
         <DeleteIcon />
       </button>
+
       <Modal show={show} onHide={handleClose} className="font-text-cust-2">
         <Modal.Header closeButton className="py-2">
           <Modal.Title className="text-base font-semibold flex items-center gap-2 text-red-600">

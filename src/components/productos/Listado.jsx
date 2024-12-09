@@ -20,7 +20,7 @@ const Listado = ({
       {listado != null ? (
         listado.map((producto, index) => {
           return (
-            <article key={producto.id || index} className="">
+            <article key={producto.id || index}>
               <div className="w-[350px] bg-white h-auto shadow-sm justify-center rounded-lg p-2 flex flex-col items-center  ">
                 {producto.image && (
                   <img
@@ -58,9 +58,11 @@ const Listado = ({
                   <span className="text-sm">
                     <strong className="text-sm">Subcategoria: </strong>
                     {producto.subcategoria}
-                  </span >
+                  </span>
                   <strong className="text-sm">Descripción:</strong>
-                  <p className="text-wrap max-h-44 overflow-y-auto">{producto.description}</p>
+                  <p className="text-wrap max-h-44 overflow-y-auto">
+                    {producto.description}
+                  </p>
                 </div>
                 <div className="w-full flex flex-col gap-2">
                   <Editar
@@ -70,12 +72,14 @@ const Listado = ({
                     setShowToast={setShowToast}
                     setToastMessage={setToastMessage}
                   />
-                  <ModalDelete id={producto.id}
+                  <ModalDelete
+                    id={producto.id}
                     setListado={setListado}
                     setBgToast={setBgToast}
                     setShowToast={setShowToast}
                     setToastMessage={setToastMessage}
-                    producto={producto} />
+                    producto={producto}
+                  />
                 </div>
               </div>
             </article>
@@ -83,7 +87,7 @@ const Listado = ({
         })
       ) : (
         <div className="contendor-alter-products-card d-flex text-center bg-white h-full w-full">
-          <span className="m-auto text-sm font-semibold md:text-lg">
+          <span className="m-auto text-sm font-semibold md:text-lg text-gray-400">
             Agregue nuevos productos para verlos aquí.
           </span>
         </div>

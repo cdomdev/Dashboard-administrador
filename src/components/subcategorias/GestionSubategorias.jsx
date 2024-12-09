@@ -38,8 +38,7 @@ const GestionSubcategorias = () => {
               setToastMessage={setToastMessage}
             />
           </div>
-          <div className="lista-categrtorias bg-white p-3  rounded-sm">
-            <h2 className="mb-2 text-base md:text-lg font-semibold">Lista de subcategorias</h2>
+          <div className="lista-categrtorias bg-white p-3  rounded-sm shadow-sm">
             <Listar
               subcategorias={subcategorias}
               setSubcategorias={setSubcategorias}

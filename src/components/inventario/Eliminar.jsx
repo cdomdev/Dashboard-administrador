@@ -21,6 +21,8 @@ const Eliminar = ({
     setShowModal(false);
   };
 
+
+
   const handleDelete = async () => {
     setIsLoading(true);
     try {
@@ -73,7 +75,7 @@ const Eliminar = ({
           <p className="text-sm pt-2 ">
             !Esta seguro de querer eliminar el producto
             <strong> {producto?.nombre}.</strong> En inventario tiene
-            <strong> {producto?.Inventarios[0].cantidad} productos</strong>!
+            <strong> {producto?.Inventarios[0]?.cantidad} productos</strong>!
           </p>
         </Modal.Body>
         <Modal.Footer className="flex text-sm  flex-col border-none w-full gap-1">

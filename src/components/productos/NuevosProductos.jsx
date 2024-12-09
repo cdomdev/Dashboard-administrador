@@ -52,7 +52,7 @@ const NuevosProductos = () => {
               setShowToast={setShowToast}
             />
           </aside>
-          <article className="flex flex-wrap md:w-2/3 w-full bg-white p-4 h-auto gap-4">
+          <article className="flex flex-wrap md:w-2/3 w-full bg-white p-4 h-auto gap-4 shadow-sm">
             <Listado
               listado={listado}
               setListado={setListado}

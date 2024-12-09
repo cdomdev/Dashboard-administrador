@@ -59,7 +59,7 @@ export const Crear = ({
     }
   };
   return (
-    <div className="bg-white p-7 rounded-sm">
+    <div className="bg-white p-7 rounded-sm shadow-sm">
       <h2 className="text-base md:text-lg mb-2 font-semibold">
         Agregar nueva {guy}
       </h2>

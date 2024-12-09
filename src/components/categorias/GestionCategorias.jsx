@@ -4,7 +4,6 @@ import { Crear } from "./Crear";
 import { Listar } from "./Listar";
 import { ToastCammon } from "../ToastCammon";
 
-
 const GestionCategorias = () => {
   const [categorias, setCategorias] = useState([]);
   const [showToast, setShowToast] = useState(false);
@@ -39,8 +38,7 @@ const GestionCategorias = () => {
               setShowToast={setShowToast}
             />
           </div>
-          <div className=" bg-white p-3 rounded-sm">
-            <h2 className="mb-2 text-base md:text-lg font-semibold">Lista de categorias</h2>
+          <div className=" bg-white p-3 rounded-sm shadow-sm">
             <Listar categorias={categorias} setCategorias={setCategorias} />
           </div>
         </div>
