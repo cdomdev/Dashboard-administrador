@@ -1,6 +1,6 @@
 import axios from "axios"
-import API_HOST from "@/config/config"
 import type { ValuesSesion } from "@/types/types";
+import { API_HOST } from "@/config/config";
 
 
 export const authAdmin = async (values: ValuesSesion) => {

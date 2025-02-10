@@ -1,10 +1,24 @@
 import axios from "axios";
-import API_HOST from "../config/config";
 import { api } from "@/config/axios.conf";
+import { API_HOST } from "../config/config";
+import type { Producto } from "@/types/types";
 
-export const saveImage = async (formData) => {
+
+interface UploadResponse {
+  url: string;
+  public_id: string;
+}
+
+interface UploadError {
+  response?: {
+    data?: any;
+  };
+  message: string;
+}
+
+export const saveImage = async (formData: FormData): Promise<UploadResponse> => {
   try {
-    const response = await axios.post(
+    const response = await axios.post<UploadResponse>(
       `${API_HOST}/api/upload`,
       formData,
       {
@@ -13,17 +27,19 @@ export const saveImage = async (formData) => {
         },
       }
     );
-    return response;
+    return response.data;
   } catch (error) {
+    const err = error as UploadError;
     console.log(
       "Error al guardar la imagen",
-      error.response ? error.response.data : error.message
+      err.response?.data || err.message
     );
-    throw error;
+    throw err;
   }
 };
 
-export const saveProducts = async (updatedList) => {
+
+export const saveProducts = async (updatedList: Producto) => {
   try {
     const response = await api.post(`${API_HOST}/api/save-news-products`, {
       productos: updatedList

@@ -1,7 +1,7 @@
-import API_HOST from "./config";
 import axios from "axios";
 import Cookies from 'js-cookie'
 
+import { API_HOST } from "./config";
 
 axios.defaults.withCredentials = true;
 export const api = axios.create({

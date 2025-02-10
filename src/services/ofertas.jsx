@@ -1,6 +1,7 @@
 import { api } from "@/config/axios.conf";
-import API_HOST from "../config/config";
 import axios from "axios";
+import { API_HOST } from "../config/config";
+
 
 export const listar = async () => {
   try {

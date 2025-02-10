@@ -1,5 +1,5 @@
-import API_HOST from "../config/config";
 import { api } from "@/config/axios.conf";
+import { API_HOST } from "../config/config";
 
 export const balances = async () => {
   try {

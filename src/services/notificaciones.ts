@@ -1,4 +1,4 @@
-import API_HOST from "@/config/config";
+import {API_HOST} from "@/config/config";
 import { api } from "@/config/axios.conf";
 
 
@@ -12,7 +12,7 @@ export const notificaciones = async () => {
 };
 
 
-export const deleteNotifications = async (id) => {
+export const deleteNotifications = async (id: number) => {
   try {
     const response = await api.delete(
       `${API_HOST}/api/delete-nofitication/${id}`, { withCredentials: true }

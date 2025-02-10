@@ -1,8 +1,8 @@
 import { api } from "@/config/axios.conf";
 import axios from "axios";
-import API_HOST from "@/config/config";
+import { API_HOST } from "@/config/config";
 
-export const createCategory = async (nombre) => {
+export const createCategory = async (nombre: string) => {
   try {
     const response = await api.post(
       `${API_HOST}/api/categories/create`,
@@ -35,7 +35,7 @@ export const listarCat = async () => {
   }
 };
 
-export const deleteCategory = async (id) => {
+export const deleteCategory = async (id: number) => {
   try {
     const response = await api.delete(`${API_HOST}/api/categories/delete/${id}`, { withCredentials: true });
     return response;
