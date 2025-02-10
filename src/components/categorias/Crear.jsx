@@ -35,6 +35,7 @@ export const Crear = ({
       const response = await createCategory(data);
       if (response.status === 201) {
         setCategorias(response.data.categorias);
+        setCategoryName('')
         handleToast("success", "Nueva categoria agregada con exito");
       }
     } catch (error) {
