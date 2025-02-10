@@ -8,7 +8,7 @@ const isAuthenticated = authToken !== undefined;
 
 <Layout title="Login">
   <main>
-    <section class="text-white font-text-cust-2 min-h-screen bg-gradient-to-r from-[rgba(191,190,167,1)] via-[rgba(200,200,200,1)] to-[rgba(195,195,195,1)] bg-[112deg] flex justify-center flex-col items-center gap-3 auth">
+    <section class="text-white font- min-h-screen bg-gradient-to-r from-[rgba(191,190,167,1)] via-[rgba(200,200,200,1)] to-[rgba(195,195,195,1)] bg-[112deg] flex justify-center flex-col items-center gap-3 auth">
       <div class="w-80 md:w-96 p-4 h-auto md:min-h-96 flex flex-col items-center rounded-lg shadow-xl bg-white">
         <div class="my-2">
           <h1 class="font-semibold text-lg md:text-2xl drop-shadow text-black text-center">
@@ -18,7 +18,7 @@ const isAuthenticated = authToken !== undefined;
             Por favor ingrese sus credenciales
           </p>
         </div>
-       <AuthFomr isAuthenticated={isAuthenticated} client:only="react" />
+       <AuthFomr isAuthenticated={isAuthenticated} client:load />
       </div>
     </section>
   </main>
