@@ -23,7 +23,7 @@ const ListadoPedidos = () => {
   }, []);
 
   return (
-    <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-dvh font-text-cust-2">
+    <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-dvh font-">
       <div className="dark:border-gray-700 mt-1">
         <div className="w-full pt-2 bg-white p-3 min-h-screen mt-4 ">
           <h2 className="text-center mt-3 mb-2 rounded-sm py-2 bg-[#5252d4] font-semibold shadow-sm text-[#e3e3e3] text-lg">

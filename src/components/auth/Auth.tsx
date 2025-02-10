@@ -59,7 +59,6 @@ const Auth: React.FC<FormInicioSesionProps> = ({ isAuthenticated }) => {
         } catch (error) {
             if (axios.isAxiosError(error) && error.response) {
                 const { status } = error.response;
-                console.log(error)
                 if (status === 404 || status === 401) {
                     handleToast('danger', `${error.response.data.message}`)
                 } else {

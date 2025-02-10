@@ -44,7 +44,7 @@ const DetallePedido = () => {
   }
 
   return (
-    <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen font-text-cust-2">
+    <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen font-">
       <div className="dark:border-gray-700 mt-1">
         <section className="mt-4 bg-white min-h-screen p-2 md:p-4 gap-2 flex flex-col">
           <div className="border py-2 px-5 bg-[#e7e9ed] flex justify-between items-center ">

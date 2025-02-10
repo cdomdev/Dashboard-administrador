@@ -55,7 +55,7 @@ const Editar = ({
       <Button variant="secondary" className="text-sm uppercase" onClick={() => setShowModal(true)}>
         Editar producto
       </Button>
-      <Modal show={showModal} onHide={() => setShowModal(false)} className="font-text-cust-2">
+      <Modal show={showModal} onHide={() => setShowModal(false)} className="font-">
         <Modal.Header closeButton className="py-2 px-4">
           <Modal.Title className="font-bold text-lg ">
             Editar Producto

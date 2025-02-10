@@ -138,7 +138,7 @@ const Actualizar = ({
       <Modal
         show={showModal}
         onHide={() => setShowModal(false)}
-        className="font-text-cust-2">
+        className="font-">
         <Modal.Header closeButton className="py-1 px-3">
           <Modal.Title className="text-lg font-semibold">
             Actulizar informacion del producto

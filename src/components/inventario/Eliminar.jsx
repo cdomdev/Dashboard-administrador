@@ -60,7 +60,7 @@ const Eliminar = ({
         show={showModal}
         onHide={() => setShowModal(false)}
         backdrop="static"
-        className="font-text-cust-2">
+        className="font-">
         <Modal.Header className="py-1 px-3 flex justify-center">
           <Modal.Title className="text-center text-lg  text-red-700">
             ¡Esta apunto de eliminar un producto!

@@ -63,7 +63,7 @@ const Chat = () => {
   }, [messages]);
 
   return (
-    <div className="border border-slate-50 bg-white p-4 rounded-md h-[600px] flex flex-col justify-between overflow-hidden font-text-cust-2">
+    <div className="border border-slate-50 bg-white p-4 rounded-md h-[600px] flex flex-col justify-between overflow-hidden font-">
       <div
         ref={messageListRef}
         className="flex-1 flex flex-col-reverse overflow-y-auto gap-2 p-2 rounded-md border-transparent "

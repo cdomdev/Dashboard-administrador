@@ -64,7 +64,7 @@ export const DeleteUser = ({
         <DeleteIcon />
       </button>
 
-      <Modal show={show} onHide={handleClose} className="font-text-cust-2">
+      <Modal show={show} onHide={handleClose} className="font-">
         <Modal.Header closeButton className="py-2">
           <Modal.Title className="text-base font-semibold flex items-center gap-2 text-red-600">
             ¡Seguro que desea eliminar al usuario{" "}

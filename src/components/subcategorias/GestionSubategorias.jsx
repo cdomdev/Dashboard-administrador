@@ -11,7 +11,7 @@ const GestionSubcategorias = () => {
   const [bgToast, setBgToast] = useState("");
 
   return (
-    <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen font-text-cust-2">
+    <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen font-">
       <div className="dark:border-gray-700 mt-1">
         <div className="flex flex-col md:grid md:grid-cols-2 gap-1 pt-4">
           <ToastCammon

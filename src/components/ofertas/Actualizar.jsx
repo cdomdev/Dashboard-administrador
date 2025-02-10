@@ -86,7 +86,7 @@ const Actualizar = ({
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
-        className="font-text-cust-2">
+        className="font-">
         <Modal.Header closeButton className="py-1">
           <Modal.Title className="text-lg font-bold">
             Actualizar datos de la oferta

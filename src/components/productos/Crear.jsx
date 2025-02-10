@@ -120,7 +120,7 @@ const Crear = ({
   };
 
   return (
-    <div className="p-3 bg-white  text-black font-text-cust-2 shadow-sm rounded-sm">
+    <div className="p-3 bg-white  text-black font- shadow-sm rounded-sm">
       <Form onSubmit={getFormValues}>
         <Form.Label className="m-0 pl-1 text-sm">Marca del producto</Form.Label>
         <Form.Control

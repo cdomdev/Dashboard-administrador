@@ -61,7 +61,7 @@ const Eliminar = ({
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
-        className="font-text-cust-2">
+        className="font-">
         <Modal.Title className="text-center text-lg py-1 text-red-700 py-1!">
           ¡ Esta a punto de eliminar una oferta !
         </Modal.Title>

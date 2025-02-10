@@ -65,7 +65,7 @@ export const Edit = ({
         {user.estado ? user.estado : "Activo"}
         <EditIcon />
       </Button>
-      <Modal show={show} onHide={handleClose} className="font-text-cust-2">
+      <Modal show={show} onHide={handleClose} className="font-">
         <Modal.Header closeButton className="py-1">
           <Modal.Title className="text-lg font-semibold">
             Modificar estado del usuario

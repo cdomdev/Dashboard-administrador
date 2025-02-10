@@ -38,7 +38,7 @@ const GestionInventario = () => {
   });
 
   return (
-    <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen font-text-cust-2">
+    <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] min-h-screen font-">
       <ToastCammon
         bgToast={bgToast}
         setShowToast={setShowToast}

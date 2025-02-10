@@ -59,7 +59,7 @@ export const ModalDelete = ({
       <Modal
         show={showModal}
         onHide={() => setShowModal(false)}
-        className="font-text-cust-2">
+        className="font-">
         <Modal.Header closeButton className="py-2 px-4">
           <Modal.Title className="font-bold text-lg text-red-600 ">
             Eliminar un producto

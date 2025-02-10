@@ -26,13 +26,13 @@ const DashboardC = () => {
 
   return (
     <>
-      <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] font-text-cust-2">
+      <section className="p-2 sm:ml-64 mt-12 bg-[#f5f6fa] font-">
         <div className="dark:border-gray-700 mt-4 bg-white min-h-screen px-2 ">
           <section className="flex gap-4">
             <div className="flex gap-1 justify-center flex-wrap h-auto py-4 px-2 items-center w-full ">
               <CardItems
                 title="Total ordenes"
-                value={totalOrders}
+                value={totalOrders || 0}
                 text="Ordenees sin despachar">
                 <div className="rounded-full w-10 h-10 md:h-12 md:w-12 flex justify-center items-center p-1 bg-color-a">
                   <Box />
@@ -40,7 +40,7 @@ const DashboardC = () => {
               </CardItems>
               <CardItems
                 title="Ordenes despachadas"
-                value={totalShipped}
+                value={totalShipped || 0}
                 text="Con estado de entregado">
                 <div className="rounded-full w-10 h-10 md:h-12 md:w-12 flex justify-center items-center p-1 bg-color-f">
                   <SendBox />
@@ -48,7 +48,7 @@ const DashboardC = () => {
               </CardItems>
               <CardItems
                 title="Pendientes por envio"
-                value={totalPending}
+                value={totalPending || 0}
                 text="Pendientes">
                 <div className="rounded-full w-10 h-10 md:h-12 md:w-12 flex justify-center items-center p-1 bg-color-e">
                   <Time />
@@ -56,7 +56,7 @@ const DashboardC = () => {
               </CardItems>
               <CardItems
                 title="Total vendido"
-                value={saledsFormater}
+                value={Number(saledsFormater) || 0}
                 text="Balance total de ventas">
                 <div className="rounded-full w-10 h-10 md:h-12 md:w-12 flex justify-center items-center p-1 bg-color-b">
                   <Sale />
@@ -64,7 +64,7 @@ const DashboardC = () => {
               </CardItems>
               <CardItems
                 title="Total usuarios"
-                value={users}
+                value={users || 0}
                 text="Usuarios e invitados">
                 <div className="rounded-full w-10 h-10 md:h-12 md:w-12 flex justify-center items-center p-2 bg-color-c">
                   <Users />
